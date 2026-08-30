@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>SAKSHAM | My Applications</title>
+
+    <link rel="stylesheet" href="../style.css">
+
+    <style>
+
+        .applications-page {
+            min-height: 100vh;
+            background: #f8f7f4;
+        }
+
+        .applications-layout {
+            display: flex;
+            min-height: calc(100vh - 81px);
+        }
+
+
+        /* ================= SIDEBAR ================= */
+
+        .sidebar {
+            width: 250px;
+            background: #173d2b;
+            color: white;
+            padding: 30px 18px;
+            flex-shrink: 0;
+        }
+
+        .sidebar-profile {
+            padding: 20px 15px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .profile-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #dcece2;
+            color: #173d2b;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-weight: 800;
+            font-size: 20px;
+
+            margin-bottom: 12px;
+        }
+
+        .sidebar-profile h3 {
+            font-size: 16px;
+        }
+
+        .sidebar-profile p {
+            font-size: 12px;
+            color: #b9c8bf;
+        }
+
+        .sidebar-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .sidebar-menu a {
+            text-decoration: none;
+            color: #c6d2ca;
+            padding: 13px 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background: rgba(255,255,255,0.12);
+            color: white;
+        }
+
+        .sidebar-menu a span {
+            margin-right: 10px;
+        }
+
+
+        /* ================= MAIN ================= */
+
+        .applications-main {
+            flex: 1;
+            padding: 40px;
+            max-width: 1300px;
+        }
+
+        .page-header {
+            margin-bottom: 30px;
+        }
+
+        .page-header h1 {
+            font-size: 32px;
+            margin-bottom: 6px;
+        }
+
+        .page-header p {
+            color: #6b756e;
+            font-size: 14px;
+        }
+
+
+        /* ================= STAT CARDS ================= */
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-bottom: 28px;
+        }
+
+        .stat-card {
+            background: white;
+            border: 1px solid #e5e9e6;
+            border-radius: 14px;
+            padding: 22px;
+        }
+
+        .stat-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: 800;
+        }
+
+        .stat-label {
+            color: #737d76;
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+
+        /* ================= FILTER ================= */
+
+        .filter-card {
+            background: white;
+            border: 1px solid #e5e9e6;
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 22px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .filter-card h2 {
+            font-size: 17px;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: white;
+            border: 1px solid #d9dfda;
+            padding: 8px 13px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 11px;
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: #e5f1e9;
+            border-color: #16734a;
+            color: #16734a;
+            font-weight: 700;
+        }
+
+
+        /* ================= APPLICATION CARD ================= */
+
+        .application-card {
+            background: white;
+            border: 1px solid #e5e9e6;
+            border-radius: 14px;
+            padding: 25px;
+            margin-bottom: 15px;
+
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+
+            transition: 0.2s;
+        }
+
+        .application-card:hover {
+            border-color: #cbd8cf;
+            transform: translateY(-1px);
+        }
+
+        .application-left {
+            display: flex;
+            gap: 17px;
+        }
+
+        .opportunity-icon {
+            width: 48px;
+            height: 48px;
+            background: #edf5ef;
+            border-radius: 10px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .application-info h3 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .organization {
+            font-size: 12px;
+            color: #6f7972;
+            margin-bottom: 9px;
+        }
+
+        .application-date {
+            font-size: 11px;
+            color: #89928c;
+        }
+
+
+        /* ================= STATUS ================= */
+
+        .application-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: space-between;
+            min-width: 120px;
+        }
+
+        .status {
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .submitted {
+            background: #e8eef7;
+            color: #46658c;
+        }
+
+        .review {
+            background: #f6efd9;
+            color: #927129;
+        }
+
+        .shortlisted {
+            background: #e4f2e8;
+            color: #16734a;
+        }
+
+        .rejected {
+            background: #f7e5e1;
+            color: #a14c3a;
+        }
+
+
+        .view-btn {
+            background: white;
+            border: 1px solid #d8dfda;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+
+            font-size: 10px;
+            color: #173d2b;
+            font-weight: 700;
+        }
+
+        .view-btn:hover {
+            background: #edf5ef;
+        }
+
+
+        /* ================= EMPTY STATE ================= */
+
+        .empty-state {
+            display: none;
+
+            background: white;
+            border: 1px solid #e5e9e6;
+            border-radius: 14px;
+
+            padding: 60px 30px;
+
+            text-align: center;
+        }
+
+        .empty-icon {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .empty-state h2 {
+            font-size: 20px;
+            margin-bottom: 7px;
+        }
+
+        .empty-state p {
+            color: #737d76;
+            font-size: 12px;
+            margin-bottom: 20px;
+        }
+
+        .find-btn {
+            background: #173d2b;
+            color: white;
+            border: none;
+
+            padding: 11px 20px;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+
+        /* ================= RESPONSIVE ================= */
+
+        @media(max-width: 900px) {
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .filter-card {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+        }
+
+
+        @media(max-width: 700px) {
+
+            .applications-layout {
+                display: block;
+            }
+
+            .sidebar {
+                width: 100%;
+                padding: 15px;
+            }
+
+            .sidebar-profile {
+                display: none;
+            }
+
+            .sidebar-menu {
+                flex-direction: row;
+                overflow-x: auto;
+            }
+
+            .sidebar-menu a {
+                white-space: nowrap;
+            }
+
+            .applications-main {
+                padding: 25px 18px;
+            }
+
+            .page-header h1 {
+                font-size: 26px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .application-card {
+                flex-direction: column;
+            }
+
+            .application-right {
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body class="applications-page">
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <div class="logo">
+
+            <span>SAKSHAM</span>
+
+            <small>
+                Empowering Skills
+            </small>
+
+        </div>
+
+        <button
+            class="login-btn"
+            onclick="logout()">
+
+            Logout
+
+        </button>
+
+    </header>
+
+
+
+    <div class="applications-layout">
+
+
+        <!-- ================= SIDEBAR ================= -->
+
+        <aside class="sidebar">
+
+
+            <div class="sidebar-profile">
+
+                <div class="profile-avatar"
+                     id="sidebarAvatar">
+
+                    A
+
+                </div>
+
+                <h3 id="sidebarName">
+                    Ananya
+                </h3>
+
+                <p>
+                    Handicraft Entrepreneur
+                </p>
+
+            </div>
+
+
+
+            <div class="sidebar-menu">
+
+
+                <a href="dashboard.html">
+
+                    <span>🏠</span>
+                    Dashboard
+
+                </a>
+
+
+                <a href="opportunities.html">
+
+                    <span>🎯</span>
+                    Opportunities
+
+                </a>
+
+
+                <a href="skills.html">
+
+                    <span>📈</span>
+                    Skill Growth
+
+                </a>
+
+
+                <a href="applications.html"
+                   class="active">
+
+                    <span>📋</span>
+                    Applications
+
+                </a>
+
+
+                <a href="profile.html">
+
+                    <span>👤</span>
+                    My Profile
+
+                </a>
+
+
+            </div>
+
+        </aside>
+
+
+
+        <!-- ================= MAIN ================= -->
+
+        <main class="applications-main">
+
+
+            <div class="page-header">
+
+                <h1>
+                    My Applications 📋
+                </h1>
+
+                <p>
+                    Track the opportunities you have applied for
+                    and monitor their progress.
+                </p>
+
+            </div>
+
+
+
+            <!-- ================= STATS ================= -->
+
+            <div class="stats-grid">
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        📤
+                    </div>
+
+                    <div
+                        class="stat-number"
+                        id="totalApplications">
+
+                        3
+
+                    </div>
+
+                    <div class="stat-label">
+                        Total Applications
+                    </div>
+
+                </div>
+
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        🔎
+                    </div>
+
+                    <div
+                        class="stat-number"
+                        id="underReview">
+
+                        1
+
+                    </div>
+
+                    <div class="stat-label">
+                        Under Review
+                    </div>
+
+                </div>
+
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        ⭐
+                    </div>
+
+                    <div
+                        class="stat-number"
+                        id="shortlisted">
+
+                        1
+
+                    </div>
+
+                    <div class="stat-label">
+                        Shortlisted
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ================= FILTER ================= -->
+
+            <div class="filter-card">
+
+                <h2>
+                    Your Applications
+                </h2>
+
+
+                <div class="filter-buttons">
+
+                    <button
+                        class="filter-btn active"
+                        onclick="filterApplications('all', this)">
+
+                        All
+
+                    </button>
+
+
+                    <button
+                        class="filter-btn"
+                        onclick="filterApplications('submitted', this)">
+
+                        Submitted
+
+                    </button>
+
+
+                    <button
+                        class="filter-btn"
+                        onclick="filterApplications('review', this)">
+
+                        Under Review
+
+                    </button>
+
+
+                    <button
+                        class="filter-btn"
+                        onclick="filterApplications('shortlisted', this)">
+
+                        Shortlisted
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================= APPLICATIONS ================= -->
+
+            <div id="applicationsContainer">
+
+
+
+                <!-- APPLICATION 1 -->
+
+                <div
+                    class="application-card"
+                    data-status="shortlisted">
+
+
+                    <div class="application-left">
+
+                        <div class="opportunity-icon">
+                            💰
+                        </div>
+
+
+                        <div class="application-info">
+
+                            <h3>
+                                Women Entrepreneur Growth Fund
+                            </h3>
+
+                            <div class="organization">
+                                National Entrepreneurship Development Program
+                            </div>
+
+                            <div class="application-date">
+                                Applied on 18 August 2026
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="application-right">
+
+                        <span class="status shortlisted">
+                            ⭐ Shortlisted
+                        </span>
+
+
+                        <button
+                            class="view-btn"
+                            onclick="viewApplication('Women Entrepreneur Growth Fund')">
+
+                            View Details
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- APPLICATION 2 -->
+
+                <div
+                    class="application-card"
+                    data-status="review">
+
+
+                    <div class="application-left">
+
+                        <div class="opportunity-icon">
+                            🛒
+                        </div>
+
+
+                        <div class="application-info">
+
+                            <h3>
+                                Rural Market Access Initiative
+                            </h3>
+
+                            <div class="organization">
+                                Small Business Development Network
+                            </div>
+
+                            <div class="application-date">
+                                Applied on 21 August 2026
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="application-right">
+
+                        <span class="status review">
+                            🔎 Under Review
+                        </span>
+
+
+                        <button
+                            class="view-btn"
+                            onclick="viewApplication('Rural Market Access Initiative')">
+
+                            View Details
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- APPLICATION 3 -->
+
+                <div
+                    class="application-card"
+                    data-status="submitted">
+
+
+                    <div class="application-left">
+
+                        <div class="opportunity-icon">
+                            📚
+                        </div>
+
+
+                        <div class="application-info">
+
+                            <h3>
+                                Digital Skills Training Program
+                            </h3>
+
+                            <div class="organization">
+                                Digital Entrepreneurship Initiative
+                            </div>
+
+                            <div class="application-date">
+                                Applied on 24 August 2026
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="application-right">
+
+                        <span class="status submitted">
+                            📤 Submitted
+                        </span>
+
+
+                        <button
+                            class="view-btn"
+                            onclick="viewApplication('Digital Skills Training Program')">
+
+                            View Details
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ================= EMPTY STATE ================= -->
+
+            <div
+                class="empty-state"
+                id="emptyState">
+
+                <div class="empty-icon">
+                    📋
+                </div>
+
+                <h2>
+                    No applications found
+                </h2>
+
+                <p>
+                    You haven't applied to any opportunities
+                    in this category yet.
+                </p>
+
+                <button
+                    class="find-btn"
+                    onclick="window.location.href='opportunities.html'">
+
+                    Find Opportunities
+
+                </button>
+
+            </div>
+
+
+        </main>
+
+    </div>
+
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+
+
+        /* =========================
+           FILTER APPLICATIONS
+        ========================= */
+
+        function filterApplications(status, button) {
+
+
+            document
+                .querySelectorAll(".filter-btn")
+                .forEach(btn => {
+
+                    btn.classList.remove("active");
+
+                });
+
+
+            button.classList.add("active");
+
+
+            const cards =
+                document.querySelectorAll(
+                    ".application-card"
+                );
+
+
+            let visibleCount = 0;
+
+
+            cards.forEach(card => {
+
+
+                if (
+                    status === "all" ||
+                    card.dataset.status === status
+                ) {
+
+                    card.style.display = "flex";
+
+                    visibleCount++;
+
+                }
+
+                else {
+
+                    card.style.display = "none";
+
+                }
+
+            });
+
+
+            const emptyState =
+                document.getElementById(
+                    "emptyState"
+                );
+
+
+            if (visibleCount === 0) {
+
+                emptyState.style.display =
+                    "block";
+
+            }
+
+            else {
+
+                emptyState.style.display =
+                    "none";
+
+            }
+
+        }
+
+
+
+        /* =========================
+           VIEW APPLICATION
+        ========================= */
+
+        function viewApplication(name) {
+
+            alert(
+                "📋 Application Details\n\n" +
+                name +
+                "\n\nYour application is currently being processed."
+            );
+
+        }
+
+
+
+        /* =========================
+           LOAD PROFILE NAME
+        ========================= */
+
+        function loadProfile() {
+
+
+            const saved =
+                localStorage.getItem(
+                    "sakshamProfile"
+                );
+
+
+            if (!saved) return;
+
+
+            const profile =
+                JSON.parse(saved);
+
+
+            if (profile.name) {
+
+                document
+                    .getElementById(
+                        "sidebarName"
+                    )
+                    .textContent =
+                    profile.name;
+
+
+                document
+                    .getElementById(
+                        "sidebarAvatar"
+                    )
+                    .textContent =
+                    profile.name
+                    .charAt(0)
+                    .toUpperCase();
+
+            }
+
+        }
+
+
+
+        /* =========================
+           LOGOUT
+        ========================= */
+
+        function logout() {
+
+            window.location.href =
+                "../index.html";
+
+        }
+
+
+
+        window.onload =
+            loadProfile;
+
+    </script>
+
+
+</body>
+
+</html>

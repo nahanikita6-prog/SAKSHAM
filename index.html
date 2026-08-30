@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SAKSHAM | Empowering Skills, Enabling Opportunities</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <div class="logo">
+            <span>SAKSHAM</span>
+            <small>Empowering Skills</small>
+        </div>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#how-it-works">How It Works</a>
+            <a href="#opportunities">Opportunities</a>
+            <a href="#about">About</a>
+        </nav>
+
+        <button class="login-btn" onclick="openLogin()">
+            Login
+        </button>
+
+    </header>
+
+
+    <!-- ================= HERO ================= -->
+
+    <section id="home" class="hero">
+
+        <div class="hero-content">
+
+            <div class="badge">
+                ✨ AI-Powered Opportunity Matching
+            </div>
+
+            <h1>
+                Your Skills.
+                <span>Your Opportunity.</span>
+                Your Future.
+            </h1>
+
+            <p>
+                SAKSHAM connects marginalized entrepreneurs with
+                opportunities based on their skills, experience,
+                and aspirations.
+            </p>
+
+            <div class="hero-buttons">
+
+                <button class="primary-btn"
+                        onclick="startJourney()">
+                    Get Started →
+                </button>
+
+                <button class="secondary-btn"
+                        onclick="scrollToSection('opportunities')">
+                    Explore Opportunities
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="hero-visual">
+
+            <div class="floating-card card-one">
+                🎯
+                <div>
+                    <strong>94% Match</strong>
+                    <small>Textile Partnership</small>
+                </div>
+            </div>
+
+            <div class="main-circle">
+
+                <div class="circle-icon">
+                    🤝
+                </div>
+
+                <h3>Skills → Opportunities</h3>
+
+                <p>
+                    Find where your skills can make an impact.
+                </p>
+
+            </div>
+
+            <div class="floating-card card-two">
+
+                <span class="check">✓</span>
+
+                <div>
+                    <strong>Skill Gap Found</strong>
+                    <small>Digital Marketing</small>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= IMPACT ================= -->
+
+    <section class="impact">
+
+        <div class="section-heading">
+
+            <span class="section-label">
+                WHY SAKSHAM?
+            </span>
+
+            <h2>
+                Turning Skills Into Opportunities
+            </h2>
+
+            <p>
+                We help entrepreneurs discover opportunities
+                that actually match what they can do.
+            </p>
+
+        </div>
+
+
+        <div class="feature-grid">
+
+            <div class="feature-card">
+
+                <div class="feature-icon">🎯</div>
+
+                <h3>Smart Matching</h3>
+
+                <p>
+                    Match your skills and experience with
+                    relevant opportunities.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">📈</div>
+
+                <h3>Skill Growth</h3>
+
+                <p>
+                    Identify missing skills and discover
+                    ways to improve them.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">🤝</div>
+
+                <h3>Inclusive Opportunities</h3>
+
+                <p>
+                    Connect with businesses, organizations
+                    and support programs.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">🌐</div>
+
+                <h3>Accessible</h3>
+
+                <p>
+                    Designed to be simple and accessible
+                    for everyone.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= HOW IT WORKS ================= -->
+
+    <section id="how-it-works" class="how-section">
+
+        <div class="section-heading">
+
+            <span class="section-label">
+                HOW IT WORKS
+            </span>
+
+            <h2>
+                From Skills to Success
+            </h2>
+
+        </div>
+
+
+        <div class="steps">
+
+            <div class="step">
+
+                <div class="step-number">01</div>
+
+                <h3>Create Profile</h3>
+
+                <p>
+                    Tell us about yourself and your business.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">02</div>
+
+                <h3>Add Your Skills</h3>
+
+                <p>
+                    Tell SAKSHAM what you're good at.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">03</div>
+
+                <h3>Get Matched</h3>
+
+                <p>
+                    Our matching engine finds suitable opportunities.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">04</div>
+
+                <h3>Grow & Apply</h3>
+
+                <p>
+                    Improve your skills and apply for opportunities.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= OPPORTUNITIES ================= -->
+
+    <section id="opportunities" class="opportunity-section">
+
+        <div class="section-heading">
+
+            <span class="section-label">
+                OPPORTUNITIES
+            </span>
+
+            <h2>
+                Opportunities For You
+            </h2>
+
+            <p>
+                Sample opportunities matched by SAKSHAM.
+            </p>
+
+        </div>
+
+
+        <div class="opportunity-grid">
+
+
+            <!-- Opportunity 1 -->
+
+            <div class="opportunity-card">
+
+                <div class="opportunity-top">
+
+                    <span class="category">
+                        Textile
+                    </span>
+
+                    <span class="match">
+                        94% Match
+                    </span>
+
+                </div>
+
+                <h3>
+                    Textile Supplier Partnership
+                </h3>
+
+                <p>
+                    Partner with a growing textile business
+                    for handmade and embroidered products.
+                </p>
+
+                <div class="skills">
+
+                    <span>Tailoring</span>
+                    <span>Embroidery</span>
+                    <span>Textile</span>
+
+                </div>
+
+                <button onclick="viewOpportunity('Textile Supplier Partnership')">
+                    View Opportunity →
+                </button>
+
+            </div>
+
+
+            <!-- Opportunity 2 -->
+
+            <div class="opportunity-card">
+
+                <div class="opportunity-top">
+
+                    <span class="category">
+                        Handicraft
+                    </span>
+
+                    <span class="match">
+                        89% Match
+                    </span>
+
+                </div>
+
+                <h3>
+                    Handicraft Marketplace
+                </h3>
+
+                <p>
+                    Showcase handmade products to customers
+                    through an online marketplace.
+                </p>
+
+                <div class="skills">
+
+                    <span>Craft</span>
+                    <span>Product Making</span>
+                    <span>Sales</span>
+
+                </div>
+
+                <button onclick="viewOpportunity('Handicraft Marketplace')">
+                    View Opportunity →
+                </button>
+
+            </div>
+
+
+            <!-- Opportunity 3 -->
+
+            <div class="opportunity-card">
+
+                <div class="opportunity-top">
+
+                    <span class="category">
+                        E-Commerce
+                    </span>
+
+                    <span class="match">
+                        76% Match
+                    </span>
+
+                </div>
+
+                <h3>
+                    E-Commerce Seller Program
+                </h3>
+
+                <p>
+                    Learn how to take your products online
+                    and reach more customers.
+                </p>
+
+                <div class="skills">
+
+                    <span>Business</span>
+                    <span>Digital Skills</span>
+                    <span>Sales</span>
+
+                </div>
+
+                <button onclick="viewOpportunity('E-Commerce Seller Program')">
+                    View Opportunity →
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= CTA ================= -->
+
+    <section class="cta">
+
+        <div>
+
+            <span class="section-label">
+                START YOUR JOURNEY
+            </span>
+
+            <h2>
+                Your skills have value.
+                Let's find where they belong.
+            </h2>
+
+            <button class="primary-btn"
+                    onclick="startJourney()">
+                Create Your Profile →
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer id="about">
+
+        <div class="footer-logo">
+            SAKSHAM
+        </div>
+
+        <p>
+            Empowering Skills. Enabling Opportunities.
+        </p>
+
+        <p class="copyright">
+            © 2026 SAKSHAM. SIH Prototype.
+        </p>
+
+    </footer>
+
+
+    <!-- ================= MODAL ================= -->
+
+    <div id="modal" class="modal">
+
+        <div class="modal-content">
+
+            <button class="close"
+                    onclick="closeModal()">
+                ×
+            </button>
+
+            <div id="modal-content"></div>
+
+        </div>
+
+    </div>
+
+
+    <script src="script.js"></script>
+    <script src="opportunities.js"></script>
+
+</body>
+</html>

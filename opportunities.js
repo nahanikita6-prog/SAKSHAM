@@ -1,0 +1,1917 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>SAKSHAM | Opportunities</title>
+
+    <link rel="stylesheet"
+          href="../style.css">
+
+
+    <style>
+
+        /* =========================
+           PAGE
+        ========================= */
+
+        .opportunities-page {
+            min-height: 100vh;
+            background: #f8f7f4;
+        }
+
+
+        .opportunities-layout {
+            display: flex;
+            min-height: calc(100vh - 81px);
+        }
+
+
+        /* =========================
+           SIDEBAR
+        ========================= */
+
+        .sidebar {
+            width: 250px;
+            background: #173d2b;
+            color: white;
+            padding: 30px 18px;
+            flex-shrink: 0;
+        }
+
+
+        .sidebar-profile {
+            padding: 20px 15px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+
+        .profile-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #dcece2;
+            color: #173d2b;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-weight: 800;
+            font-size: 20px;
+
+            margin-bottom: 12px;
+        }
+
+
+        .sidebar-profile h3 {
+            font-size: 16px;
+        }
+
+
+        .sidebar-profile p {
+            font-size: 12px;
+            color: #b9c8bf;
+        }
+
+
+        .sidebar-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+
+        .sidebar-menu a {
+            text-decoration: none;
+            color: #c6d2ca;
+
+            padding: 13px 15px;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+
+            transition: 0.2s;
+        }
+
+
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+
+            background: rgba(255,255,255,0.12);
+
+            color: white;
+        }
+
+
+        .sidebar-menu a span {
+            margin-right: 10px;
+        }
+
+
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .opportunities-main {
+
+            flex: 1;
+
+            padding: 40px;
+
+            max-width: 1400px;
+        }
+
+
+        .page-header {
+
+            margin-bottom: 30px;
+        }
+
+
+        .page-header h1 {
+
+            font-size: 32px;
+
+            margin-bottom: 6px;
+        }
+
+
+        .page-header p {
+
+            color: #6b756e;
+
+            font-size: 14px;
+        }
+
+
+
+        /* =========================
+           SEARCH + FILTERS
+        ========================= */
+
+        .filters {
+
+            background: white;
+
+            padding: 20px;
+
+            border-radius: 12px;
+
+            border: 1px solid #e5e9e6;
+
+            display: flex;
+
+            gap: 12px;
+
+            flex-wrap: wrap;
+
+            margin-bottom: 30px;
+        }
+
+
+        .search-box {
+
+            flex: 1;
+
+            min-width: 220px;
+        }
+
+
+        .search-box input {
+
+            width: 100%;
+
+            padding: 12px 15px;
+
+            border: 1px solid #d9dfda;
+
+            border-radius: 7px;
+
+            font-size: 13px;
+
+            outline: none;
+        }
+
+
+        .filters select {
+
+            padding: 12px;
+
+            border: 1px solid #d9dfda;
+
+            border-radius: 7px;
+
+            background: white;
+
+            min-width: 150px;
+
+            cursor: pointer;
+        }
+
+
+
+        /* =========================
+           MATCH INFO
+        ========================= */
+
+        .match-info {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 20px;
+        }
+
+
+        .match-info h2 {
+
+            font-size: 18px;
+        }
+
+
+        .match-info span {
+
+            color: #16734a;
+
+            font-size: 13px;
+
+            font-weight: 700;
+        }
+
+
+
+        /* =========================
+           OPPORTUNITY GRID
+        ========================= */
+
+        .opportunity-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 20px;
+        }
+
+
+        .opportunity-card {
+
+            background: white;
+
+            padding: 25px;
+
+            border-radius: 14px;
+
+            border: 1px solid #e5e9e6;
+
+            transition: 0.25s;
+        }
+
+
+        .opportunity-card:hover {
+
+            transform: translateY(-4px);
+
+            box-shadow:
+                0 15px 35px
+                rgba(0,0,0,0.07);
+        }
+
+
+        .opportunity-header {
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            align-items: flex-start;
+
+            margin-bottom: 15px;
+        }
+
+
+        .category {
+
+            background: #edf4ef;
+
+            color: #16734a;
+
+            padding: 5px 10px;
+
+            border-radius: 20px;
+
+            font-size: 10px;
+
+            font-weight: 700;
+        }
+
+
+        .match-score {
+
+            font-size: 17px;
+
+            font-weight: 800;
+
+            color: #16734a;
+        }
+
+
+        .opportunity-card h3 {
+
+            font-size: 19px;
+
+            margin-bottom: 7px;
+        }
+
+
+        .organization {
+
+            color: #7a837d;
+
+            font-size: 12px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .opportunity-card p {
+
+            color: #68736c;
+
+            font-size: 13px;
+
+            line-height: 1.6;
+
+            margin-bottom: 18px;
+        }
+
+
+        .skills-title {
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            margin-bottom: 8px;
+        }
+
+
+        .skills {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 6px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .skills span {
+
+            padding: 5px 9px;
+
+            background: #f1f2f0;
+
+            border-radius: 5px;
+
+            font-size: 10px;
+        }
+
+
+        .matched {
+
+            background: #e4f2e8 !important;
+
+            color: #16734a;
+
+        }
+
+
+        .missing {
+
+            background: #f4eee5 !important;
+
+            color: #9a6a28;
+
+        }
+
+
+        .card-buttons {
+
+            display: flex;
+
+            gap: 8px;
+        }
+
+
+        .view-btn {
+
+            flex: 1;
+
+            border: none;
+
+            background: #173d2b;
+
+            color: white;
+
+            padding: 11px;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+            font-size: 12px;
+
+            font-weight: 700;
+        }
+
+
+        .save-btn {
+
+            width: 45px;
+
+            border: 1px solid #d8ded9;
+
+            background: white;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+            font-size: 17px;
+        }
+
+
+        .save-btn.saved {
+
+            background: #edf5ef;
+
+            color: #16734a;
+
+        }
+
+
+
+        /* =========================
+           MODAL
+        ========================= */
+
+        .modal {
+
+            display: none;
+
+            position: fixed;
+
+            inset: 0;
+
+            background:
+                rgba(0,0,0,0.5);
+
+            z-index: 3000;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+        }
+
+
+        .modal-box {
+
+            background: white;
+
+            width: 100%;
+
+            max-width: 600px;
+
+            max-height: 90vh;
+
+            overflow-y: auto;
+
+            padding: 30px;
+
+            border-radius: 15px;
+
+            position: relative;
+        }
+
+
+        .close-modal {
+
+            position: absolute;
+
+            right: 18px;
+
+            top: 12px;
+
+            border: none;
+
+            background: none;
+
+            font-size: 28px;
+
+            cursor: pointer;
+        }
+
+
+        .detail-score {
+
+            background: #edf5ef;
+
+            padding: 20px;
+
+            border-radius: 12px;
+
+            text-align: center;
+
+            margin: 20px 0;
+        }
+
+
+        .detail-score strong {
+
+            font-size: 38px;
+
+            color: #16734a;
+
+            display: block;
+        }
+
+
+        .match-breakdown {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 10px;
+
+            margin: 15px 0 25px;
+        }
+
+
+        .breakdown-item {
+
+            padding: 12px;
+
+            background: #f6f7f5;
+
+            border-radius: 8px;
+
+            font-size: 12px;
+        }
+
+
+        .breakdown-item strong {
+
+            display: block;
+
+            margin-bottom: 4px;
+        }
+
+
+        .apply-btn {
+
+            width: 100%;
+
+            padding: 13px;
+
+            border: none;
+
+            background: #16734a;
+
+            color: white;
+
+            border-radius: 7px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+        }
+
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media(max-width: 1000px) {
+
+            .opportunity-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        @media(max-width: 700px) {
+
+            .opportunities-layout {
+
+                display: block;
+            }
+
+
+            .sidebar {
+
+                width: 100%;
+
+                padding: 15px;
+            }
+
+
+            .sidebar-profile {
+
+                display: none;
+            }
+
+
+            .sidebar-menu {
+
+                flex-direction: row;
+
+                overflow-x: auto;
+            }
+
+
+            .sidebar-menu a {
+
+                white-space: nowrap;
+            }
+
+
+            .opportunities-main {
+
+                padding: 25px 18px;
+            }
+
+
+            .page-header h1 {
+
+                font-size: 26px;
+            }
+
+
+            .filters {
+
+                flex-direction: column;
+            }
+
+
+            .filters select {
+
+                width: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body class="opportunities-page">
+
+
+    <!-- =========================
+         NAVBAR
+    ========================== -->
+
+    <header class="navbar">
+
+        <div class="logo">
+
+            <span>SAKSHAM</span>
+
+            <small>
+                Empowering Skills
+            </small>
+
+        </div>
+
+
+        <button
+            class="login-btn"
+            onclick="window.location.href='../index.html'">
+
+            Logout
+
+        </button>
+
+    </header>
+
+
+
+    <div class="opportunities-layout">
+
+
+        <!-- =========================
+             SIDEBAR
+        ========================== -->
+
+        <aside class="sidebar">
+
+
+            <div class="sidebar-profile">
+
+                <div class="profile-avatar">
+                    A
+                </div>
+
+                <h3>
+                    Ananya
+                </h3>
+
+                <p>
+                    Handicraft Entrepreneur
+                </p>
+
+            </div>
+
+
+            <div class="sidebar-menu">
+
+
+                <a href="dashboard.html">
+
+                    <span>🏠</span>
+
+                    Dashboard
+
+                </a>
+
+
+                <a
+                    href="opportunities.html"
+                    class="active">
+
+                    <span>🎯</span>
+
+                    Opportunities
+
+                </a>
+
+
+                <a href="skills.html">
+
+                    <span>📈</span>
+
+                    Skill Growth
+
+                </a>
+
+
+                <a href="applications.html">
+
+                    <span>📋</span>
+
+                    Applications
+
+                </a>
+
+
+                <a href="profile.html">
+
+                    <span>👤</span>
+
+                    My Profile
+
+                </a>
+
+
+            </div>
+
+        </aside>
+
+
+
+        <!-- =========================
+             MAIN
+        ========================== -->
+
+        <main class="opportunities-main">
+
+
+            <div class="page-header">
+
+                <h1>
+                    Opportunities For You 🎯
+                </h1>
+
+                <p>
+                    SAKSHAM found opportunities
+                    based on your skills and profile.
+                </p>
+
+            </div>
+
+
+
+            <!-- =========================
+                 FILTERS
+            ========================== -->
+
+            <div class="filters">
+
+
+                <div class="search-box">
+
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="🔍 Search opportunities..."
+                        onkeyup="searchOpportunities()">
+
+                </div>
+
+
+                <select
+                    id="categoryFilter"
+                    onchange="filterOpportunities()">
+
+                    <option value="all">
+                        All Categories
+                    </option>
+
+                    <option value="textile">
+                        Textile
+                    </option>
+
+                    <option value="handicraft">
+                        Handicraft
+                    </option>
+
+                    <option value="ecommerce">
+                        E-Commerce
+                    </option>
+
+                    <option value="training">
+                        Training
+                    </option>
+
+                </select>
+
+
+                <select
+                    id="matchFilter"
+                    onchange="filterOpportunities()">
+
+                    <option value="all">
+                        Any Match
+                    </option>
+
+                    <option value="90">
+                        90%+ Match
+                    </option>
+
+                    <option value="80">
+                        80%+ Match
+                    </option>
+
+                    <option value="70">
+                        70%+ Match
+                    </option>
+
+                </select>
+
+
+            </div>
+
+
+
+            <!-- =========================
+                 MATCH INFO
+            ========================== -->
+
+            <div class="match-info">
+
+                <h2>
+                    Top Matches
+                </h2>
+
+                <span>
+                    6 opportunities found
+                </span>
+
+            </div>
+
+
+
+            <!-- =========================
+                 OPPORTUNITIES
+            ========================== -->
+
+            <div
+                class="opportunity-grid"
+                id="opportunityGrid">
+
+
+                <!-- CARD 1 -->
+
+                <div
+                    class="opportunity-card"
+                    data-category="textile"
+                    data-match="94"
+                    data-name="Textile Supplier Partnership">
+
+
+                    <div class="opportunity-header">
+
+                        <span class="category">
+                            TEXTILE
+                        </span>
+
+                        <span class="match-score">
+                            94%
+                        </span>
+
+                    </div>
+
+
+                    <h3>
+                        Textile Supplier Partnership
+                    </h3>
+
+
+                    <div class="organization">
+                        🏢 ABC Textiles
+                    </div>
+
+
+                    <p>
+                        Partner with a growing textile
+                        business for handmade and
+                        embroidered products.
+                    </p>
+
+
+                    <div class="skills-title">
+                        Skill Compatibility
+                    </div>
+
+
+                    <div class="skills">
+
+                        <span class="matched">
+                            ✓ Tailoring
+                        </span>
+
+                        <span class="matched">
+                            ✓ Embroidery
+                        </span>
+
+                        <span class="matched">
+                            ✓ Textile
+                        </span>
+
+                        <span class="missing">
+                            ⚠ Digital Marketing
+                        </span>
+
+                    </div>
+
+
+                    <div class="card-buttons">
+
+                        <button
+                            class="view-btn"
+                            onclick="showDetails(
+                                'Textile Supplier Partnership',
+                                'ABC Textiles',
+                                '94',
+                                'Tailoring, Embroidery, Textile',
+                                'Digital Marketing'
+                            )">
+
+                            View Details →
+
+                        </button>
+
+
+                        <button
+                            class="save-btn"
+                            onclick="saveOpportunity(this)">
+
+                            ♡
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- CARD 2 -->
+
+                <div
+                    class="opportunity-card"
+                    data-category="handicraft"
+                    data-match="89"
+                    data-name="Handicraft Marketplace">
+
+
+                    <div class="opportunity-header">
+
+                        <span class="category">
+                            HANDICRAFT
+                        </span>
+
+                        <span class="match-score">
+                            89%
+                        </span>
+
+                    </div>
+
+
+                    <h3>
+                        Handicraft Marketplace
+                    </h3>
+
+
+                    <div class="organization">
+                        🏢 CraftConnect
+                    </div>
+
+
+                    <p>
+                        Showcase handmade products
+                        and reach customers through
+                        an online marketplace.
+                    </p>
+
+
+                    <div class="skills-title">
+                        Skill Compatibility
+                    </div>
+
+
+                    <div class="skills">
+
+                        <span class="matched">
+                            ✓ Handicraft
+                        </span>
+
+                        <span class="matched">
+                            ✓ Product Making
+                        </span>
+
+                        <span class="matched">
+                            ✓ Sales
+                        </span>
+
+                        <span class="missing">
+                            ⚠ Digital Marketing
+                        </span>
+
+                    </div>
+
+
+                    <div class="card-buttons">
+
+                        <button
+                            class="view-btn"
+                            onclick="showDetails(
+                                'Handicraft Marketplace',
+                                'CraftConnect',
+                                '89',
+                                'Handicraft, Product Making, Sales',
+                                'Digital Marketing'
+                            )">
+
+                            View Details →
+
+                        </button>
+
+
+                        <button
+                            class="save-btn"
+                            onclick="saveOpportunity(this)">
+
+                            ♡
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- CARD 3 -->
+
+                <div
+                    class="opportunity-card"
+                    data-category="ecommerce"
+                    data-match="84"
+                    data-name="E-Commerce Seller Program">
+
+
+                    <div class="opportunity-header">
+
+                        <span class="category">
+                            E-COMMERCE
+                        </span>
+
+                        <span class="match-score">
+                            84%
+                        </span>
+
+                    </div>
+
+
+                    <h3>
+                        E-Commerce Seller Program
+                    </h3>
+
+
+                    <div class="organization">
+                        🏢 DigitalRise
+                    </div>
+
+
+                    <p>
+                        Learn how to take your products
+                        online and reach more customers.
+                    </p>
+
+
+                    <div class="skills-title">
+                        Skill Compatibility
+                    </div>
+
+
+                    <div class="skills">
+
+                        <span class="matched">
+                            ✓ Business
+                        </span>
+
+                        <span class="matched">
+                            ✓ Sales
+                        </span>
+
+                        <span class="matched">
+                            ✓ Product Making
+                        </span>
+
+                        <span class="missing">
+                            ⚠ E-Commerce
+                        </span>
+
+                    </div>
+
+
+                    <div class="card-buttons">
+
+                        <button
+                            class="view-btn"
+                            onclick="showDetails(
+                                'E-Commerce Seller Program',
+                                'DigitalRise',
+                                '84',
+                                'Business, Sales, Product Making',
+                                'E-Commerce'
+                            )">
+
+                            View Details →
+
+                        </button>
+
+
+                        <button
+                            class="save-btn"
+                            onclick="saveOpportunity(this)">
+
+                            ♡
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- CARD 4 -->
+
+                <div
+                    class="opportunity-card"
+                    data-category="training"
+                    data-match="81"
+                    data-name="Digital Marketing Training">
+
+
+                    <div class="opportunity-header">
+
+                        <span class="category">
+                            TRAINING
+                        </span>
+
+                        <span class="match-score">
+                            81%
+                        </span>
+
+                    </div>
+
+
+                    <h3>
+                        Digital Marketing Training
+                    </h3>
+
+
+                    <div class="organization">
+                        🏢 SkillForward
+                    </div>
+
+
+                    <p>
+                        Beginner-friendly training to
+                        help entrepreneurs promote
+                        their businesses online.
+                    </p>
+
+
+                    <div class="skills-title">
+                        Skill Compatibility
+                    </div>
+
+
+                    <div class="skills">
+
+                        <span class="matched">
+                            ✓ Business
+                        </span>
+
+                        <span class="matched">
+                            ✓ Sales
+                        </span>
+
+                        <span class="missing">
+                            ⚠ Digital Marketing
+                        </span>
+
+                    </div>
+
+
+                    <div class="card-buttons">
+
+                        <button
+                            class="view-btn"
+                            onclick="showDetails(
+                                'Digital Marketing Training',
+                                'SkillForward',
+                                '81',
+                                'Business, Sales',
+                                'Digital Marketing'
+                            )">
+
+                            View Details →
+
+                        </button>
+
+
+                        <button
+                            class="save-btn"
+                            onclick="saveOpportunity(this)">
+
+                            ♡
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- CARD 5 -->
+
+                <div
+                    class="opportunity-card"
+                    data-category="textile"
+                    data-match="78"
+                    data-name="Local Textile Collaboration">
+
+
+                    <div class="opportunity-header">
+
+                        <span class="category">
+                            TEXTILE
+                        </span>
+
+                        <span class="match-score">
+                            78%
+                        </span>
+
+                    </div>
+
+
+                    <h3>
+                        Local Textile Collaboration
+                    </h3>
+
+
+                    <div class="organization">
+                        🏢 Bengal Handloom Group
+                    </div>
+
+
+                    <p>
+                        Collaborate with local textile
+                        businesses and artisans.
+                    </p>
+
+
+                    <div class="skills-title">
+                        Skill Compatibility
+                    </div>
+
+
+                    <div class="skills">
+
+                        <span class="matched">
+                            ✓ Textile
+                        </span>
+
+                        <span class="matched">
+                            ✓ Handicraft
+                        </span>
+
+                        <span class="missing">
+                            ⚠ Business Management
+                        </span>
+
+                    </div>
+
+
+                    <div class="card-buttons">
+
+                        <button
+                            class="view-btn"
+                            onclick="showDetails(
+                                'Local Textile Collaboration',
+                                'Bengal Handloom Group',
+                                '78',
+                                'Textile, Handicraft',
+                                'Business Management'
+                            )">
+
+                            View Details →
+
+                        </button>
+
+
+                        <button
+                            class="save-btn"
+                            onclick="saveOpportunity(this)">
+
+                            ♡
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- CARD 6 -->
+
+                <div
+                    class="opportunity-card"
+                    data-category="training"
+                    data-match="72"
+                    data-name="Product Photography Workshop">
+
+
+                    <div class="opportunity-header">
+
+                        <span class="category">
+                            TRAINING
+                        </span>
+
+                        <span class="match-score">
+                            72%
+                        </span>
+
+                    </div>
+
+
+                    <h3>
+                        Product Photography Workshop
+                    </h3>
+
+
+                    <div class="organization">
+                        🏢 CreatorHub
+                    </div>
+
+
+                    <p>
+                        Learn how to photograph products
+                        professionally for online selling.
+                    </p>
+
+
+                    <div class="skills-title">
+                        Skill Compatibility
+                    </div>
+
+
+                    <div class="skills">
+
+                        <span class="matched">
+                            ✓ Product Making
+                        </span>
+
+                        <span class="matched">
+                            ✓ Business
+                        </span>
+
+                        <span class="missing">
+                            ⚠ Photography
+                        </span>
+
+                    </div>
+
+
+                    <div class="card-buttons">
+
+                        <button
+                            class="view-btn"
+                            onclick="showDetails(
+                                'Product Photography Workshop',
+                                'CreatorHub',
+                                '72',
+                                'Product Making, Business',
+                                'Photography'
+                            )">
+
+                            View Details →
+
+                        </button>
+
+
+                        <button
+                            class="save-btn"
+                            onclick="saveOpportunity(this)">
+
+                            ♡
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </main>
+
+    </div>
+
+
+
+    <!-- =========================
+         DETAILS MODAL
+    ========================== -->
+
+    <div
+        class="modal"
+        id="detailsModal">
+
+
+        <div class="modal-box">
+
+
+            <button
+                class="close-modal"
+                onclick="closeDetails()">
+
+                ×
+
+            </button>
+
+
+            <span class="category">
+                OPPORTUNITY
+            </span>
+
+
+            <h2
+                id="detailTitle"
+                style="margin-top:15px;">
+            </h2>
+
+
+            <p
+                id="detailOrganization"
+                style="
+                    color:#737d76;
+                    font-size:13px;
+                ">
+            </p>
+
+
+
+            <div class="detail-score">
+
+                <span>
+                    Your Match Score
+                </span>
+
+                <strong id="detailScore">
+                    94%
+                </strong>
+
+                <span>
+                    Based on your skills and profile
+                </span>
+
+            </div>
+
+
+
+            <h3>
+                Why You Matched
+            </h3>
+
+
+            <div
+                class="match-breakdown"
+                id="matchedSkills">
+            </div>
+
+
+
+            <h3>
+                Skill Gap
+            </h3>
+
+
+            <p
+                id="missingSkills"
+                style="
+                    color:#9a6a28;
+                    margin:10px 0 25px;
+                ">
+            </p>
+
+
+
+            <button
+                class="apply-btn"
+                onclick="applyNow()">
+
+                Apply Now →
+
+            </button>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+    <script>
+
+
+        /* =========================
+           SEARCH
+        ========================= */
+
+        function searchOpportunities() {
+
+            const search =
+                document
+                .getElementById("searchInput")
+                .value
+                .toLowerCase();
+
+
+            const cards =
+                document
+                .querySelectorAll(
+                    ".opportunity-card"
+                );
+
+
+            cards.forEach(card => {
+
+                const name =
+                    card
+                    .dataset
+                    .name
+                    .toLowerCase();
+
+
+                if (
+                    name.includes(search)
+                ) {
+
+                    card.style.display =
+                        "block";
+
+                } else {
+
+                    card.style.display =
+                        "none";
+
+                }
+
+            });
+
+        }
+
+
+
+        /* =========================
+           FILTER
+        ========================= */
+
+        function filterOpportunities() {
+
+            const category =
+                document
+                .getElementById(
+                    "categoryFilter"
+                )
+                .value;
+
+
+            const match =
+                document
+                .getElementById(
+                    "matchFilter"
+                )
+                .value;
+
+
+            const cards =
+                document
+                .querySelectorAll(
+                    ".opportunity-card"
+                );
+
+
+            cards.forEach(card => {
+
+                const cardCategory =
+                    card.dataset.category;
+
+
+                const cardMatch =
+                    Number(
+                        card.dataset.match
+                    );
+
+
+                let categoryMatch =
+                    category === "all" ||
+                    cardCategory === category;
+
+
+                let matchMatch =
+                    match === "all" ||
+                    cardMatch >= Number(match);
+
+
+                if (
+                    categoryMatch &&
+                    matchMatch
+                ) {
+
+                    card.style.display =
+                        "block";
+
+                } else {
+
+                    card.style.display =
+                        "none";
+
+                }
+
+            });
+
+        }
+
+
+
+        /* =========================
+           DETAILS
+        ========================= */
+
+        function showDetails(
+            title,
+            organization,
+            score,
+            matched,
+            missing
+        ) {
+
+
+            document
+                .getElementById(
+                    "detailTitle"
+                )
+                .textContent = title;
+
+
+            document
+                .getElementById(
+                    "detailOrganization"
+                )
+                .textContent =
+                "🏢 " + organization;
+
+
+            document
+                .getElementById(
+                    "detailScore"
+                )
+                .textContent =
+                score + "%";
+
+
+            const skills =
+                matched.split(",");
+
+
+            const skillsContainer =
+                document
+                .getElementById(
+                    "matchedSkills"
+                );
+
+
+            skillsContainer.innerHTML =
+                "";
+
+
+            skills.forEach(skill => {
+
+                const div =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                div.className =
+                    "breakdown-item";
+
+
+                div.innerHTML =
+                    `
+                    <strong>✓ Match</strong>
+                    ${skill.trim()}
+                    `;
+
+
+                skillsContainer.appendChild(
+                    div
+                );
+
+            });
+
+
+            document
+                .getElementById(
+                    "missingSkills"
+                )
+                .textContent =
+                "⚠ Recommended skill: "
+                + missing;
+
+
+            document
+                .getElementById(
+                    "detailsModal"
+                )
+                .style.display =
+                "flex";
+
+        }
+
+
+
+        /* =========================
+           CLOSE DETAILS
+        ========================= */
+
+        function closeDetails() {
+
+            document
+                .getElementById(
+                    "detailsModal"
+                )
+                .style.display =
+                "none";
+
+        }
+
+
+
+        /* =========================
+           SAVE
+        ========================= */
+
+        function saveOpportunity(button) {
+
+            button.classList.toggle(
+                "saved"
+            );
+
+
+            if (
+                button.classList.contains(
+                    "saved"
+                )
+            ) {
+
+                button.textContent =
+                    "♥";
+
+            } else {
+
+                button.textContent =
+                    "♡";
+
+            }
+
+        }
+
+
+
+        /* =========================
+           APPLY
+        ========================= */
+
+        function applyNow() {
+
+            alert(
+                "🎉 Application submitted successfully!"
+            );
+
+            closeDetails();
+
+        }
+
+
+
+        /* =========================
+           OUTSIDE CLICK
+        ========================= */
+
+        window.onclick =
+            function(event) {
+
+                const modal =
+                    document
+                    .getElementById(
+                        "detailsModal"
+                    );
+
+
+                if (
+                    event.target === modal
+                ) {
+
+                    closeDetails();
+
+                }
+
+            };
+
+    </script>
+
+
+</body>
+
+</html>
