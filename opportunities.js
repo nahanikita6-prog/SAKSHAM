@@ -1,1781 +1,786 @@
-<!DOCTYPE html>
-<html lang="en">
+/* =========================================================
+   SAKSHAM - OPPORTUNITIES
+   Supabase-connected JavaScript
+========================================================= */
 
-<head>
 
-    <meta charset="UTF-8">
+/* =========================================================
+   GLOBAL VARIABLES
+========================================================= */
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+let allOpportunities = [];
 
-    <title>SAKSHAM | Opportunities</title>
+let selectedOpportunity = null;
 
-    <link rel="stylesheet"
-          href="../style.css">
+let savedOpportunities =
+    JSON.parse(localStorage.getItem("sakshamSavedOpportunities")) || [];
 
 
-    <style>
+/* =========================================================
+   LOAD OPPORTUNITIES FROM SUPABASE
+========================================================= */
 
-        /* =========================
-           PAGE
-        ========================= */
+async function loadOpportunities() {
 
-        .opportunities-page {
-            min-height: 100vh;
-            background: #f8f7f4;
-        }
+    const grid = document.getElementById("opportunityGrid");
 
+    if (!grid) {
+        console.error("Opportunity grid not found.");
+        return;
+    }
 
-        .opportunities-layout {
-            display: flex;
-            min-height: calc(100vh - 81px);
-        }
+    /* Loading message */
 
-
-        /* =========================
-           SIDEBAR
-        ========================= */
-
-        .sidebar {
-            width: 250px;
-            background: #173d2b;
-            color: white;
-            padding: 30px 18px;
-            flex-shrink: 0;
-        }
-
-
-        .sidebar-profile {
-            padding: 20px 15px;
-            background: rgba(255,255,255,0.08);
-            border-radius: 12px;
-            margin-bottom: 30px;
-        }
-
-
-        .profile-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: #dcece2;
-            color: #173d2b;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            font-weight: 800;
-            font-size: 20px;
-
-            margin-bottom: 12px;
-        }
-
-
-        .sidebar-profile h3 {
-            font-size: 16px;
-        }
-
-
-        .sidebar-profile p {
-            font-size: 12px;
-            color: #b9c8bf;
-        }
-
-
-        .sidebar-menu {
-            display: flex;
-            flex-direction: column;
-            gap: 7px;
-        }
-
-
-        .sidebar-menu a {
-            text-decoration: none;
-            color: #c6d2ca;
-
-            padding: 13px 15px;
-
-            border-radius: 8px;
-
-            font-size: 14px;
-
-            transition: 0.2s;
-        }
-
-
-        .sidebar-menu a:hover,
-        .sidebar-menu a.active {
-
-            background: rgba(255,255,255,0.12);
-
-            color: white;
-        }
-
-
-        .sidebar-menu a span {
-            margin-right: 10px;
-        }
-
-
-
-        /* =========================
-           MAIN
-        ========================= */
-
-        .opportunities-main {
-
-            flex: 1;
-
-            padding: 40px;
-
-            max-width: 1400px;
-        }
-
-
-        .page-header {
-
-            margin-bottom: 30px;
-        }
-
-
-        .page-header h1 {
-
-            font-size: 32px;
-
-            margin-bottom: 6px;
-        }
-
-
-        .page-header p {
-
-            color: #6b756e;
-
-            font-size: 14px;
-        }
-
-
-
-        /* =========================
-           SEARCH + FILTERS
-        ========================= */
-
-        .filters {
-
-            background: white;
-
-            padding: 20px;
-
-            border-radius: 12px;
-
-            border: 1px solid #e5e9e6;
-
-            display: flex;
-
-            gap: 12px;
-
-            flex-wrap: wrap;
-
-            margin-bottom: 30px;
-        }
-
-
-        .search-box {
-
-            flex: 1;
-
-            min-width: 220px;
-        }
-
-
-        .search-box input {
-
-            width: 100%;
-
-            padding: 12px 15px;
-
-            border: 1px solid #d9dfda;
-
-            border-radius: 7px;
-
-            font-size: 13px;
-
-            outline: none;
-        }
-
-
-        .filters select {
-
-            padding: 12px;
-
-            border: 1px solid #d9dfda;
-
-            border-radius: 7px;
-
-            background: white;
-
-            min-width: 150px;
-
-            cursor: pointer;
-        }
-
-
-
-        /* =========================
-           MATCH INFO
-        ========================= */
-
-        .match-info {
-
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-
-            margin-bottom: 20px;
-        }
-
-
-        .match-info h2 {
-
-            font-size: 18px;
-        }
-
-
-        .match-info span {
-
-            color: #16734a;
-
-            font-size: 13px;
-
-            font-weight: 700;
-        }
-
-
-
-        /* =========================
-           OPPORTUNITY GRID
-        ========================= */
-
-        .opportunity-grid {
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(2, 1fr);
-
-            gap: 20px;
-        }
-
-
-        .opportunity-card {
-
-            background: white;
-
-            padding: 25px;
-
-            border-radius: 14px;
-
-            border: 1px solid #e5e9e6;
-
-            transition: 0.25s;
-        }
-
-
-        .opportunity-card:hover {
-
-            transform: translateY(-4px);
-
-            box-shadow:
-                0 15px 35px
-                rgba(0,0,0,0.07);
-        }
-
-
-        .opportunity-header {
-
-            display: flex;
-
-            justify-content:
-                space-between;
-
-            align-items: flex-start;
-
-            margin-bottom: 15px;
-        }
-
-
-        .category {
-
-            background: #edf4ef;
-
-            color: #16734a;
-
-            padding: 5px 10px;
-
-            border-radius: 20px;
-
-            font-size: 10px;
-
-            font-weight: 700;
-        }
-
-
-        .match-score {
-
-            font-size: 17px;
-
-            font-weight: 800;
-
-            color: #16734a;
-        }
-
-
-        .opportunity-card h3 {
-
-            font-size: 19px;
-
-            margin-bottom: 7px;
-        }
-
-
-        .organization {
-
-            color: #7a837d;
-
-            font-size: 12px;
-
-            margin-bottom: 15px;
-        }
-
-
-        .opportunity-card p {
-
-            color: #68736c;
-
-            font-size: 13px;
-
-            line-height: 1.6;
-
-            margin-bottom: 18px;
-        }
-
-
-        .skills-title {
-
-            font-size: 11px;
-
-            font-weight: 700;
-
-            margin-bottom: 8px;
-        }
-
-
-        .skills {
-
-            display: flex;
-
-            flex-wrap: wrap;
-
-            gap: 6px;
-
-            margin-bottom: 20px;
-        }
-
-
-        .skills span {
-
-            padding: 5px 9px;
-
-            background: #f1f2f0;
-
-            border-radius: 5px;
-
-            font-size: 10px;
-        }
-
-
-        .matched {
-
-            background: #e4f2e8 !important;
-
-            color: #16734a;
-
-        }
-
-
-        .missing {
-
-            background: #f4eee5 !important;
-
-            color: #9a6a28;
-
-        }
-
-
-        .card-buttons {
-
-            display: flex;
-
-            gap: 8px;
-        }
-
-
-        .view-btn {
-
-            flex: 1;
-
-            border: none;
-
-            background: #173d2b;
-
-            color: white;
-
-            padding: 11px;
-
-            border-radius: 7px;
-
-            cursor: pointer;
-
-            font-size: 12px;
-
-            font-weight: 700;
-        }
-
-
-        .save-btn {
-
-            width: 45px;
-
-            border: 1px solid #d8ded9;
-
-            background: white;
-
-            border-radius: 7px;
-
-            cursor: pointer;
-
-            font-size: 17px;
-        }
-
-
-        .save-btn.saved {
-
-            background: #edf5ef;
-
-            color: #16734a;
-
-        }
-
-
-
-        /* =========================
-           MODAL
-        ========================= */
-
-        .modal {
-
-            display: none;
-
-            position: fixed;
-
-            inset: 0;
-
-            background:
-                rgba(0,0,0,0.5);
-
-            z-index: 3000;
-
-            align-items: center;
-
-            justify-content: center;
-
-            padding: 20px;
-        }
-
-
-        .modal-box {
-
-            background: white;
-
-            width: 100%;
-
-            max-width: 600px;
-
-            max-height: 90vh;
-
-            overflow-y: auto;
-
-            padding: 30px;
-
-            border-radius: 15px;
-
-            position: relative;
-        }
-
-
-        .close-modal {
-
-            position: absolute;
-
-            right: 18px;
-
-            top: 12px;
-
-            border: none;
-
-            background: none;
-
-            font-size: 28px;
-
-            cursor: pointer;
-        }
-
-
-        .detail-score {
-
-            background: #edf5ef;
-
-            padding: 20px;
-
-            border-radius: 12px;
-
+    grid.innerHTML = `
+        <div style="
+            grid-column: 1 / -1;
             text-align: center;
-
-            margin: 20px 0;
-        }
-
-
-        .detail-score strong {
-
-            font-size: 38px;
-
-            color: #16734a;
-
-            display: block;
-        }
-
-
-        .match-breakdown {
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(2, 1fr);
-
-            gap: 10px;
-
-            margin: 15px 0 25px;
-        }
-
-
-        .breakdown-item {
-
-            padding: 12px;
-
-            background: #f6f7f5;
-
-            border-radius: 8px;
-
-            font-size: 12px;
-        }
-
-
-        .breakdown-item strong {
-
-            display: block;
-
-            margin-bottom: 4px;
-        }
-
-
-        .apply-btn {
-
-            width: 100%;
-
-            padding: 13px;
-
-            border: none;
-
-            background: #16734a;
-
-            color: white;
-
-            border-radius: 7px;
-
-            font-weight: 700;
-
-            cursor: pointer;
-        }
-
-
-
-        /* =========================
-           RESPONSIVE
-        ========================= */
-
-        @media(max-width: 1000px) {
-
-            .opportunity-grid {
-
-                grid-template-columns: 1fr;
-            }
-
-        }
-
-
-        @media(max-width: 700px) {
-
-            .opportunities-layout {
-
-                display: block;
-            }
-
-
-            .sidebar {
-
-                width: 100%;
-
-                padding: 15px;
-            }
-
-
-            .sidebar-profile {
-
-                display: none;
-            }
-
-
-            .sidebar-menu {
-
-                flex-direction: row;
-
-                overflow-x: auto;
-            }
-
-
-            .sidebar-menu a {
-
-                white-space: nowrap;
-            }
-
-
-            .opportunities-main {
-
-                padding: 25px 18px;
-            }
-
-
-            .page-header h1 {
-
-                font-size: 26px;
-            }
-
-
-            .filters {
-
-                flex-direction: column;
-            }
-
-
-            .filters select {
-
-                width: 100%;
-            }
-
-        }
-
-    </style>
-
-</head>
-
-
-<body class="opportunities-page">
-
-
-    <!-- =========================
-         NAVBAR
-    ========================== -->
-
-    <header class="navbar">
-
-        <div class="logo">
-
-            <span>SAKSHAM</span>
-
-            <small>
-                Empowering Skills
-            </small>
-
+            padding: 60px 20px;
+        ">
+            <div style="font-size:45px;">⏳</div>
+
+            <h3>Finding Opportunities...</h3>
+
+            <p style="color:#68736c;">
+                SAKSHAM is loading opportunities for you.
+            </p>
         </div>
+    `;
 
 
-        <button
-            class="login-btn"
-            onclick="window.location.href='../index.html'">
+    try {
 
-            Logout
-
-        </button>
-
-    </header>
-
-
-
-    <div class="opportunities-layout">
+        const { data, error } =
+            await supabaseClient
+                .from("opportunities")
+                .select("*")
+                .order("created_at", {
+                    ascending: false
+                });
 
 
-        <!-- =========================
-             SIDEBAR
-        ========================== -->
+        if (error) {
 
-        <aside class="sidebar">
+            console.error(
+                "Supabase error:",
+                error
+            );
+
+            showDatabaseError();
+
+            return;
+        }
 
 
-            <div class="sidebar-profile">
+        allOpportunities = data || [];
 
-                <div class="profile-avatar">
-                    A
+
+        console.log(
+            "Opportunities loaded:",
+            allOpportunities
+        );
+
+
+        displayOpportunities(
+            allOpportunities
+        );
+
+
+        updateOpportunityCount(
+            allOpportunities.length
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Unexpected error:",
+            error
+        );
+
+        showDatabaseError();
+
+    }
+
+}
+
+
+/* =========================================================
+   DISPLAY OPPORTUNITIES
+========================================================= */
+
+function displayOpportunities(
+    opportunities
+) {
+
+    const grid =
+        document.getElementById(
+            "opportunityGrid"
+        );
+
+
+    if (!grid) return;
+
+
+    if (
+        !opportunities ||
+        opportunities.length === 0
+    ) {
+
+        grid.innerHTML = `
+            <div style="
+                grid-column:1/-1;
+                text-align:center;
+                padding:60px 20px;
+            ">
+
+                <div style="
+                    font-size:45px;
+                    margin-bottom:15px;
+                ">
+                    🔍
                 </div>
 
                 <h3>
-                    Ananya
+                    No opportunities found
                 </h3>
 
-                <p>
-                    Handicraft Entrepreneur
+                <p style="color:#68736c;">
+                    Try changing your search or filters.
                 </p>
 
             </div>
+        `;
 
+        return;
+    }
 
-            <div class="sidebar-menu">
 
+    grid.innerHTML = "";
 
-                <a href="dashboard.html">
 
-                    <span>🏠</span>
+    opportunities.forEach(
+        opportunity => {
 
-                    Dashboard
+            const card =
+                createOpportunityCard(
+                    opportunity
+                );
 
-                </a>
+            grid.appendChild(card);
 
+        }
+    );
 
-                <a
-                    href="opportunities.html"
-                    class="active">
+}
 
-                    <span>🎯</span>
 
-                    Opportunities
+/* =========================================================
+   CREATE OPPORTUNITY CARD
+========================================================= */
 
-                </a>
+function createOpportunityCard(
+    opportunity
+) {
 
+    const card =
+        document.createElement("div");
 
-                <a href="skills.html">
 
-                    <span>📈</span>
+    card.className =
+        "opportunity-card";
 
-                    Skill Growth
 
-                </a>
+    const title =
+        opportunity.title ||
+        "Untitled Opportunity";
 
 
-                <a href="applications.html">
+    const organization =
+        opportunity.organization ||
+        "Organization";
 
-                    <span>📋</span>
 
-                    Applications
+    const category =
+        opportunity.category ||
+        "General";
 
-                </a>
 
+    const description =
+        opportunity.description ||
+        "Opportunity available for eligible entrepreneurs.";
 
-                <a href="profile.html">
 
-                    <span>👤</span>
+    const skills =
+        Array.isArray(
+            opportunity.required_skills
+        )
+            ? opportunity.required_skills
+            : [];
 
-                    My Profile
 
-                </a>
+    const experience =
+        opportunity.minimum_experience ?? 0;
 
 
-            </div>
+    /*
+       Demo match score.
 
-        </aside>
+       Later we can replace this with
+       the actual SAKSHAM matching algorithm.
+    */
 
+    const matchScore =
+        calculateMatchScore(
+            skills
+        );
 
 
-        <!-- =========================
-             MAIN
-        ========================== -->
+    card.dataset.category =
+        category.toLowerCase();
 
-        <main class="opportunities-main">
 
+    card.dataset.match =
+        matchScore;
 
-            <div class="page-header">
 
-                <h1>
-                    Opportunities For You 🎯
-                </h1>
+    card.dataset.name =
+        title;
 
-                <p>
-                    SAKSHAM found opportunities
-                    based on your skills and profile.
-                </p>
 
-            </div>
+    const isSaved =
+        savedOpportunities.includes(
+            opportunity.id
+        );
 
 
+    card.innerHTML = `
 
-            <!-- =========================
-                 FILTERS
-            ========================== -->
-
-            <div class="filters">
-
-
-                <div class="search-box">
-
-                    <input
-                        type="text"
-                        id="searchInput"
-                        placeholder="🔍 Search opportunities..."
-                        onkeyup="searchOpportunities()">
-
-                </div>
-
-
-                <select
-                    id="categoryFilter"
-                    onchange="filterOpportunities()">
-
-                    <option value="all">
-                        All Categories
-                    </option>
-
-                    <option value="textile">
-                        Textile
-                    </option>
-
-                    <option value="handicraft">
-                        Handicraft
-                    </option>
-
-                    <option value="ecommerce">
-                        E-Commerce
-                    </option>
-
-                    <option value="training">
-                        Training
-                    </option>
-
-                </select>
-
-
-                <select
-                    id="matchFilter"
-                    onchange="filterOpportunities()">
-
-                    <option value="all">
-                        Any Match
-                    </option>
-
-                    <option value="90">
-                        90%+ Match
-                    </option>
-
-                    <option value="80">
-                        80%+ Match
-                    </option>
-
-                    <option value="70">
-                        70%+ Match
-                    </option>
-
-                </select>
-
-
-            </div>
-
-
-
-            <!-- =========================
-                 MATCH INFO
-            ========================== -->
-
-            <div class="match-info">
-
-                <h2>
-                    Top Matches
-                </h2>
-
-                <span>
-                    6 opportunities found
-                </span>
-
-            </div>
-
-
-
-            <!-- =========================
-                 OPPORTUNITIES
-            ========================== -->
-
-            <div
-                class="opportunity-grid"
-                id="opportunityGrid">
-
-
-                <!-- CARD 1 -->
-
-                <div
-                    class="opportunity-card"
-                    data-category="textile"
-                    data-match="94"
-                    data-name="Textile Supplier Partnership">
-
-
-                    <div class="opportunity-header">
-
-                        <span class="category">
-                            TEXTILE
-                        </span>
-
-                        <span class="match-score">
-                            94%
-                        </span>
-
-                    </div>
-
-
-                    <h3>
-                        Textile Supplier Partnership
-                    </h3>
-
-
-                    <div class="organization">
-                        🏢 ABC Textiles
-                    </div>
-
-
-                    <p>
-                        Partner with a growing textile
-                        business for handmade and
-                        embroidered products.
-                    </p>
-
-
-                    <div class="skills-title">
-                        Skill Compatibility
-                    </div>
-
-
-                    <div class="skills">
-
-                        <span class="matched">
-                            ✓ Tailoring
-                        </span>
-
-                        <span class="matched">
-                            ✓ Embroidery
-                        </span>
-
-                        <span class="matched">
-                            ✓ Textile
-                        </span>
-
-                        <span class="missing">
-                            ⚠ Digital Marketing
-                        </span>
-
-                    </div>
-
-
-                    <div class="card-buttons">
-
-                        <button
-                            class="view-btn"
-                            onclick="showDetails(
-                                'Textile Supplier Partnership',
-                                'ABC Textiles',
-                                '94',
-                                'Tailoring, Embroidery, Textile',
-                                'Digital Marketing'
-                            )">
-
-                            View Details →
-
-                        </button>
-
-
-                        <button
-                            class="save-btn"
-                            onclick="saveOpportunity(this)">
-
-                            ♡
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- CARD 2 -->
-
-                <div
-                    class="opportunity-card"
-                    data-category="handicraft"
-                    data-match="89"
-                    data-name="Handicraft Marketplace">
-
-
-                    <div class="opportunity-header">
-
-                        <span class="category">
-                            HANDICRAFT
-                        </span>
-
-                        <span class="match-score">
-                            89%
-                        </span>
-
-                    </div>
-
-
-                    <h3>
-                        Handicraft Marketplace
-                    </h3>
-
-
-                    <div class="organization">
-                        🏢 CraftConnect
-                    </div>
-
-
-                    <p>
-                        Showcase handmade products
-                        and reach customers through
-                        an online marketplace.
-                    </p>
-
-
-                    <div class="skills-title">
-                        Skill Compatibility
-                    </div>
-
-
-                    <div class="skills">
-
-                        <span class="matched">
-                            ✓ Handicraft
-                        </span>
-
-                        <span class="matched">
-                            ✓ Product Making
-                        </span>
-
-                        <span class="matched">
-                            ✓ Sales
-                        </span>
-
-                        <span class="missing">
-                            ⚠ Digital Marketing
-                        </span>
-
-                    </div>
-
-
-                    <div class="card-buttons">
-
-                        <button
-                            class="view-btn"
-                            onclick="showDetails(
-                                'Handicraft Marketplace',
-                                'CraftConnect',
-                                '89',
-                                'Handicraft, Product Making, Sales',
-                                'Digital Marketing'
-                            )">
-
-                            View Details →
-
-                        </button>
-
-
-                        <button
-                            class="save-btn"
-                            onclick="saveOpportunity(this)">
-
-                            ♡
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- CARD 3 -->
-
-                <div
-                    class="opportunity-card"
-                    data-category="ecommerce"
-                    data-match="84"
-                    data-name="E-Commerce Seller Program">
-
-
-                    <div class="opportunity-header">
-
-                        <span class="category">
-                            E-COMMERCE
-                        </span>
-
-                        <span class="match-score">
-                            84%
-                        </span>
-
-                    </div>
-
-
-                    <h3>
-                        E-Commerce Seller Program
-                    </h3>
-
-
-                    <div class="organization">
-                        🏢 DigitalRise
-                    </div>
-
-
-                    <p>
-                        Learn how to take your products
-                        online and reach more customers.
-                    </p>
-
-
-                    <div class="skills-title">
-                        Skill Compatibility
-                    </div>
-
-
-                    <div class="skills">
-
-                        <span class="matched">
-                            ✓ Business
-                        </span>
-
-                        <span class="matched">
-                            ✓ Sales
-                        </span>
-
-                        <span class="matched">
-                            ✓ Product Making
-                        </span>
-
-                        <span class="missing">
-                            ⚠ E-Commerce
-                        </span>
-
-                    </div>
-
-
-                    <div class="card-buttons">
-
-                        <button
-                            class="view-btn"
-                            onclick="showDetails(
-                                'E-Commerce Seller Program',
-                                'DigitalRise',
-                                '84',
-                                'Business, Sales, Product Making',
-                                'E-Commerce'
-                            )">
-
-                            View Details →
-
-                        </button>
-
-
-                        <button
-                            class="save-btn"
-                            onclick="saveOpportunity(this)">
-
-                            ♡
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- CARD 4 -->
-
-                <div
-                    class="opportunity-card"
-                    data-category="training"
-                    data-match="81"
-                    data-name="Digital Marketing Training">
-
-
-                    <div class="opportunity-header">
-
-                        <span class="category">
-                            TRAINING
-                        </span>
-
-                        <span class="match-score">
-                            81%
-                        </span>
-
-                    </div>
-
-
-                    <h3>
-                        Digital Marketing Training
-                    </h3>
-
-
-                    <div class="organization">
-                        🏢 SkillForward
-                    </div>
-
-
-                    <p>
-                        Beginner-friendly training to
-                        help entrepreneurs promote
-                        their businesses online.
-                    </p>
-
-
-                    <div class="skills-title">
-                        Skill Compatibility
-                    </div>
-
-
-                    <div class="skills">
-
-                        <span class="matched">
-                            ✓ Business
-                        </span>
-
-                        <span class="matched">
-                            ✓ Sales
-                        </span>
-
-                        <span class="missing">
-                            ⚠ Digital Marketing
-                        </span>
-
-                    </div>
-
-
-                    <div class="card-buttons">
-
-                        <button
-                            class="view-btn"
-                            onclick="showDetails(
-                                'Digital Marketing Training',
-                                'SkillForward',
-                                '81',
-                                'Business, Sales',
-                                'Digital Marketing'
-                            )">
-
-                            View Details →
-
-                        </button>
-
-
-                        <button
-                            class="save-btn"
-                            onclick="saveOpportunity(this)">
-
-                            ♡
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- CARD 5 -->
-
-                <div
-                    class="opportunity-card"
-                    data-category="textile"
-                    data-match="78"
-                    data-name="Local Textile Collaboration">
-
-
-                    <div class="opportunity-header">
-
-                        <span class="category">
-                            TEXTILE
-                        </span>
-
-                        <span class="match-score">
-                            78%
-                        </span>
-
-                    </div>
-
-
-                    <h3>
-                        Local Textile Collaboration
-                    </h3>
-
-
-                    <div class="organization">
-                        🏢 Bengal Handloom Group
-                    </div>
-
-
-                    <p>
-                        Collaborate with local textile
-                        businesses and artisans.
-                    </p>
-
-
-                    <div class="skills-title">
-                        Skill Compatibility
-                    </div>
-
-
-                    <div class="skills">
-
-                        <span class="matched">
-                            ✓ Textile
-                        </span>
-
-                        <span class="matched">
-                            ✓ Handicraft
-                        </span>
-
-                        <span class="missing">
-                            ⚠ Business Management
-                        </span>
-
-                    </div>
-
-
-                    <div class="card-buttons">
-
-                        <button
-                            class="view-btn"
-                            onclick="showDetails(
-                                'Local Textile Collaboration',
-                                'Bengal Handloom Group',
-                                '78',
-                                'Textile, Handicraft',
-                                'Business Management'
-                            )">
-
-                            View Details →
-
-                        </button>
-
-
-                        <button
-                            class="save-btn"
-                            onclick="saveOpportunity(this)">
-
-                            ♡
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- CARD 6 -->
-
-                <div
-                    class="opportunity-card"
-                    data-category="training"
-                    data-match="72"
-                    data-name="Product Photography Workshop">
-
-
-                    <div class="opportunity-header">
-
-                        <span class="category">
-                            TRAINING
-                        </span>
-
-                        <span class="match-score">
-                            72%
-                        </span>
-
-                    </div>
-
-
-                    <h3>
-                        Product Photography Workshop
-                    </h3>
-
-
-                    <div class="organization">
-                        🏢 CreatorHub
-                    </div>
-
-
-                    <p>
-                        Learn how to photograph products
-                        professionally for online selling.
-                    </p>
-
-
-                    <div class="skills-title">
-                        Skill Compatibility
-                    </div>
-
-
-                    <div class="skills">
-
-                        <span class="matched">
-                            ✓ Product Making
-                        </span>
-
-                        <span class="matched">
-                            ✓ Business
-                        </span>
-
-                        <span class="missing">
-                            ⚠ Photography
-                        </span>
-
-                    </div>
-
-
-                    <div class="card-buttons">
-
-                        <button
-                            class="view-btn"
-                            onclick="showDetails(
-                                'Product Photography Workshop',
-                                'CreatorHub',
-                                '72',
-                                'Product Making, Business',
-                                'Photography'
-                            )">
-
-                            View Details →
-
-                        </button>
-
-
-                        <button
-                            class="save-btn"
-                            onclick="saveOpportunity(this)">
-
-                            ♡
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-            </div>
-
-        </main>
-
-    </div>
-
-
-
-    <!-- =========================
-         DETAILS MODAL
-    ========================== -->
-
-    <div
-        class="modal"
-        id="detailsModal">
-
-
-        <div class="modal-box">
-
-
-            <button
-                class="close-modal"
-                onclick="closeDetails()">
-
-                ×
-
-            </button>
-
+        <div class="opportunity-header">
 
             <span class="category">
-                OPPORTUNITY
+                ${escapeHTML(
+                    category.toUpperCase()
+                )}
             </span>
 
-
-            <h2
-                id="detailTitle"
-                style="margin-top:15px;">
-            </h2>
-
-
-            <p
-                id="detailOrganization"
-                style="
-                    color:#737d76;
-                    font-size:13px;
-                ">
-            </p>
-
-
-
-            <div class="detail-score">
-
-                <span>
-                    Your Match Score
-                </span>
-
-                <strong id="detailScore">
-                    94%
-                </strong>
-
-                <span>
-                    Based on your skills and profile
-                </span>
-
-            </div>
-
-
-
-            <h3>
-                Why You Matched
-            </h3>
-
-
-            <div
-                class="match-breakdown"
-                id="matchedSkills">
-            </div>
-
-
-
-            <h3>
-                Skill Gap
-            </h3>
-
-
-            <p
-                id="missingSkills"
-                style="
-                    color:#9a6a28;
-                    margin:10px 0 25px;
-                ">
-            </p>
-
-
-
-            <button
-                class="apply-btn"
-                onclick="applyNow()">
-
-                Apply Now →
-
-            </button>
-
+            <span class="match-score">
+                ${matchScore}%
+            </span>
 
         </div>
 
-    </div>
+
+        <h3>
+            ${escapeHTML(title)}
+        </h3>
 
 
-
-    <!-- =========================
-         JAVASCRIPT
-    ========================== -->
-
-    <script>
+        <div class="organization">
+            🏢 ${escapeHTML(organization)}
+        </div>
 
 
-        /* =========================
-           SEARCH
-        ========================= */
-
-        function searchOpportunities() {
-
-            const search =
-                document
-                .getElementById("searchInput")
-                .value
-                .toLowerCase();
+        <p>
+            ${escapeHTML(description)}
+        </p>
 
 
-            const cards =
-                document
-                .querySelectorAll(
-                    ".opportunity-card"
+        <div class="skills-title">
+            Required Skills
+        </div>
+
+
+        <div class="skills">
+
+            ${
+                skills.length > 0
+
+                ? skills.map(
+                    skill => `
+                        <span class="matched">
+                            ✓ ${escapeHTML(skill)}
+                        </span>
+                    `
+                ).join("")
+
+                : `
+                    <span>
+                        General Skills
+                    </span>
+                `
+            }
+
+        </div>
+
+
+        <div class="skills-title">
+            Minimum Experience
+        </div>
+
+
+        <div style="
+            font-size:11px;
+            color:#68736c;
+            margin-bottom:18px;
+        ">
+            ${experience} year${experience == 1 ? "" : "s"}
+        </div>
+
+
+        <div class="card-buttons">
+
+            <button
+                class="view-btn"
+                onclick="showOpportunityDetails('${escapeAttribute(
+                    opportunity.id
+                )}')">
+
+                View Details →
+
+            </button>
+
+
+            <button
+                class="save-btn ${
+                    isSaved ? "saved" : ""
+                }"
+                onclick="saveOpportunity(
+                    '${escapeAttribute(
+                        opportunity.id
+                    )}',
+                    this
+                )">
+
+                ${isSaved ? "♥" : "♡"}
+
+            </button>
+
+        </div>
+
+    `;
+
+
+    return card;
+
+}
+
+
+/* =========================================================
+   MATCH SCORE
+========================================================= */
+
+function calculateMatchScore(
+    requiredSkills
+) {
+
+    /*
+       Temporary prototype matching.
+
+       Once the user profile is connected,
+       we will compare:
+
+       User Skills
+              ↓
+       Required Skills
+              ↓
+       Match percentage
+    */
+
+
+    if (
+        !requiredSkills ||
+        requiredSkills.length === 0
+    ) {
+
+        return 70;
+
+    }
+
+
+    /*
+       Demo score based on number
+       of required skills.
+
+       This keeps the UI working
+       until the real profile matching
+       system is connected.
+    */
+
+    const scores = [
+        94,
+        89,
+        84,
+        81,
+        78,
+        72
+    ];
+
+
+    const index =
+        requiredSkills.length % scores.length;
+
+
+    return scores[index];
+
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+function searchOpportunities() {
+
+    const searchInput =
+        document.getElementById(
+            "searchInput"
+        );
+
+
+    if (!searchInput) return;
+
+
+    const search =
+        searchInput.value
+            .trim()
+            .toLowerCase();
+
+
+    const filtered =
+        allOpportunities.filter(
+            opportunity => {
+
+                const title =
+                    (
+                        opportunity.title ||
+                        ""
+                    ).toLowerCase();
+
+
+                const organization =
+                    (
+                        opportunity.organization ||
+                        ""
+                    ).toLowerCase();
+
+
+                const category =
+                    (
+                        opportunity.category ||
+                        ""
+                    ).toLowerCase();
+
+
+                const description =
+                    (
+                        opportunity.description ||
+                        ""
+                    ).toLowerCase();
+
+
+                return (
+
+                    title.includes(search) ||
+
+                    organization.includes(search) ||
+
+                    category.includes(search) ||
+
+                    description.includes(search)
+
                 );
 
-
-            cards.forEach(card => {
-
-                const name =
-                    card
-                    .dataset
-                    .name
-                    .toLowerCase();
+            }
+        );
 
 
-                if (
-                    name.includes(search)
-                ) {
+    applyCurrentFilters(
+        filtered
+    );
 
-                    card.style.display =
-                        "block";
-
-                } else {
-
-                    card.style.display =
-                        "none";
-
-                }
-
-            });
-
-        }
+}
 
 
+/* =========================================================
+   FILTER
+========================================================= */
 
-        /* =========================
-           FILTER
-        ========================= */
+function filterOpportunities() {
 
-        function filterOpportunities() {
+    applyCurrentFilters(
+        allOpportunities
+    );
 
-            const category =
-                document
-                .getElementById(
-                    "categoryFilter"
-                )
-                .value;
+}
 
 
-            const match =
-                document
-                .getElementById(
-                    "matchFilter"
-                )
-                .value;
+/* =========================================================
+   APPLY SEARCH + FILTERS
+========================================================= */
+
+function applyCurrentFilters(
+    source
+) {
+
+    const categorySelect =
+        document.getElementById(
+            "categoryFilter"
+        );
 
 
-            const cards =
-                document
-                .querySelectorAll(
-                    ".opportunity-card"
-                );
+    const matchSelect =
+        document.getElementById(
+            "matchFilter"
+        );
 
 
-            cards.forEach(card => {
+    const searchInput =
+        document.getElementById(
+            "searchInput"
+        );
 
-                const cardCategory =
-                    card.dataset.category;
+
+    const category =
+        categorySelect
+            ? categorySelect.value.toLowerCase()
+            : "all";
 
 
-                const cardMatch =
-                    Number(
-                        card.dataset.match
+    const minimumMatch =
+        matchSelect
+            ? matchSelect.value
+            : "all";
+
+
+    const search =
+        searchInput
+            ? searchInput.value
+                .trim()
+                .toLowerCase()
+            : "";
+
+
+    const filtered =
+        source.filter(
+            opportunity => {
+
+                const title =
+                    (
+                        opportunity.title ||
+                        ""
+                    ).toLowerCase();
+
+
+                const organization =
+                    (
+                        opportunity.organization ||
+                        ""
+                    ).toLowerCase();
+
+
+                const description =
+                    (
+                        opportunity.description ||
+                        ""
+                    ).toLowerCase();
+
+
+                const opportunityCategory =
+                    (
+                        opportunity.category ||
+                        ""
+                    ).toLowerCase();
+
+
+                const skills =
+                    Array.isArray(
+                        opportunity.required_skills
+                    )
+                        ? opportunity.required_skills
+                        : [];
+
+
+                const searchText =
+                    `
+                    ${title}
+                    ${organization}
+                    ${description}
+                    ${opportunityCategory}
+                    ${skills.join(" ")}
+                    `.toLowerCase();
+
+
+                const score =
+                    calculateMatchScore(
+                        skills
                     );
 
 
-                let categoryMatch =
+                const matchesSearch =
+                    !search ||
+                    searchText.includes(
+                        search
+                    );
+
+
+                const matchesCategory =
                     category === "all" ||
-                    cardCategory === category;
+                    opportunityCategory === category;
 
 
-                let matchMatch =
-                    match === "all" ||
-                    cardMatch >= Number(match);
+                const matchesScore =
+                    minimumMatch === "all" ||
+                    score >= Number(
+                        minimumMatch
+                    );
 
 
-                if (
-                    categoryMatch &&
-                    matchMatch
-                ) {
-
-                    card.style.display =
-                        "block";
-
-                } else {
-
-                    card.style.display =
-                        "none";
-
-                }
-
-            });
-
-        }
-
-
-
-        /* =========================
-           DETAILS
-        ========================= */
-
-        function showDetails(
-            title,
-            organization,
-            score,
-            matched,
-            missing
-        ) {
-
-
-            document
-                .getElementById(
-                    "detailTitle"
-                )
-                .textContent = title;
-
-
-            document
-                .getElementById(
-                    "detailOrganization"
-                )
-                .textContent =
-                "🏢 " + organization;
-
-
-            document
-                .getElementById(
-                    "detailScore"
-                )
-                .textContent =
-                score + "%";
-
-
-            const skills =
-                matched.split(",");
-
-
-            const skillsContainer =
-                document
-                .getElementById(
-                    "matchedSkills"
+                return (
+                    matchesSearch &&
+                    matchesCategory &&
+                    matchesScore
                 );
 
+            }
+        );
 
-            skillsContainer.innerHTML =
-                "";
+
+    displayOpportunities(
+        filtered
+    );
 
 
-            skills.forEach(skill => {
+    updateOpportunityCount(
+        filtered.length
+    );
+
+}
+
+
+/* =========================================================
+   UPDATE OPPORTUNITY COUNT
+========================================================= */
+
+function updateOpportunityCount(
+    count
+) {
+
+    const countElement =
+        document.querySelector(
+            ".match-info span"
+        );
+
+
+    if (!countElement) return;
+
+
+    countElement.textContent =
+        `${count} opportunit${count === 1 ? "y" : "ies"} found`;
+
+}
+
+
+/* =========================================================
+   SHOW DETAILS
+========================================================= */
+
+async function showOpportunityDetails(
+    opportunityId
+) {
+
+    const opportunity =
+        allOpportunities.find(
+            item =>
+                String(item.id) ===
+                String(opportunityId)
+        );
+
+
+    if (!opportunity) {
+
+        alert(
+            "Opportunity information could not be found."
+        );
+
+        return;
+
+    }
+
+
+    selectedOpportunity =
+        opportunity;
+
+
+    const title =
+        opportunity.title ||
+        "Opportunity";
+
+
+    const organization =
+        opportunity.organization ||
+        "Organization";
+
+
+    const skills =
+        Array.isArray(
+            opportunity.required_skills
+        )
+            ? opportunity.required_skills
+            : [];
+
+
+    const experience =
+        opportunity.minimum_experience ?? 0;
+
+
+    const score =
+        calculateMatchScore(
+            skills
+        );
+
+
+    document.getElementById(
+        "detailTitle"
+    ).textContent =
+        title;
+
+
+    document.getElementById(
+        "detailOrganization"
+    ).textContent =
+        "🏢 " + organization;
+
+
+    document.getElementById(
+        "detailScore"
+    ).textContent =
+        score + "%";
+
+
+    const skillsContainer =
+        document.getElementById(
+            "matchedSkills"
+        );
+
+
+    skillsContainer.innerHTML =
+        "";
+
+
+    if (skills.length === 0) {
+
+        skillsContainer.innerHTML = `
+            <div class="breakdown-item">
+                <strong>✓ Suitable</strong>
+                General entrepreneur skills
+            </div>
+        `;
+
+    } else {
+
+        skills.forEach(
+            skill => {
 
                 const div =
                     document.createElement(
@@ -1787,131 +792,423 @@
                     "breakdown-item";
 
 
-                div.innerHTML =
-                    `
-                    <strong>✓ Match</strong>
-                    ${skill.trim()}
-                    `;
+                div.innerHTML = `
+                    <strong>✓ Required Skill</strong>
+                    ${escapeHTML(skill)}
+                `;
 
 
                 skillsContainer.appendChild(
                     div
                 );
 
-            });
+            }
+        );
+
+    }
 
 
-            document
-                .getElementById(
-                    "missingSkills"
+    document.getElementById(
+        "missingSkills"
+    ).textContent =
+        `📌 Minimum experience: ${experience} year${experience == 1 ? "" : "s"}`;
+
+
+    document.getElementById(
+        "detailsModal"
+    ).style.display =
+        "flex";
+
+}
+
+
+/* =========================================================
+   CLOSE DETAILS
+========================================================= */
+
+function closeDetails() {
+
+    const modal =
+        document.getElementById(
+            "detailsModal"
+        );
+
+
+    if (modal) {
+
+        modal.style.display =
+            "none";
+
+    }
+
+
+    selectedOpportunity =
+        null;
+
+}
+
+
+/* =========================================================
+   SAVE OPPORTUNITY
+========================================================= */
+
+function saveOpportunity(
+    opportunityId,
+    button
+) {
+
+    const index =
+        savedOpportunities.indexOf(
+            opportunityId
+        );
+
+
+    if (index === -1) {
+
+        savedOpportunities.push(
+            opportunityId
+        );
+
+
+        button.classList.add(
+            "saved"
+        );
+
+
+        button.textContent =
+            "♥";
+
+    } else {
+
+        savedOpportunities.splice(
+            index,
+            1
+        );
+
+
+        button.classList.remove(
+            "saved"
+        );
+
+
+        button.textContent =
+            "♡";
+
+    }
+
+
+    localStorage.setItem(
+        "sakshamSavedOpportunities",
+        JSON.stringify(
+            savedOpportunities
+        )
+    );
+
+}
+
+
+/* =========================================================
+   APPLY NOW
+========================================================= */
+
+async function applyNow() {
+
+    if (!selectedOpportunity) {
+
+        alert(
+            "Please select an opportunity first."
+        );
+
+        return;
+
+    }
+
+
+    /*
+       IMPORTANT:
+
+       We currently don't have Supabase
+       authentication connected.
+
+       Therefore we create a temporary
+       demo application record.
+
+       Later we'll connect this to the
+       logged-in user's profile.
+    */
+
+
+    const opportunityId =
+        selectedOpportunity.id;
+
+
+    const applicationData = {
+
+        opportunity_id:
+            opportunityId,
+
+        status:
+            "Applied"
+
+    };
+
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+                .from("applications")
+                .insert(
+                    [applicationData]
                 )
-                .textContent =
-                "⚠ Recommended skill: "
-                + missing;
+                .select();
 
 
-            document
-                .getElementById(
-                    "detailsModal"
-                )
-                .style.display =
-                "flex";
+        if (error) {
 
-        }
-
-
-
-        /* =========================
-           CLOSE DETAILS
-        ========================= */
-
-        function closeDetails() {
-
-            document
-                .getElementById(
-                    "detailsModal"
-                )
-                .style.display =
-                "none";
-
-        }
-
-
-
-        /* =========================
-           SAVE
-        ========================= */
-
-        function saveOpportunity(button) {
-
-            button.classList.toggle(
-                "saved"
+            console.error(
+                "Application error:",
+                error
             );
 
 
-            if (
-                button.classList.contains(
-                    "saved"
-                )
-            ) {
-
-                button.textContent =
-                    "♥";
-
-            } else {
-
-                button.textContent =
-                    "♡";
-
-            }
-
-        }
-
-
-
-        /* =========================
-           APPLY
-        ========================= */
-
-        function applyNow() {
+            /*
+               If the applications table
+               requires a profile/user ID,
+               we'll connect authentication
+               in the next stage.
+            */
 
             alert(
-                "🎉 Application submitted successfully!"
+                "The opportunity was selected, but the application could not be saved yet. We will connect your user profile next."
             );
+
+            return;
+
+        }
+
+
+        console.log(
+            "Application saved:",
+            data
+        );
+
+
+        alert(
+            "🎉 Application submitted successfully!"
+        );
+
+
+        closeDetails();
+
+
+    } catch (error) {
+
+        console.error(
+            error
+        );
+
+
+        alert(
+            "Something went wrong while submitting your application."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   DATABASE ERROR
+========================================================= */
+
+function showDatabaseError() {
+
+    const grid =
+        document.getElementById(
+            "opportunityGrid"
+        );
+
+
+    if (!grid) return;
+
+
+    grid.innerHTML = `
+
+        <div style="
+            grid-column:1/-1;
+            text-align:center;
+            padding:60px 20px;
+        ">
+
+            <div style="
+                font-size:45px;
+                margin-bottom:15px;
+            ">
+                ⚠️
+            </div>
+
+
+            <h3>
+                Couldn't Load Opportunities
+            </h3>
+
+
+            <p style="
+                color:#68736c;
+                max-width:500px;
+                margin:10px auto;
+            ">
+                SAKSHAM couldn't connect to the
+                opportunity database.
+                Please check your internet connection
+                and try again.
+            </p>
+
+
+            <button
+                class="view-btn"
+                style="
+                    max-width:200px;
+                    margin-top:15px;
+                "
+                onclick="loadOpportunities()">
+
+                Try Again
+
+            </button>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   HTML SECURITY HELPER
+========================================================= */
+
+function escapeHTML(
+    value
+) {
+
+    if (value === null ||
+        value === undefined) {
+
+        return "";
+
+    }
+
+
+    return String(value)
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =========================================================
+   ATTRIBUTE SECURITY HELPER
+========================================================= */
+
+function escapeAttribute(
+    value
+) {
+
+    return String(value)
+        .replace(
+            /'/g,
+            "\\'"
+        );
+
+}
+
+
+/* =========================================================
+   CLOSE MODAL WHEN CLICKING OUTSIDE
+========================================================= */
+
+window.addEventListener(
+    "click",
+    function(event) {
+
+        const modal =
+            document.getElementById(
+                "detailsModal"
+            );
+
+
+        if (
+            modal &&
+            event.target === modal
+        ) {
 
             closeDetails();
 
         }
 
+    }
+);
 
 
-        /* =========================
-           OUTSIDE CLICK
-        ========================= */
+/* =========================================================
+   PAGE LOAD
+========================================================= */
 
-        window.onclick =
-            function(event) {
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
 
-                const modal =
-                    document
-                    .getElementById(
-                        "detailsModal"
-                    );
-
-
-                if (
-                    event.target === modal
-                ) {
-
-                    closeDetails();
-
-                }
-
-            };
-
-    </script>
+        console.log(
+            "SAKSHAM Opportunities page loaded."
+        );
 
 
-</body>
+        /*
+           Make sure Supabase has loaded
+           before trying to access it.
+        */
 
-</html>
+        if (
+            typeof supabaseClient ===
+            "undefined"
+        ) {
+
+            console.error(
+                "Supabase client is not available."
+            );
+
+
+            showDatabaseError();
+
+            return;
+
+        }
+
+
+        loadOpportunities();
+
+    }
+);
