@@ -14,6 +14,8 @@
 
     <style>
 
+        /* ================= APPLICATIONS PAGE ================= */
+
         .applications-page {
             min-height: 100vh;
             background: #f8f7f4;
@@ -305,6 +307,32 @@
         }
 
 
+        /* ================= LOADING ================= */
+
+        .loading-state {
+            background: white;
+            border: 1px solid #e5e9e6;
+            border-radius: 14px;
+            padding: 60px 30px;
+            text-align: center;
+        }
+
+        .loading-icon {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .loading-state h2 {
+            font-size: 20px;
+            margin-bottom: 7px;
+        }
+
+        .loading-state p {
+            color: #737d76;
+            font-size: 12px;
+        }
+
+
         /* ================= EMPTY STATE ================= */
 
         .empty-state {
@@ -346,6 +374,44 @@
 
             cursor: pointer;
 
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+
+        /* ================= ERROR STATE ================= */
+
+        .error-state {
+            background: white;
+            border: 1px solid #e5e9e6;
+            border-radius: 14px;
+            padding: 60px 30px;
+            text-align: center;
+        }
+
+        .error-icon {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .error-state h2 {
+            font-size: 20px;
+            margin-bottom: 7px;
+        }
+
+        .error-state p {
+            color: #737d76;
+            font-size: 12px;
+            margin-bottom: 20px;
+        }
+
+        .retry-btn {
+            background: #173d2b;
+            color: white;
+            border: none;
+            padding: 11px 20px;
+            border-radius: 7px;
+            cursor: pointer;
             font-size: 12px;
             font-weight: 700;
         }
@@ -431,7 +497,7 @@
             <span>SAKSHAM</span>
 
             <small>
-                Empowering Skills
+                Empowering Skills, Enabling Opportunities.
             </small>
 
         </div>
@@ -458,19 +524,20 @@
 
             <div class="sidebar-profile">
 
-                <div class="profile-avatar"
-                     id="sidebarAvatar">
+                <div
+                    class="profile-avatar"
+                    id="sidebarAvatar">
 
                     A
 
                 </div>
 
-                <h3 id="sidebarName">
-                    Ananya
+                <h3 id="sidebarUserName">
+                    Entrepreneur
                 </h3>
 
-                <p>
-                    Handicraft Entrepreneur
+                <p id="sidebarBusinessType">
+                    Entrepreneur
                 </p>
 
             </div>
@@ -504,11 +571,20 @@
                 </a>
 
 
-                <a href="applications.html"
-                   class="active">
+                <a
+                    href="applications.html"
+                    class="active">
 
                     <span>📋</span>
                     Applications
+
+                </a>
+
+
+                <a href="schemes.html">
+
+                    <span>🏛️</span>
+                    Schemes Analyzer
 
                 </a>
 
@@ -562,7 +638,7 @@
                         class="stat-number"
                         id="totalApplications">
 
-                        3
+                        0
 
                     </div>
 
@@ -584,7 +660,7 @@
                         class="stat-number"
                         id="underReview">
 
-                        1
+                        0
 
                     </div>
 
@@ -606,7 +682,7 @@
                         class="stat-number"
                         id="shortlisted">
 
-                        1
+                        0
 
                     </div>
 
@@ -677,168 +753,21 @@
 
             <div id="applicationsContainer">
 
+                <div class="loading-state">
 
-
-                <!-- APPLICATION 1 -->
-
-                <div
-                    class="application-card"
-                    data-status="shortlisted">
-
-
-                    <div class="application-left">
-
-                        <div class="opportunity-icon">
-                            💰
-                        </div>
-
-
-                        <div class="application-info">
-
-                            <h3>
-                                Women Entrepreneur Growth Fund
-                            </h3>
-
-                            <div class="organization">
-                                National Entrepreneurship Development Program
-                            </div>
-
-                            <div class="application-date">
-                                Applied on 18 August 2026
-                            </div>
-
-                        </div>
-
+                    <div class="loading-icon">
+                        ⏳
                     </div>
 
+                    <h2>
+                        Loading Applications...
+                    </h2>
 
-                    <div class="application-right">
-
-                        <span class="status shortlisted">
-                            ⭐ Shortlisted
-                        </span>
-
-
-                        <button
-                            class="view-btn"
-                            onclick="viewApplication('Women Entrepreneur Growth Fund')">
-
-                            View Details
-
-                        </button>
-
-                    </div>
+                    <p>
+                        SAKSHAM is checking your applications.
+                    </p>
 
                 </div>
-
-
-
-                <!-- APPLICATION 2 -->
-
-                <div
-                    class="application-card"
-                    data-status="review">
-
-
-                    <div class="application-left">
-
-                        <div class="opportunity-icon">
-                            🛒
-                        </div>
-
-
-                        <div class="application-info">
-
-                            <h3>
-                                Rural Market Access Initiative
-                            </h3>
-
-                            <div class="organization">
-                                Small Business Development Network
-                            </div>
-
-                            <div class="application-date">
-                                Applied on 21 August 2026
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="application-right">
-
-                        <span class="status review">
-                            🔎 Under Review
-                        </span>
-
-
-                        <button
-                            class="view-btn"
-                            onclick="viewApplication('Rural Market Access Initiative')">
-
-                            View Details
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- APPLICATION 3 -->
-
-                <div
-                    class="application-card"
-                    data-status="submitted">
-
-
-                    <div class="application-left">
-
-                        <div class="opportunity-icon">
-                            📚
-                        </div>
-
-
-                        <div class="application-info">
-
-                            <h3>
-                                Digital Skills Training Program
-                            </h3>
-
-                            <div class="organization">
-                                Digital Entrepreneurship Initiative
-                            </div>
-
-                            <div class="application-date">
-                                Applied on 24 August 2026
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="application-right">
-
-                        <span class="status submitted">
-                            📤 Submitted
-                        </span>
-
-
-                        <button
-                            class="view-btn"
-                            onclick="viewApplication('Digital Skills Training Program')">
-
-                            View Details
-
-                        </button>
-
-                    </div>
-
-                </div>
-
 
             </div>
 
@@ -858,7 +787,7 @@
                     No applications found
                 </h2>
 
-                <p>
+                <p id="emptyMessage">
                     You haven't applied to any opportunities
                     in this category yet.
                 </p>
@@ -874,66 +803,410 @@
             </div>
 
 
+
         </main>
 
     </div>
 
 
 
-    <!-- ================= JAVASCRIPT ================= -->
+    <!-- ================= SUPABASE ================= -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script>
 
+        /* =====================================================
+           SAKSHAM SUPABASE CONNECTION
+        ===================================================== */
 
-        /* =========================
-           FILTER APPLICATIONS
-        ========================= */
+        const SUPABASE_URL =
+            "https://wzbjesifsrgqqbeossxa.supabase.co";
 
-        function filterApplications(status, button) {
-
-
-            document
-                .querySelectorAll(".filter-btn")
-                .forEach(btn => {
-
-                    btn.classList.remove("active");
-
-                });
+        const SUPABASE_PUBLISHABLE_KEY =
+            "sb_publishable_ojzjB_yf9ecptI9jARu3tw_FLLdTpQk";
 
 
-            button.classList.add("active");
+        const supabaseClient =
+            window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_PUBLISHABLE_KEY
+            );
 
 
-            const cards =
-                document.querySelectorAll(
-                    ".application-card"
+
+        /* =====================================================
+           GLOBAL DATA
+        ===================================================== */
+
+        let allApplications = [];
+
+
+
+        /* =====================================================
+           LOAD SIDEBAR PROFILE
+        ===================================================== */
+
+        function loadProfile() {
+
+            const savedProfile =
+                localStorage.getItem(
+                    "sakshamProfile"
                 );
 
 
-            let visibleCount = 0;
+            if (!savedProfile) return;
 
 
-            cards.forEach(card => {
+            try {
+
+                const profile =
+                    JSON.parse(
+                        savedProfile
+                    );
 
 
-                if (
-                    status === "all" ||
-                    card.dataset.status === status
-                ) {
+                const userName =
+                    profile.name ||
+                    "Entrepreneur";
 
-                    card.style.display = "flex";
 
-                    visibleCount++;
+                const businessType =
+                    profile.businessType ||
+                    profile.business ||
+                    "Entrepreneur";
+
+
+                const sidebarName =
+                    document.getElementById(
+                        "sidebarUserName"
+                    );
+
+
+                const sidebarAvatar =
+                    document.getElementById(
+                        "sidebarAvatar"
+                    );
+
+
+                const sidebarBusinessType =
+                    document.getElementById(
+                        "sidebarBusinessType"
+                    );
+
+
+                if (sidebarName) {
+
+                    sidebarName.textContent =
+                        userName;
 
                 }
 
-                else {
 
-                    card.style.display = "none";
+                if (sidebarAvatar) {
+
+                    sidebarAvatar.textContent =
+                        userName
+                            .charAt(0)
+                            .toUpperCase();
 
                 }
 
-            });
+
+                if (sidebarBusinessType) {
+
+                    sidebarBusinessType.textContent =
+                        businessType + " Entrepreneur";
+
+                }
+
+
+            } catch (error) {
+
+                console.error(
+                    "Could not load profile:",
+                    error
+                );
+
+            }
+
+        }
+
+
+
+        /* =====================================================
+           NORMALIZE STATUS
+        ===================================================== */
+
+        function normalizeStatus(status) {
+
+            const value =
+                String(
+                    status ||
+                    "Applied"
+                )
+                .trim()
+                .toLowerCase();
+
+
+            /*
+               Your opportunities.js currently saves
+               "Applied".
+
+               We treat Applied as Submitted.
+            */
+
+            if (
+                value === "applied" ||
+                value === "submitted" ||
+                value === "submit"
+            ) {
+
+                return "submitted";
+
+            }
+
+
+            if (
+                value === "review" ||
+                value === "under review" ||
+                value === "under_review" ||
+                value === "in review"
+            ) {
+
+                return "review";
+
+            }
+
+
+            if (
+                value === "shortlisted" ||
+                value === "shortlist"
+            ) {
+
+                return "shortlisted";
+
+            }
+
+
+            if (
+                value === "rejected" ||
+                value === "reject"
+            ) {
+
+                return "rejected";
+
+            }
+
+
+            return "submitted";
+
+        }
+
+
+
+        /* =====================================================
+           STATUS DISPLAY
+        ===================================================== */
+
+        function getStatusHTML(status) {
+
+            const normalized =
+                normalizeStatus(
+                    status
+                );
+
+
+            if (
+                normalized ===
+                "shortlisted"
+            ) {
+
+                return `
+                    <span class="status shortlisted">
+                        ⭐ Shortlisted
+                    </span>
+                `;
+
+            }
+
+
+            if (
+                normalized ===
+                "review"
+            ) {
+
+                return `
+                    <span class="status review">
+                        🔎 Under Review
+                    </span>
+                `;
+
+            }
+
+
+            if (
+                normalized ===
+                "rejected"
+            ) {
+
+                return `
+                    <span class="status rejected">
+                        ❌ Rejected
+                    </span>
+                `;
+
+            }
+
+
+            return `
+                <span class="status submitted">
+                    📤 Submitted
+                </span>
+            `;
+
+        }
+
+
+
+        /* =====================================================
+           FORMAT DATE
+        ===================================================== */
+
+        function formatApplicationDate(
+            application
+        ) {
+
+            const dateValue =
+                application.created_at ||
+                application.applied_at ||
+                application.application_date;
+
+
+            if (!dateValue) {
+
+                return "Application date unavailable";
+
+            }
+
+
+            const date =
+                new Date(
+                    dateValue
+                );
+
+
+            if (
+                Number.isNaN(
+                    date.getTime()
+                )
+            ) {
+
+                return "Application date unavailable";
+
+            }
+
+
+            return (
+                "Applied on " +
+                date.toLocaleDateString(
+                    "en-IN",
+                    {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric"
+                    }
+                )
+            );
+
+        }
+
+
+
+        /* =====================================================
+           OPPORTUNITY ICON
+        ===================================================== */
+
+        function getOpportunityIcon(
+            category
+        ) {
+
+            const value =
+                String(
+                    category || ""
+                )
+                .toLowerCase();
+
+
+            if (
+                value.includes("finance") ||
+                value.includes("fund") ||
+                value.includes("loan")
+            ) {
+
+                return "💰";
+
+            }
+
+
+            if (
+                value.includes("market") ||
+                value.includes("business") ||
+                value.includes("commerce")
+            ) {
+
+                return "🛒";
+
+            }
+
+
+            if (
+                value.includes("skill") ||
+                value.includes("training") ||
+                value.includes("education")
+            ) {
+
+                return "📚";
+
+            }
+
+
+            if (
+                value.includes("technology") ||
+                value.includes("tech") ||
+                value.includes("digital")
+            ) {
+
+                return "💻";
+
+            }
+
+
+            if (
+                value.includes("women")
+            ) {
+
+                return "👩‍💼";
+
+            }
+
+
+            return "🎯";
+
+        }
+
+
+
+        /* =====================================================
+           LOAD APPLICATIONS
+        ===================================================== */
+
+        async function loadApplications() {
+
+            const container =
+                document.getElementById(
+                    "applicationsContainer"
+                );
 
 
             const emptyState =
@@ -942,17 +1215,207 @@
                 );
 
 
-            if (visibleCount === 0) {
+            container.innerHTML = `
 
-                emptyState.style.display =
-                    "block";
+                <div class="loading-state">
 
-            }
+                    <div class="loading-icon">
+                        ⏳
+                    </div>
 
-            else {
+                    <h2>
+                        Loading Applications...
+                    </h2>
 
-                emptyState.style.display =
-                    "none";
+                    <p>
+                        SAKSHAM is checking your applications.
+                    </p>
+
+                </div>
+
+            `;
+
+
+            emptyState.style.display =
+                "none";
+
+
+            try {
+
+                /*
+                   First load applications.
+                */
+
+                const {
+                    data: applications,
+                    error: applicationError
+                } =
+                    await supabaseClient
+                        .from("applications")
+                        .select("*")
+                        .order(
+                            "created_at",
+                            {
+                                ascending: false
+                            }
+                        );
+
+
+                if (applicationError) {
+
+                    console.error(
+                        "Applications error:",
+                        applicationError
+                    );
+
+                    showDatabaseError(
+                        applicationError.message
+                    );
+
+                    return;
+
+                }
+
+
+                const rawApplications =
+                    applications || [];
+
+
+                /*
+                   No applications.
+                */
+
+                if (
+                    rawApplications.length === 0
+                ) {
+
+                    allApplications = [];
+
+                    updateStatistics();
+
+                    showEmptyState(
+                        "You haven't applied to any opportunities yet."
+                    );
+
+                    return;
+
+                }
+
+
+                /*
+                   Collect opportunity IDs.
+                */
+
+                const opportunityIds =
+                    rawApplications
+                        .map(
+                            application =>
+                                application.opportunity_id
+                        )
+                        .filter(Boolean);
+
+
+                let opportunities = [];
+
+
+                /*
+                   Load matching opportunities.
+                */
+
+                if (
+                    opportunityIds.length > 0
+                ) {
+
+                    const {
+                        data: opportunityData,
+                        error: opportunityError
+                    } =
+                        await supabaseClient
+                            .from("opportunities")
+                            .select("*")
+                            .in(
+                                "id",
+                                opportunityIds
+                            );
+
+
+                    if (opportunityError) {
+
+                        console.error(
+                            "Opportunity lookup error:",
+                            opportunityError
+                        );
+
+                    } else {
+
+                        opportunities =
+                            opportunityData ||
+                            [];
+
+                    }
+
+                }
+
+
+                /*
+                   Combine application +
+                   opportunity data.
+                */
+
+                allApplications =
+                    rawApplications.map(
+                        application => {
+
+                            const opportunity =
+                                opportunities.find(
+                                    item =>
+                                        String(
+                                            item.id
+                                        ) ===
+                                        String(
+                                            application.opportunity_id
+                                        )
+                                );
+
+
+                            return {
+
+                                ...application,
+
+                                opportunity:
+                                    opportunity ||
+                                    null,
+
+                                normalizedStatus:
+                                    normalizeStatus(
+                                        application.status
+                                    )
+
+                            };
+
+                        }
+                    );
+
+
+                updateStatistics();
+
+
+                displayApplications(
+                    allApplications
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "Unexpected applications error:",
+                    error
+                );
+
+
+                showDatabaseError(
+                    error.message
+                );
 
             }
 
@@ -960,70 +1423,652 @@
 
 
 
-        /* =========================
-           VIEW APPLICATION
-        ========================= */
+        /* =====================================================
+           UPDATE STATISTICS
+        ===================================================== */
 
-        function viewApplication(name) {
+        function updateStatistics() {
 
-            alert(
-                "📋 Application Details\n\n" +
-                name +
-                "\n\nYour application is currently being processed."
+            const total =
+                allApplications.length;
+
+
+            const underReview =
+                allApplications.filter(
+                    application =>
+                        application.normalizedStatus ===
+                        "review"
+                ).length;
+
+
+            const shortlisted =
+                allApplications.filter(
+                    application =>
+                        application.normalizedStatus ===
+                        "shortlisted"
+                ).length;
+
+
+            document.getElementById(
+                "totalApplications"
+            ).textContent =
+                total;
+
+
+            document.getElementById(
+                "underReview"
+            ).textContent =
+                underReview;
+
+
+            document.getElementById(
+                "shortlisted"
+            ).textContent =
+                shortlisted;
+
+        }
+
+
+
+        /* =====================================================
+           DISPLAY APPLICATIONS
+        ===================================================== */
+
+        function displayApplications(
+            applications
+        ) {
+
+            const container =
+                document.getElementById(
+                    "applicationsContainer"
+                );
+
+
+            const emptyState =
+                document.getElementById(
+                    "emptyState"
+                );
+
+
+            if (
+                !applications ||
+                applications.length === 0
+            ) {
+
+                container.innerHTML = "";
+
+                showEmptyState();
+
+                return;
+
+            }
+
+
+            emptyState.style.display =
+                "none";
+
+
+            container.innerHTML = "";
+
+
+            applications.forEach(
+                application => {
+
+                    const card =
+                        createApplicationCard(
+                            application
+                        );
+
+
+                    container.appendChild(
+                        card
+                    );
+
+                }
             );
 
         }
 
 
 
-        /* =========================
-           LOAD PROFILE NAME
-        ========================= */
+        /* =====================================================
+           CREATE APPLICATION CARD
+        ===================================================== */
 
-        function loadProfile() {
+        function createApplicationCard(
+            application
+        ) {
 
-
-            const saved =
-                localStorage.getItem(
-                    "sakshamProfile"
+            const card =
+                document.createElement(
+                    "div"
                 );
 
 
-            if (!saved) return;
+            card.className =
+                "application-card";
 
 
-            const profile =
-                JSON.parse(saved);
+            card.dataset.status =
+                application.normalizedStatus;
 
 
-            if (profile.name) {
-
-                document
-                    .getElementById(
-                        "sidebarName"
-                    )
-                    .textContent =
-                    profile.name;
+            const opportunity =
+                application.opportunity;
 
 
-                document
-                    .getElementById(
-                        "sidebarAvatar"
-                    )
-                    .textContent =
-                    profile.name
-                    .charAt(0)
-                    .toUpperCase();
+            const title =
+                opportunity?.title ||
+                application.title ||
+                "Opportunity";
 
-            }
+
+            const organization =
+                opportunity?.organization ||
+                application.organization ||
+                "Organization";
+
+
+            const category =
+                opportunity?.category ||
+                "Opportunity";
+
+
+            const icon =
+                getOpportunityIcon(
+                    category
+                );
+
+
+            card.innerHTML = `
+
+                <div class="application-left">
+
+                    <div class="opportunity-icon">
+                        ${icon}
+                    </div>
+
+
+                    <div class="application-info">
+
+                        <h3>
+                            ${escapeHTML(
+                                title
+                            )}
+                        </h3>
+
+
+                        <div class="organization">
+
+                            ${escapeHTML(
+                                organization
+                            )}
+
+                        </div>
+
+
+                        <div class="application-date">
+
+                            ${escapeHTML(
+                                formatApplicationDate(
+                                    application
+                                )
+                            )}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="application-right">
+
+                    ${getStatusHTML(
+                        application.status
+                    )}
+
+
+                    <button
+                        class="view-btn"
+                        onclick="viewApplication(
+                            '${escapeAttribute(
+                                application.id
+                            )}'
+                        )">
+
+                        View Details
+
+                    </button>
+
+                </div>
+
+            `;
+
+
+            return card;
 
         }
 
 
 
-        /* =========================
+        /* =====================================================
+           FILTER APPLICATIONS
+        ===================================================== */
+
+        function filterApplications(
+            status,
+            button
+        ) {
+
+            document
+                .querySelectorAll(
+                    ".filter-btn"
+                )
+                .forEach(
+                    btn => {
+
+                        btn.classList.remove(
+                            "active"
+                        );
+
+                    }
+                );
+
+
+            button.classList.add(
+                "active"
+            );
+
+
+            if (
+                status === "all"
+            ) {
+
+                displayApplications(
+                    allApplications
+                );
+
+                return;
+
+            }
+
+
+            const filtered =
+                allApplications.filter(
+                    application =>
+                        application.normalizedStatus ===
+                        status
+                );
+
+
+            if (
+                filtered.length === 0
+            ) {
+
+                document.getElementById(
+                    "applicationsContainer"
+                ).innerHTML = "";
+
+
+                showEmptyState(
+                    getEmptyMessage(
+                        status
+                    )
+                );
+
+
+                return;
+
+            }
+
+
+            displayApplications(
+                filtered
+            );
+
+        }
+
+
+
+        /* =====================================================
+           EMPTY MESSAGE
+        ===================================================== */
+
+        function getEmptyMessage(
+            status
+        ) {
+
+            if (
+                status === "submitted"
+            ) {
+
+                return "You don't have any submitted applications.";
+
+            }
+
+
+            if (
+                status === "review"
+            ) {
+
+                return "You don't have any applications under review.";
+
+            }
+
+
+            if (
+                status === "shortlisted"
+            ) {
+
+                return "You don't have any shortlisted applications yet.";
+
+            }
+
+
+            return "You haven't applied to any opportunities yet.";
+
+        }
+
+
+
+        /* =====================================================
+           SHOW EMPTY STATE
+        ===================================================== */
+
+        function showEmptyState(
+            message
+        ) {
+
+            const emptyState =
+                document.getElementById(
+                    "emptyState"
+                );
+
+
+            const emptyMessage =
+                document.getElementById(
+                    "emptyMessage"
+                );
+
+
+            if (emptyMessage) {
+
+                emptyMessage.textContent =
+                    message ||
+                    "You haven't applied to any opportunities yet.";
+
+            }
+
+
+            emptyState.style.display =
+                "block";
+
+        }
+
+
+
+        /* =====================================================
+           VIEW APPLICATION DETAILS
+        ===================================================== */
+
+        function viewApplication(
+            applicationId
+        ) {
+
+            const application =
+                allApplications.find(
+                    item =>
+                        String(
+                            item.id
+                        ) ===
+                        String(
+                            applicationId
+                        )
+                );
+
+
+            if (!application) {
+
+                alert(
+                    "Application information could not be found."
+                );
+
+                return;
+
+            }
+
+
+            const opportunity =
+                application.opportunity;
+
+
+            const title =
+                opportunity?.title ||
+                application.title ||
+                "Opportunity";
+
+
+            const organization =
+                opportunity?.organization ||
+                application.organization ||
+                "Organization";
+
+
+            const status =
+                getReadableStatus(
+                    application.status
+                );
+
+
+            const date =
+                formatApplicationDate(
+                    application
+                );
+
+
+            alert(
+                "📋 Application Details\n\n" +
+
+                title +
+
+                "\n\nOrganization: " +
+                organization +
+
+                "\n\nStatus: " +
+                status +
+
+                "\n\n" +
+                date
+            );
+
+        }
+
+
+
+        /* =====================================================
+           READABLE STATUS
+        ===================================================== */
+
+        function getReadableStatus(
+            status
+        ) {
+
+            const normalized =
+                normalizeStatus(
+                    status
+                );
+
+
+            if (
+                normalized ===
+                "shortlisted"
+            ) {
+
+                return "Shortlisted";
+
+            }
+
+
+            if (
+                normalized ===
+                "review"
+            ) {
+
+                return "Under Review";
+
+            }
+
+
+            if (
+                normalized ===
+                "rejected"
+            ) {
+
+                return "Rejected";
+
+            }
+
+
+            return "Submitted";
+
+        }
+
+
+
+        /* =====================================================
+           DATABASE ERROR
+        ===================================================== */
+
+        function showDatabaseError(
+            message
+        ) {
+
+            const container =
+                document.getElementById(
+                    "applicationsContainer"
+                );
+
+
+            const emptyState =
+                document.getElementById(
+                    "emptyState"
+                );
+
+
+            emptyState.style.display =
+                "none";
+
+
+            container.innerHTML = `
+
+                <div class="error-state">
+
+                    <div class="error-icon">
+                        ⚠️
+                    </div>
+
+                    <h2>
+                        Couldn't Load Applications
+                    </h2>
+
+                    <p>
+                        SAKSHAM couldn't connect to
+                        the applications database.
+                    </p>
+
+                    <button
+                        class="retry-btn"
+                        onclick="loadApplications()">
+
+                        Try Again
+
+                    </button>
+
+                </div>
+
+            `;
+
+
+            console.error(
+                "Supabase error:",
+                message
+            );
+
+        }
+
+
+
+        /* =====================================================
+           SECURITY
+        ===================================================== */
+
+        function escapeHTML(
+            value
+        ) {
+
+            if (
+                value === null ||
+                value === undefined
+            ) {
+
+                return "";
+
+            }
+
+
+            return String(value)
+
+                .replace(
+                    /&/g,
+                    "&amp;"
+                )
+
+                .replace(
+                    /</g,
+                    "&lt;"
+                )
+
+                .replace(
+                    />/g,
+                    "&gt;"
+                )
+
+                .replace(
+                    /"/g,
+                    "&quot;"
+                )
+
+                .replace(
+                    /'/g,
+                    "&#039;"
+                );
+
+        }
+
+
+
+        function escapeAttribute(
+            value
+        ) {
+
+            return String(value)
+                .replace(
+                    /\\/g,
+                    "\\\\"
+                )
+                .replace(
+                    /'/g,
+                    "\\'"
+                );
+
+        }
+
+
+
+        /* =====================================================
            LOGOUT
-        ========================= */
+        ===================================================== */
 
         function logout() {
 
@@ -1034,8 +2079,26 @@
 
 
 
-        window.onload =
-            loadProfile;
+        /* =====================================================
+           PAGE LOAD
+        ===================================================== */
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function() {
+
+                console.log(
+                    "SAKSHAM Applications page loaded."
+                );
+
+
+                loadProfile();
+
+
+                loadApplications();
+
+            }
+        );
 
     </script>
 
