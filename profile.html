@@ -12,7 +12,6 @@
 
     <link rel="stylesheet" href="../style.css">
 
-
     <style>
 
         .profile-page {
@@ -20,12 +19,10 @@
             background: #f8f7f4;
         }
 
-
         .profile-layout {
             display: flex;
             min-height: calc(100vh - 81px);
         }
-
 
         /* ================= SIDEBAR ================= */
 
@@ -37,14 +34,12 @@
             flex-shrink: 0;
         }
 
-
         .sidebar-profile {
             padding: 20px 15px;
             background: rgba(255,255,255,0.08);
             border-radius: 12px;
             margin-bottom: 30px;
         }
-
 
         .profile-avatar {
             width: 50px;
@@ -63,24 +58,20 @@
             margin-bottom: 12px;
         }
 
-
         .sidebar-profile h3 {
             font-size: 16px;
         }
-
 
         .sidebar-profile p {
             font-size: 12px;
             color: #b9c8bf;
         }
 
-
         .sidebar-menu {
             display: flex;
             flex-direction: column;
             gap: 7px;
         }
-
 
         .sidebar-menu a {
             text-decoration: none;
@@ -95,18 +86,15 @@
             transition: 0.2s;
         }
 
-
         .sidebar-menu a:hover,
         .sidebar-menu a.active {
             background: rgba(255,255,255,0.12);
             color: white;
         }
 
-
         .sidebar-menu a span {
             margin-right: 10px;
         }
-
 
         /* ================= MAIN ================= */
 
@@ -116,23 +104,19 @@
             max-width: 1200px;
         }
 
-
         .page-header {
             margin-bottom: 30px;
         }
-
 
         .page-header h1 {
             font-size: 32px;
             margin-bottom: 6px;
         }
 
-
         .page-header p {
             color: #6b756e;
             font-size: 14px;
         }
-
 
         /* ================= PROFILE CARD ================= */
 
@@ -144,19 +128,16 @@
             margin-bottom: 25px;
         }
 
-
         .section-title {
             font-size: 19px;
             margin-bottom: 6px;
         }
-
 
         .section-description {
             color: #737d76;
             font-size: 12px;
             margin-bottom: 25px;
         }
-
 
         /* ================= FORM ================= */
 
@@ -166,24 +147,20 @@
             gap: 20px;
         }
 
-
         .form-group {
             display: flex;
             flex-direction: column;
         }
 
-
         .form-group.full {
             grid-column: 1 / -1;
         }
-
 
         .form-group label {
             font-size: 12px;
             font-weight: 700;
             margin-bottom: 8px;
         }
-
 
         .form-group input,
         .form-group select,
@@ -206,12 +183,10 @@
             box-sizing: border-box;
         }
 
-
         .form-group textarea {
             resize: vertical;
             min-height: 100px;
         }
-
 
         .form-group input:focus,
         .form-group select:focus,
@@ -219,13 +194,11 @@
             border-color: #16734a;
         }
 
-
         .helper-text {
             font-size: 10px;
             color: #8a938d;
             margin-top: 6px;
         }
-
 
         /* ================= SKILLS ================= */
 
@@ -235,7 +208,6 @@
             gap: 9px;
             margin-top: 10px;
         }
-
 
         .skill-option {
 
@@ -254,19 +226,93 @@
             transition: 0.2s;
         }
 
-
         .skill-option:hover {
             border-color: #16734a;
         }
 
-
         .skill-option.selected {
+
             background: #e5f1e9;
+
             border-color: #16734a;
+
             color: #16734a;
+
             font-weight: 700;
         }
 
+        /* ================= CUSTOM SKILL ================= */
+
+        .custom-skill-box {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .custom-skill-box input {
+            flex: 1;
+            padding: 11px 13px;
+            border: 1px solid #d8dfda;
+            border-radius: 7px;
+            outline: none;
+            font-size: 12px;
+        }
+
+        .custom-skill-box input:focus {
+            border-color: #16734a;
+        }
+
+        .add-skill-btn {
+            padding: 11px 18px;
+            background: #173d2b;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .add-skill-btn:hover {
+            opacity: 0.9;
+        }
+
+        .custom-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+            margin-top: 15px;
+        }
+
+        .custom-skill-tag {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+
+            padding: 8px 12px;
+
+            background: #e5f1e9;
+
+            border: 1px solid #16734a;
+
+            color: #16734a;
+
+            border-radius: 20px;
+
+            font-size: 11px;
+
+            font-weight: 700;
+        }
+
+        .remove-skill {
+            border: none;
+            background: transparent;
+            color: #16734a;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 800;
+            padding: 0;
+        }
 
         /* ================= INTERESTS ================= */
 
@@ -276,7 +322,6 @@
             gap: 10px;
             margin-top: 10px;
         }
-
 
         .interest-option {
 
@@ -295,11 +340,9 @@
             transition: 0.2s;
         }
 
-
         .interest-option:hover {
             border-color: #16734a;
         }
-
 
         .interest-option.selected {
 
@@ -311,7 +354,6 @@
 
             font-weight: 700;
         }
-
 
         /* ================= SAVE ================= */
 
@@ -325,7 +367,6 @@
 
             margin-top: 25px;
         }
-
 
         .cancel-btn {
 
@@ -343,7 +384,6 @@
 
             font-weight: 700;
         }
-
 
         .save-btn {
 
@@ -364,11 +404,9 @@
             font-weight: 700;
         }
 
-
         .save-btn:hover {
             opacity: 0.9;
         }
-
 
         /* ================= PROFILE STRENGTH ================= */
 
@@ -383,7 +421,6 @@
             margin-bottom: 25px;
         }
 
-
         .strength-header {
 
             display: flex;
@@ -395,11 +432,9 @@
             margin-bottom: 10px;
         }
 
-
         .strength-header strong {
             color: #16734a;
         }
-
 
         .progress-bar {
 
@@ -414,12 +449,11 @@
             overflow: hidden;
         }
 
-
         .progress {
 
             height: 100%;
 
-            width: 70%;
+            width: 0%;
 
             background: #16734a;
 
@@ -427,7 +461,6 @@
 
             transition: 0.3s;
         }
-
 
         /* ================= RESPONSIVE ================= */
 
@@ -437,46 +470,42 @@
                 display: block;
             }
 
-
             .sidebar {
                 width: 100%;
                 padding: 15px;
             }
 
-
             .sidebar-profile {
                 display: none;
             }
-
 
             .sidebar-menu {
                 flex-direction: row;
                 overflow-x: auto;
             }
 
-
             .sidebar-menu a {
                 white-space: nowrap;
             }
-
 
             .profile-main {
                 padding: 25px 18px;
             }
 
-
             .form-grid {
                 grid-template-columns: 1fr;
             }
-
 
             .form-group.full {
                 grid-column: auto;
             }
 
-
             .interest-grid {
                 grid-template-columns: 1fr 1fr;
+            }
+
+            .custom-skill-box {
+                flex-direction: column;
             }
 
         }
@@ -489,1063 +518,1170 @@
 <body class="profile-page">
 
 
-    <!-- ================= NAVBAR ================= -->
+<header class="navbar">
 
-    <header class="navbar">
+    <div class="logo">
 
-        <div class="logo">
+        <span>SAKSHAM</span>
 
-            <span>SAKSHAM</span>
+        <small>
+            Empowering Skills, Enabling Opportunities.
+        </small>
 
-            <small>
-                Empowering Skills
-            </small>
+    </div>
+
+    <button
+        class="login-btn"
+        onclick="logout()">
+
+        Logout
+
+    </button>
+
+</header>
+
+
+<div class="profile-layout">
+
+
+<aside class="sidebar">
+
+    <div class="sidebar-profile">
+
+        <div
+            class="profile-avatar"
+            id="sidebarAvatar">
+
+            A
 
         </div>
 
-
-        <button
-            class="login-btn"
-            onclick="logout()">
-
-            Logout
-
-        </button>
-
-    </header>
-
-
-
-    <div class="profile-layout">
-
-
-        <!-- ================= SIDEBAR ================= -->
-
-        <aside class="sidebar">
-
-
-            <div class="sidebar-profile">
-
-                <div class="profile-avatar"
-                     id="sidebarAvatar">
-
-                    A
-
-                </div>
-
-
-                <h3 id="sidebarName">
-                    Ananya
-                </h3>
-
-
-                <p>
-                    Handicraft Entrepreneur
-                </p>
-
-            </div>
-
-
-            <div class="sidebar-menu">
-
-
-                <a href="dashboard.html">
-
-                    <span>🏠</span>
-                    Dashboard
-
-                </a>
-
-
-                <a href="opportunities.html">
-
-                    <span>🎯</span>
-                    Opportunities
-
-                </a>
-
-
-                <a href="skills.html">
-
-                    <span>📈</span>
-                    Skill Growth
-
-                </a>
-
-
-                <a href="applications.html">
-
-                    <span>📋</span>
-                    Applications
-
-                </a>
-
-
-                <a href="profile.html"
-                   class="active">
-
-                    <span>👤</span>
-                    My Profile
-
-                </a>
-
-
-            </div>
-
-        </aside>
-
-
-
-        <!-- ================= MAIN ================= -->
-
-        <main class="profile-main">
-
-
-            <div class="page-header">
-
-                <h1>
-                    My Profile 👤
-                </h1>
-
-                <p>
-                    Tell SAKSHAM about yourself so we can
-                    find better opportunities for you.
-                </p>
-
-            </div>
-
-
-
-            <!-- ================= STRENGTH ================= -->
-
-            <div class="strength-box">
-
-                <div class="strength-header">
-
-                    <span>
-                        Profile Strength
-                    </span>
-
-                    <strong id="strengthText">
-                        70%
-                    </strong>
-
-                </div>
-
-
-                <div class="progress-bar">
-
-                    <div
-                        class="progress"
-                        id="strengthProgress">
-                    </div>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- ================= BASIC INFORMATION ================= -->
-
-            <div class="profile-card">
-
-
-                <h2 class="section-title">
-                    👤 Basic Information
-                </h2>
-
-
-                <p class="section-description">
-                    Basic information helps us personalize your experience.
-                </p>
-
-
-                <div class="form-grid">
-
-
-                    <div class="form-group">
-
-                        <label>
-                            Full Name *
-                        </label>
-
-                        <input
-                            type="text"
-                            id="name"
-                            placeholder="Enter your name"
-                            oninput="updateStrength()">
-
-                    </div>
-
-
-
-                    <div class="form-group">
-
-                        <label>
-                            Location *
-                        </label>
-
-                        <input
-                            type="text"
-                            id="location"
-                            placeholder="City / District"
-                            oninput="updateStrength()">
-
-                    </div>
-
-
-
-                    <div class="form-group">
-
-                        <label>
-                            Business Type *
-                        </label>
-
-                        <select
-                            id="businessType"
-                            onchange="updateStrength()">
-
-                            <option value="">
-                                Select business type
-                            </option>
-
-                            <option>
-                                Handicraft
-                            </option>
-
-                            <option>
-                                Textile
-                            </option>
-
-                            <option>
-                                Food & Food Processing
-                            </option>
-
-                            <option>
-                                Agriculture
-                            </option>
-
-                            <option>
-                                Retail
-                            </option>
-
-                            <option>
-                                Services
-                            </option>
-
-                            <option>
-                                Digital Business
-                            </option>
-
-                            <option>
-                                Other
-                            </option>
-
-                        </select>
-
-                    </div>
-
-
-
-                    <div class="form-group">
-
-                        <label>
-                            Business Stage
-                        </label>
-
-                        <select
-                            id="businessStage"
-                            onchange="updateStrength()">
-
-                            <option value="">
-                                Select stage
-                            </option>
-
-                            <option>
-                                Idea Stage
-                            </option>
-
-                            <option>
-                                Starting
-                            </option>
-
-                            <option>
-                                Early Business
-                            </option>
-
-                            <option>
-                                Growing Business
-                            </option>
-
-                            <option>
-                                Established
-                            </option>
-
-                        </select>
-
-                    </div>
-
-
-
-                    <div class="form-group">
-
-                        <label>
-                            Years of Experience
-                        </label>
-
-                        <select
-                            id="experience"
-                            onchange="updateStrength()">
-
-                            <option value="">
-                                Select experience
-                            </option>
-
-                            <option>
-                                Less than 1 year
-                            </option>
-
-                            <option>
-                                1–3 years
-                            </option>
-
-                            <option>
-                                3–5 years
-                            </option>
-
-                            <option>
-                                5–10 years
-                            </option>
-
-                            <option>
-                                10+ years
-                            </option>
-
-                        </select>
-
-                    </div>
-
-
-
-                    <div class="form-group">
-
-                        <label>
-                            Preferred Opportunity Type
-                        </label>
-
-                        <select
-                            id="opportunityType"
-                            onchange="updateStrength()">
-
-                            <option value="">
-                                Select preference
-                            </option>
-
-                            <option>
-                                Funding
-                            </option>
-
-                            <option>
-                                Market Access
-                            </option>
-
-                            <option>
-                                Training
-                            </option>
-
-                            <option>
-                                Partnership
-                            </option>
-
-                            <option>
-                                Mentorship
-                            </option>
-
-                            <option>
-                                Employment
-                            </option>
-
-                        </select>
-
-                    </div>
-
-
-                </div>
-
-            </div>
-
-
-
-            <!-- ================= SKILLS ================= -->
-
-            <div class="profile-card">
-
-
-                <h2 class="section-title">
-                    🛠️ Your Skills
-                </h2>
-
-
-                <p class="section-description">
-                    Select the skills you currently have.
-                    This information will power your opportunity matching.
-                </p>
-
-
-                <div
-                    class="skills-selection"
-                    id="skillsSelection">
-
-
-                    <button
-                        type="button"
-                        class="skill-option"
-                        onclick="toggleSkill(this)">
-
-                        Tailoring
-
-                    </button>
-
-
-                    <button
-                        type="button"
-                        class="skill-option"
-                        onclick="toggleSkill(this)">
-
-                        Embroidery
-
-                    </button>
-
-
-                    <button
-                        type="button"
-                        class="skill-option"
-                        onclick="toggleSkill(this)">
-
-                        Handicraft
-
-                    </button>
-
-
-                    <button
-                        type="button"
-                        class="skill-option"
-                        onclick="toggleSkill(this)">
-
-                        Textile Work
-
-                    </button>
-
-
-                    <button
-                        type="button"
-                        class="skill-option"
-                        onclick="toggleSkill(this)">
-
-                        Cooking
-
-                    </button>
-
-
-                    <button
-                        type="button"
-                        class="skill-option"
-                        onclick="toggleSkill(this)">
-
-                        Agriculture
-
-                    </button>
-
-
-                    <button
-                        type="button"
-                        class="skill-option"
-                        onclick="toggleSkill(this)">
-
-                        Sales
-
-                    </button>
-
-
-                    <button
-                        type="button"
-                        class="skill-option"
-                        onclick="toggleSkill(this)">
-
-                        Business Management
-
-                    </button>
-
-
-                    <button
-                        type="button"
-                        class="skill-option"
-                        onclick="toggleSkill(this)">
-
-                        Digital Marketing
-
-                    </button>
-
-
-                    <button
-                        type="button"
-                        class="skill-option"
-                        onclick="toggleSkill(this)">
-
-                        E-Commerce
-
-                    </button>
-
-
-                    <button
-                        type="button"
-                        class="skill-option"
-                        onclick="toggleSkill(this)">
-
-                        Product Photography
-
-                    </button>
-
-
-                    <button
-                        type="button"
-                        class="skill-option"
-                        onclick="toggleSkill(this)">
-
-                        Social Media
-
-                    </button>
-
-
-                </div>
-
-
-                <p class="helper-text">
-                    You can select multiple skills.
-                </p>
-
-            </div>
-
-
-
-            <!-- ================= INTERESTS ================= -->
-
-            <div class="profile-card">
-
-
-                <h2 class="section-title">
-                    🎯 Areas You're Interested In
-                </h2>
-
-
-                <p class="section-description">
-                    Choose the areas where you want to grow your business.
-                </p>
-
-
-                <div class="interest-grid">
-
-
-                    <div
-                        class="interest-option"
-                        onclick="toggleInterest(this)">
-
-                        💰 Funding
-
-                    </div>
-
-
-                    <div
-                        class="interest-option"
-                        onclick="toggleInterest(this)">
-
-                        🛒 Market Access
-
-                    </div>
-
-
-                    <div
-                        class="interest-option"
-                        onclick="toggleInterest(this)">
-
-                        📚 Training
-
-                    </div>
-
-
-                    <div
-                        class="interest-option"
-                        onclick="toggleInterest(this)">
-
-                        🤝 Partnerships
-
-                    </div>
-
-
-                    <div
-                        class="interest-option"
-                        onclick="toggleInterest(this)">
-
-                        👩‍🏫 Mentorship
-
-                    </div>
-
-
-                    <div
-                        class="interest-option"
-                        onclick="toggleInterest(this)">
-
-                        📱 Digital Growth
-
-                    </div>
-
-
-                </div>
-
-            </div>
-
-
-
-            <!-- ================= BUSINESS DESCRIPTION ================= -->
-
-            <div class="profile-card">
-
-
-                <h2 class="section-title">
-                    📝 About Your Business
-                </h2>
-
-
-                <p class="section-description">
-                    Tell us briefly about your business and what you offer.
-                </p>
-
-
-                <div class="form-group">
-
-                    <textarea
-                        id="businessDescription"
-                        placeholder="Example: I create handmade embroidered bags and traditional textile products..."
-                        oninput="updateStrength()"></textarea>
-
-                </div>
-
-
-                <div class="save-section">
-
-                    <button
-                        class="cancel-btn"
-                        onclick="window.location.href='dashboard.html'">
-
-                        Cancel
-
-                    </button>
-
-
-                    <button
-                        class="save-btn"
-                        onclick="saveProfile()">
-
-                        Save Profile ✓
-
-                    </button>
-
-                </div>
-
-
-            </div>
-
-
-        </main>
+        <h3 id="sidebarUserName">
+            Entrepreneur
+        </h3>
+
+        <p id="sidebarBusinessType">
+            Entrepreneur
+        </p>
 
     </div>
 
 
+    <div class="sidebar-menu">
 
-    <!-- ================= JAVASCRIPT ================= -->
+        <a href="dashboard.html">
+            <span>🏠</span>
+            Dashboard
+        </a>
 
-    <script>
+        <a href="opportunities.html">
+            <span>🎯</span>
+            Opportunities
+        </a>
+
+        <a href="skills.html">
+            <span>📈</span>
+            Skill Growth
+        </a>
+
+        <a href="applications.html">
+            <span>📋</span>
+            Applications
+        </a>
+
+        <a href="schemes.html">
+            <span>🏛️</span>
+            Schemes Analyzer
+        </a>
+
+        <a href="profile.html" class="active">
+            <span>👤</span>
+            My Profile
+        </a>
+
+    </div>
+
+</aside>
 
 
-        /* =========================
-           SKILL SELECTION
-        ========================= */
+<main class="profile-main">
 
-        function toggleSkill(button) {
 
-            button.classList.toggle("selected");
+<div class="page-header">
+
+    <h1>
+        My Profile 👤
+    </h1>
+
+    <p>
+        Tell SAKSHAM about yourself so we can
+        find better opportunities for you.
+    </p>
+
+</div>
+
+
+<!-- PROFILE STRENGTH -->
+
+<div class="strength-box">
+
+    <div class="strength-header">
+
+        <span>
+            Profile Strength
+        </span>
+
+        <strong id="strengthText">
+            0%
+        </strong>
+
+    </div>
+
+    <div class="progress-bar">
+
+        <div
+            class="progress"
+            id="strengthProgress">
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- BASIC INFORMATION -->
+
+<div class="profile-card">
+
+    <h2 class="section-title">
+        👤 Basic Information
+    </h2>
+
+    <p class="section-description">
+        Basic information helps us personalize your experience.
+    </p>
+
+
+    <div class="form-grid">
+
+
+        <div class="form-group">
+
+            <label>
+                Full Name *
+            </label>
+
+            <input
+                type="text"
+                id="name"
+                placeholder="Enter your name"
+                oninput="updateStrength()">
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Location *
+            </label>
+
+            <input
+                type="text"
+                id="location"
+                placeholder="City / District"
+                oninput="updateStrength()">
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Business Type *
+            </label>
+
+            <select
+                id="businessType"
+                onchange="updateStrength()">
+
+                <option value="">
+                    Select business type
+                </option>
+
+                <option>Handicraft</option>
+                <option>Textile</option>
+                <option>Food & Food Processing</option>
+                <option>Agriculture</option>
+                <option>Retail</option>
+                <option>Services</option>
+                <option>Digital Business</option>
+                <option>Other</option>
+
+            </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Business Stage
+            </label>
+
+            <select
+                id="businessStage"
+                onchange="updateStrength()">
+
+                <option value="">
+                    Select stage
+                </option>
+
+                <option>Idea Stage</option>
+                <option>Starting</option>
+                <option>Early Business</option>
+                <option>Growing Business</option>
+                <option>Established</option>
+
+            </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Years of Experience
+            </label>
+
+            <select
+                id="experience"
+                onchange="updateStrength()">
+
+                <option value="">
+                    Select experience
+                </option>
+
+                <option>Less than 1 year</option>
+                <option>1–3 years</option>
+                <option>3–5 years</option>
+                <option>5–10 years</option>
+                <option>10+ years</option>
+
+            </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Preferred Opportunity Type
+            </label>
+
+            <select
+                id="opportunityType"
+                onchange="updateStrength()">
+
+                <option value="">
+                    Select preference
+                </option>
+
+                <option>Funding</option>
+                <option>Market Access</option>
+                <option>Training</option>
+                <option>Partnership</option>
+                <option>Mentorship</option>
+                <option>Employment</option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- SKILLS -->
+
+<div class="profile-card">
+
+    <h2 class="section-title">
+        🛠️ Your Skills
+    </h2>
+
+    <p class="section-description">
+        Select skills you already have, or add your own custom skills.
+        Your skills will be used by SAKSHAM for opportunity matching.
+    </p>
+
+
+    <div
+        class="skills-selection"
+        id="skillsSelection">
+
+        <button
+            type="button"
+            class="skill-option"
+            onclick="toggleSkill(this)">
+            Tailoring
+        </button>
+
+        <button
+            type="button"
+            class="skill-option"
+            onclick="toggleSkill(this)">
+            Embroidery
+        </button>
+
+        <button
+            type="button"
+            class="skill-option"
+            onclick="toggleSkill(this)">
+            Handicraft
+        </button>
+
+        <button
+            type="button"
+            class="skill-option"
+            onclick="toggleSkill(this)">
+            Textile Work
+        </button>
+
+        <button
+            type="button"
+            class="skill-option"
+            onclick="toggleSkill(this)">
+            Cooking
+        </button>
+
+        <button
+            type="button"
+            class="skill-option"
+            onclick="toggleSkill(this)">
+            Agriculture
+        </button>
+
+        <button
+            type="button"
+            class="skill-option"
+            onclick="toggleSkill(this)">
+            Sales
+        </button>
+
+        <button
+            type="button"
+            class="skill-option"
+            onclick="toggleSkill(this)">
+            Business Management
+        </button>
+
+        <button
+            type="button"
+            class="skill-option"
+            onclick="toggleSkill(this)">
+            Digital Marketing
+        </button>
+
+        <button
+            type="button"
+            class="skill-option"
+            onclick="toggleSkill(this)">
+            E-Commerce
+        </button>
+
+        <button
+            type="button"
+            class="skill-option"
+            onclick="toggleSkill(this)">
+            Product Photography
+        </button>
+
+        <button
+            type="button"
+            class="skill-option"
+            onclick="toggleSkill(this)">
+            Social Media
+        </button>
+
+    </div>
+
+
+    <div class="custom-skill-box">
+
+        <input
+            type="text"
+            id="customSkillInput"
+            placeholder="Add your own skill..."
+            onkeydown="handleSkillKey(event)">
+
+        <button
+            type="button"
+            class="add-skill-btn"
+            onclick="addCustomSkill()">
+
+            + Add Skill
+
+        </button>
+
+    </div>
+
+
+    <div
+        class="custom-skills"
+        id="customSkills">
+    </div>
+
+
+    <p class="helper-text">
+        You can select multiple skills and add skills that are not listed above.
+    </p>
+
+</div>
+
+
+<!-- INTERESTS -->
+
+<div class="profile-card">
+
+    <h2 class="section-title">
+        🎯 Areas You're Interested In
+    </h2>
+
+    <p class="section-description">
+        Choose the areas where you want to grow your business.
+    </p>
+
+
+    <div class="interest-grid">
+
+        <div
+            class="interest-option"
+            onclick="toggleInterest(this)">
+            💰 Funding
+        </div>
+
+        <div
+            class="interest-option"
+            onclick="toggleInterest(this)">
+            🛒 Market Access
+        </div>
+
+        <div
+            class="interest-option"
+            onclick="toggleInterest(this)">
+            📚 Training
+        </div>
+
+        <div
+            class="interest-option"
+            onclick="toggleInterest(this)">
+            🤝 Partnerships
+        </div>
+
+        <div
+            class="interest-option"
+            onclick="toggleInterest(this)">
+            👩‍🏫 Mentorship
+        </div>
+
+        <div
+            class="interest-option"
+            onclick="toggleInterest(this)">
+            📱 Digital Growth
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- BUSINESS DESCRIPTION -->
+
+<div class="profile-card">
+
+    <h2 class="section-title">
+        📝 About Your Business
+    </h2>
+
+    <p class="section-description">
+        Tell us briefly about your business and what you offer.
+    </p>
+
+
+    <div class="form-group">
+
+        <textarea
+            id="businessDescription"
+            placeholder="Example: I create handmade embroidered bags and traditional textile products..."
+            oninput="updateStrength()"></textarea>
+
+    </div>
+
+
+    <div class="save-section">
+
+        <button
+            class="cancel-btn"
+            onclick="window.location.href='dashboard.html'">
+
+            Cancel
+
+        </button>
+
+
+        <button
+            class="save-btn"
+            onclick="saveProfile()">
+
+            Save Profile ✓
+
+        </button>
+
+    </div>
+
+</div>
+
+
+</main>
+
+</div>
+
+
+<script>
+
+
+/* =========================
+   SELECT SKILL
+========================= */
+
+function toggleSkill(button) {
+
+    button.classList.toggle("selected");
+
+    updateStrength();
+
+}
+
+
+/* =========================
+   ADD CUSTOM SKILL
+========================= */
+
+function addCustomSkill() {
+
+    const input =
+        document.getElementById("customSkillInput");
+
+    const skill =
+        input.value.trim();
+
+    if (!skill) {
+
+        return;
+
+    }
+
+
+    const existingSkills =
+        getAllSelectedSkills();
+
+
+    const alreadyExists =
+        existingSkills.some(
+            existing =>
+                existing.toLowerCase() === skill.toLowerCase()
+        );
+
+
+    if (alreadyExists) {
+
+        alert("This skill is already selected.");
+
+        input.value = "";
+
+        return;
+
+    }
+
+
+    createCustomSkill(skill);
+
+    input.value = "";
+
+    updateStrength();
+
+}
+
+
+/* =========================
+   ENTER KEY
+========================= */
+
+function handleSkillKey(event) {
+
+    if (event.key === "Enter") {
+
+        event.preventDefault();
+
+        addCustomSkill();
+
+    }
+
+}
+
+
+/* =========================
+   CREATE CUSTOM SKILL
+========================= */
+
+function createCustomSkill(skill) {
+
+    const container =
+        document.getElementById("customSkills");
+
+
+    const tag =
+        document.createElement("div");
+
+    tag.className =
+        "custom-skill-tag";
+
+
+    const text =
+        document.createElement("span");
+
+    text.textContent =
+        skill;
+
+
+    const removeButton =
+        document.createElement("button");
+
+    removeButton.className =
+        "remove-skill";
+
+    removeButton.type =
+        "button";
+
+    removeButton.textContent =
+        "×";
+
+
+    removeButton.onclick =
+        function() {
+
+            tag.remove();
 
             updateStrength();
 
-        }
+        };
 
 
+    tag.appendChild(text);
 
-        /* =========================
-           INTEREST SELECTION
-        ========================= */
+    tag.appendChild(removeButton);
 
-        function toggleInterest(element) {
+    container.appendChild(tag);
 
-            element.classList.toggle("selected");
-
-            updateStrength();
-
-        }
+}
 
 
+/* =========================
+   GET ALL SKILLS
+========================= */
 
-        /* =========================
-           PROFILE STRENGTH
-        ========================= */
+function getAllSelectedSkills() {
 
-        function updateStrength() {
-
-            let score = 0;
-
-
-            const fields = [
-
-                "name",
-                "location",
-                "businessType",
-                "businessStage",
-                "experience",
-                "opportunityType",
-                "businessDescription"
-
-            ];
+    const selectedSkills =
+        Array.from(
+            document.querySelectorAll(
+                ".skill-option.selected"
+            )
+        ).map(
+            button =>
+                button.textContent.trim()
+        );
 
 
-            fields.forEach(id => {
-
-                const field =
-                    document.getElementById(id);
-
-                if (
-                    field &&
-                    field.value.trim() !== ""
-                ) {
-
-                    score += 10;
-
-                }
-
-            });
+    const customSkills =
+        Array.from(
+            document.querySelectorAll(
+                ".custom-skill-tag span"
+            )
+        ).map(
+            element =>
+                element.textContent.trim()
+        );
 
 
-            const skills =
-                document.querySelectorAll(
-                    ".skill-option.selected"
-                );
+    return [
+        ...selectedSkills,
+        ...customSkills
+    ];
+
+}
 
 
-            if (skills.length > 0) {
+/* =========================
+   INTERESTS
+========================= */
 
-                score += 15;
+function toggleInterest(element) {
 
-            }
+    element.classList.toggle("selected");
 
+    updateStrength();
 
-            const interests =
-                document.querySelectorAll(
-                    ".interest-option.selected"
-                );
-
-
-            if (interests.length > 0) {
-
-                score += 15;
-
-            }
+}
 
 
-            score = Math.min(score, 100);
+/* =========================
+   PROFILE STRENGTH
+========================= */
+
+function updateStrength() {
+
+    let score = 0;
 
 
-            document
-                .getElementById(
-                    "strengthText"
-                )
-                .textContent =
-                score + "%";
+    const fields = [
+
+        "name",
+        "location",
+        "businessType",
+        "businessStage",
+        "experience",
+        "opportunityType",
+        "businessDescription"
+
+    ];
 
 
-            document
-                .getElementById(
-                    "strengthProgress"
-                )
-                .style.width =
-                score + "%";
+    fields.forEach(id => {
+
+        const field =
+            document.getElementById(id);
+
+        if (
+            field &&
+            field.value.trim() !== ""
+        ) {
+
+            score += 10;
 
         }
 
+    });
 
 
-        /* =========================
-           SAVE PROFILE
-        ========================= */
-
-        function saveProfile() {
+    const skills =
+        getAllSelectedSkills();
 
 
-            const selectedSkills =
-                Array.from(
-                    document.querySelectorAll(
-                        ".skill-option.selected"
-                    )
-                ).map(
-                    skill => skill.textContent.trim()
-                );
+    if (skills.length > 0) {
+
+        score += 15;
+
+    }
 
 
-            const selectedInterests =
-                Array.from(
-                    document.querySelectorAll(
-                        ".interest-option.selected"
-                    )
-                ).map(
-                    interest => interest.textContent.trim()
-                );
+    const interests =
+        document.querySelectorAll(
+            ".interest-option.selected"
+        );
 
 
-            const profile = {
+    if (interests.length > 0) {
 
-                name:
-                    document
-                    .getElementById("name")
-                    .value,
+        score += 15;
 
-                location:
-                    document
-                    .getElementById("location")
-                    .value,
-
-                businessType:
-                    document
-                    .getElementById("businessType")
-                    .value,
-
-                businessStage:
-                    document
-                    .getElementById("businessStage")
-                    .value,
-
-                experience:
-                    document
-                    .getElementById("experience")
-                    .value,
-
-                opportunityType:
-                    document
-                    .getElementById("opportunityType")
-                    .value,
-
-                skills:
-                    selectedSkills,
-
-                interests:
-                    selectedInterests,
-
-                description:
-                    document
-                    .getElementById("businessDescription")
-                    .value
-
-            };
+    }
 
 
-            localStorage.setItem(
-                "sakshamProfile",
-                JSON.stringify(profile)
-            );
+    score =
+        Math.min(score, 100);
 
 
-            updateSidebar(profile.name);
+    document
+        .getElementById("strengthText")
+        .textContent =
+        score + "%";
 
 
-            alert(
-                "✅ Your SAKSHAM profile has been saved!"
-            );
+    document
+        .getElementById("strengthProgress")
+        .style.width =
+        score + "%";
 
-        }
-
-
-
-        /* =========================
-           LOAD PROFILE
-        ========================= */
-
-        function loadProfile() {
+}
 
 
-            const saved =
-                localStorage.getItem(
-                    "sakshamProfile"
-                );
+/* =========================
+   SAVE PROFILE
+========================= */
+
+function saveProfile() {
 
 
-            if (!saved) return;
+    const selectedSkills =
+        getAllSelectedSkills();
 
 
-            const profile =
-                JSON.parse(saved);
+    const selectedInterests =
+        Array.from(
+            document.querySelectorAll(
+                ".interest-option.selected"
+            )
+        ).map(
+            interest =>
+                interest.textContent.trim()
+        );
 
 
+    const name =
+        document
+        .getElementById("name")
+        .value.trim();
+
+
+    const location =
+        document
+        .getElementById("location")
+        .value.trim();
+
+
+    const businessType =
+        document
+        .getElementById("businessType")
+        .value;
+
+
+    if (
+        !name ||
+        !location ||
+        !businessType
+    ) {
+
+        alert(
+            "Please fill in your name, location and business type."
+        );
+
+        return;
+
+    }
+
+
+    const profile = {
+
+        name: name,
+
+        location: location,
+
+        businessType: businessType,
+
+        businessStage:
             document
-                .getElementById("name")
-                .value =
-                profile.name || "";
+            .getElementById("businessStage")
+            .value,
 
-
+        experience:
             document
-                .getElementById("location")
-                .value =
-                profile.location || "";
+            .getElementById("experience")
+            .value,
 
-
+        opportunityType:
             document
-                .getElementById("businessType")
-                .value =
-                profile.businessType || "";
+            .getElementById("opportunityType")
+            .value,
 
+        skills:
+            selectedSkills,
 
+        interests:
+            selectedInterests,
+
+        description:
             document
-                .getElementById("businessStage")
-                .value =
-                profile.businessStage || "";
+            .getElementById("businessDescription")
+            .value.trim()
+
+    };
 
 
-            document
-                .getElementById("experience")
-                .value =
-                profile.experience || "";
+    localStorage.setItem(
+        "sakshamProfile",
+        JSON.stringify(profile)
+    );
 
 
-            document
-                .getElementById("opportunityType")
-                .value =
-                profile.opportunityType || "";
+    updateSidebar(
+        profile.name,
+        profile.businessType
+    );
 
 
-            document
-                .getElementById("businessDescription")
-                .value =
-                profile.description || "";
+    alert(
+        "✅ Your SAKSHAM profile has been saved!"
+    );
+
+}
 
 
-            /* Restore skills */
+/* =========================
+   LOAD PROFILE
+========================= */
 
-            if (profile.skills) {
+function loadProfile() {
 
-                document
-                    .querySelectorAll(
-                        ".skill-option"
-                    )
-                    .forEach(button => {
+
+    const saved =
+        localStorage.getItem(
+            "sakshamProfile"
+        );
+
+
+    if (!saved) {
+
+        updateStrength();
+
+        return;
+
+    }
+
+
+    try {
+
+        const profile =
+            JSON.parse(saved);
+
+
+        document
+            .getElementById("name")
+            .value =
+            profile.name || "";
+
+
+        document
+            .getElementById("location")
+            .value =
+            profile.location || "";
+
+
+        document
+            .getElementById("businessType")
+            .value =
+            profile.businessType || "";
+
+
+        document
+            .getElementById("businessStage")
+            .value =
+            profile.businessStage || "";
+
+
+        document
+            .getElementById("experience")
+            .value =
+            profile.experience || "";
+
+
+        document
+            .getElementById("opportunityType")
+            .value =
+            profile.opportunityType || "";
+
+
+        document
+            .getElementById("businessDescription")
+            .value =
+            profile.description || "";
+
+
+        /* RESTORE SKILLS */
+
+        if (Array.isArray(profile.skills)) {
+
+            profile.skills.forEach(
+                skill => {
+
+                    const buttons =
+                        document.querySelectorAll(
+                            ".skill-option"
+                        );
+
+
+                    let found =
+                        false;
+
+
+                    buttons.forEach(button => {
 
                         if (
-                            profile.skills.includes(
-                                button.textContent.trim()
-                            )
+                            button.textContent.trim().toLowerCase() ===
+                            skill.toLowerCase()
                         ) {
 
                             button.classList.add(
                                 "selected"
                             );
 
-                        }
-
-                    });
-
-            }
-
-
-            /* Restore interests */
-
-            if (profile.interests) {
-
-                document
-                    .querySelectorAll(
-                        ".interest-option"
-                    )
-                    .forEach(element => {
-
-                        if (
-                            profile.interests.includes(
-                                element.textContent.trim()
-                            )
-                        ) {
-
-                            element.classList.add(
-                                "selected"
-                            );
+                            found = true;
 
                         }
 
                     });
 
-            }
 
+                    if (!found) {
 
-            updateSidebar(profile.name);
+                        createCustomSkill(skill);
 
-            updateStrength();
+                    }
+
+                }
+            );
 
         }
 
 
+        /* RESTORE INTERESTS */
 
-        /* =========================
-           SIDEBAR
-        ========================= */
-
-        function updateSidebar(name) {
-
-            if (!name) return;
-
+        if (Array.isArray(profile.interests)) {
 
             document
-                .getElementById(
-                    "sidebarName"
+                .querySelectorAll(
+                    ".interest-option"
                 )
-                .textContent =
-                name;
+                .forEach(element => {
 
+                    if (
+                        profile.interests.includes(
+                            element.textContent.trim()
+                        )
+                    ) {
 
-            document
-                .getElementById(
-                    "sidebarAvatar"
-                )
-                .textContent =
-                name.charAt(0).toUpperCase();
+                        element.classList.add(
+                            "selected"
+                        );
+
+                    }
+
+                });
 
         }
 
 
-
-        /* =========================
-           LOGOUT
-        ========================= */
-
-        function logout() {
-
-            window.location.href =
-                "../index.html";
-
-        }
+        updateSidebar(
+            profile.name,
+            profile.businessType
+        );
 
 
+        updateStrength();
 
-        /* =========================
-           START
-        ========================= */
+    }
 
-        window.onload =
-            loadProfile;
+    catch(error) {
 
-    </script>
+        console.error(
+            "Could not load saved profile:",
+            error
+        );
+
+        updateStrength();
+
+    }
+
+}
+
+
+/* =========================
+   SIDEBAR
+========================= */
+
+function updateSidebar(
+    name,
+    businessType
+) {
+
+    const sidebarName =
+        document.getElementById(
+            "sidebarUserName"
+        );
+
+
+    const sidebarAvatar =
+        document.getElementById(
+            "sidebarAvatar"
+        );
+
+
+    const sidebarBusinessType =
+        document.getElementById(
+            "sidebarBusinessType"
+        );
+
+
+    if (
+        sidebarName &&
+        name
+    ) {
+
+        sidebarName.textContent =
+            name;
+
+    }
+
+
+    if (
+        sidebarAvatar &&
+        name
+    ) {
+
+        sidebarAvatar.textContent =
+            name
+            .charAt(0)
+            .toUpperCase();
+
+    }
+
+
+    if (
+        sidebarBusinessType &&
+        businessType
+    ) {
+
+        sidebarBusinessType.textContent =
+            businessType +
+            " Entrepreneur";
+
+    }
+
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+function logout() {
+
+    window.location.href =
+        "../index.html";
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+window.onload =
+    loadProfile;
+
+</script>
 
 
 </body>
