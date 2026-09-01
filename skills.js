@@ -1,5 +1,5 @@
 /* =========================================================
-   SAKSHAM - SKILL GROWTH SYSTEM
+   SAKSHAM - USER DEFINED SKILL GROWTH SYSTEM
 ========================================================= */
 
 
@@ -11,16 +11,14 @@ const skillRecommendations = {
 
     "Digital Marketing": {
         icon: "📱",
-        level: "High Priority",
         description:
             "Learn how to promote your products and reach more customers online.",
         benefit:
-            "Can improve your visibility and unlock digital business opportunities."
+            "Can improve your online visibility and customer reach."
     },
 
     "E-Commerce": {
         icon: "🛒",
-        level: "High Priority",
         description:
             "Learn how to sell products through online marketplaces.",
         benefit:
@@ -29,66 +27,133 @@ const skillRecommendations = {
 
     "Financial Management": {
         icon: "💰",
-        level: "Medium Priority",
         description:
-            "Build skills in budgeting, pricing, savings and business finances.",
+            "Learn budgeting, pricing, savings and business finance.",
         benefit:
-            "Helps you manage your business finances more effectively."
+            "Helps you manage your business finances effectively."
     },
 
     "Product Photography": {
         icon: "📸",
-        level: "Medium Priority",
         description:
-            "Learn how to take attractive and useful product photographs.",
+            "Learn how to take attractive product photographs.",
         benefit:
             "Better product presentation can help online selling."
     },
 
     "Sales": {
         icon: "🤝",
-        level: "Medium Priority",
         description:
             "Improve customer communication, negotiation and selling skills.",
         benefit:
             "Can help increase customer reach and business opportunities."
     },
 
-    "Tailoring": {
-        icon: "🧵",
-        level: "Skill Building",
+    "Business Management": {
+        icon: "📊",
         description:
-            "Develop practical tailoring and garment-making skills.",
+            "Develop planning, organization and business management skills.",
         benefit:
-            "Useful for textile, fashion and handicraft opportunities."
+            "Helps you manage and grow your business."
     },
 
-    "Embroidery": {
-        icon: "🪡",
-        level: "Skill Building",
+    "Social Media": {
+        icon: "📱",
         description:
-            "Improve embroidery techniques and product finishing.",
+            "Learn how to use social platforms to promote your business.",
         benefit:
-            "Useful for textile and handicraft-based businesses."
+            "Can increase your online visibility and customer engagement."
     },
 
-    "Handicraft": {
-        icon: "🎨",
-        level: "Skill Building",
+    "Communication": {
+        icon: "💬",
         description:
-            "Develop traditional and creative handicraft skills.",
+            "Improve communication and customer interaction skills.",
         benefit:
-            "Can help you qualify for handicraft marketplaces and partnerships."
+            "Useful for customers, partnerships and business growth."
+    },
+
+    "Digital Skills": {
+        icon: "💻",
+        description:
+            "Build essential digital skills for modern business.",
+        benefit:
+            "Can help you access digital opportunities and services."
     },
 
     "Agriculture": {
         icon: "🌱",
-        level: "Skill Building",
         description:
             "Develop modern agricultural and business practices.",
         benefit:
-            "Can help improve productivity and access to agricultural opportunities."
+            "Can improve productivity and agricultural opportunities."
     }
+
+};
+
+
+/* =========================
+   BUSINESS TYPE RECOMMENDATIONS
+========================= */
+
+const businessRecommendations = {
+
+    "Handicraft": [
+        "Digital Marketing",
+        "E-Commerce",
+        "Product Photography",
+        "Sales"
+    ],
+
+    "Textile": [
+        "Digital Marketing",
+        "E-Commerce",
+        "Product Photography",
+        "Sales"
+    ],
+
+    "Food & Food Processing": [
+        "Digital Marketing",
+        "E-Commerce",
+        "Financial Management",
+        "Sales"
+    ],
+
+    "Agriculture": [
+        "Digital Marketing",
+        "Financial Management",
+        "Sales",
+        "E-Commerce"
+    ],
+
+    "Retail": [
+        "Digital Marketing",
+        "E-Commerce",
+        "Financial Management",
+        "Sales"
+    ],
+
+    "Services": [
+        "Digital Marketing",
+        "Business Management",
+        "Communication",
+        "Sales"
+    ],
+
+    "Digital Business": [
+        "Digital Marketing",
+        "E-Commerce",
+        "Business Management",
+        "Social Media"
+    ],
+
+    "Other": [
+        "Digital Marketing",
+        "Financial Management",
+        "Business Management",
+        "Sales"
+    ]
+
 };
 
 
@@ -119,7 +184,7 @@ function getProfile() {
 
     }
 
-    catch (error) {
+    catch(error) {
 
         console.error(
             "Could not load SAKSHAM profile.",
@@ -134,90 +199,56 @@ function getProfile() {
 
 
 /* =========================
-   GET OPPORTUNITIES
+   GET USER SKILLS
 ========================= */
 
-function getOpportunities() {
-
-    return [
-
-        {
-            title:
-                "Textile Supplier Partnership",
-
-            skills: [
-                "Tailoring",
-                "Embroidery",
-                "Textile"
-            ]
-
-        },
-
-        {
-            title:
-                "Handicraft Marketplace",
-
-            skills: [
-                "Handicraft",
-                "Sales"
-            ]
-
-        },
-
-        {
-            title:
-                "Women Entrepreneur Growth Fund",
-
-            skills: [
-                "Handicraft",
-                "Sales",
-                "Financial Management"
-            ]
-
-        },
-
-        {
-            title:
-                "Rural Market Access Initiative",
-
-            skills: [
-                "Sales",
-                "Handicraft",
-                "E-Commerce"
-            ]
-
-        },
-
-        {
-            title:
-                "Digital Skills Training Program",
-
-            skills: [
-                "Sales",
-                "Digital Marketing"
-            ]
-
-        }
-
-    ];
-
-}
-
-
-/* =========================
-   FIND SKILL GAPS
-========================= */
-
-function findSkillGaps() {
+function getUserSkills() {
 
     const profile =
         getProfile();
 
 
-    /*
-       If no profile exists,
-       show general recommendations.
-    */
+    if (
+        !profile ||
+        !Array.isArray(profile.skills)
+    ) {
+
+        return [];
+
+    }
+
+
+    return profile.skills.filter(
+        skill =>
+            typeof skill === "string" &&
+            skill.trim() !== ""
+    );
+
+}
+
+
+/* =========================
+   NORMALIZE SKILL
+========================= */
+
+function normalizeSkill(skill) {
+
+    return skill
+        .trim()
+        .toLowerCase();
+
+}
+
+
+/* =========================
+   GET RECOMMENDED SKILLS
+========================= */
+
+function getRecommendedSkills() {
+
+    const profile =
+        getProfile();
+
 
     if (!profile) {
 
@@ -230,212 +261,297 @@ function findSkillGaps() {
     }
 
 
+    const businessType =
+        profile.businessType;
+
+
+    let recommendations =
+        businessRecommendations[
+            businessType
+        ] || [
+            "Digital Marketing",
+            "Financial Management",
+            "Business Management",
+            "Sales"
+        ];
+
+
     const userSkills =
-        (profile.skills || [])
-        .map(
-            skill =>
-                skill.toLowerCase()
-        );
+        getUserSkills()
+        .map(normalizeSkill);
 
 
-    const opportunities =
-        getOpportunities();
-
-
-    const missingSkills = [];
-
-
-    opportunities.forEach(
-        opportunity => {
-
-            opportunity.skills.forEach(
-                skill => {
-
-                    const exists =
-                        userSkills.includes(
-                            skill.toLowerCase()
-                        );
-
-
-                    if (
-                        !exists &&
-                        !missingSkills.includes(
-                            skill
-                        )
-                    ) {
-
-                        missingSkills.push(
-                            skill
-                        );
-
-                    }
-
-                }
-            );
-
-        }
+    return recommendations.filter(
+        skill =>
+            !userSkills.includes(
+                normalizeSkill(skill)
+            )
     );
-
-
-    return missingSkills;
 
 }
 
 
 /* =========================
-   COUNT OPPORTUNITIES
-   EACH SKILL CAN UNLOCK
+   SKILL LEVEL
 ========================= */
 
-function countSkillBenefits(
-    skill
+function calculateSkillLevel(
+    index,
+    total
 ) {
 
-    const opportunities =
-        getOpportunities();
+    if (total === 1) {
+
+        return 85;
+
+    }
 
 
-    let count = 0;
+    const levels = [
+        90,
+        82,
+        75,
+        68,
+        62,
+        58,
+        55,
+        52
+    ];
 
 
-    opportunities.forEach(
-        opportunity => {
-
-            const containsSkill =
-                opportunity.skills.some(
-                    requiredSkill =>
-                        requiredSkill
-                            .toLowerCase()
-                        ===
-                        skill.toLowerCase()
-                );
-
-
-            if (containsSkill) {
-
-                count++;
-
-            }
-
-        }
-    );
-
-
-    return count;
+    return levels[
+        index % levels.length
+    ];
 
 }
 
 
 /* =========================
-   CREATE SKILL CARD
+   DISPLAY USER SKILLS
 ========================= */
 
-function createSkillCard(
-    skill
-) {
+function displayUserSkills() {
 
-    const information =
-        skillRecommendations[
-            skill
-        ] || {
-
-            icon: "📚",
-
-            level:
-                "Recommended",
-
-            description:
-                "Develop this skill to improve your business opportunities.",
-
-            benefit:
-                "May help you qualify for additional opportunities."
-
-        };
-
-
-    const opportunityCount =
-        countSkillBenefits(
-            skill
+    const container =
+        document.getElementById(
+            "user-skills-container"
         );
 
 
-    return `
-
-        <div class="skill-growth-card">
-
-            <div class="skill-growth-icon">
-
-                ${information.icon}
-
-            </div>
+    if (!container) return;
 
 
-            <div class="skill-growth-content">
-
-                <div class="skill-growth-header">
-
-                    <h3>
-                        ${skill}
-                    </h3>
+    const skills =
+        getUserSkills();
 
 
-                    <span class="skill-priority">
+    if (skills.length === 0) {
 
-                        ${information.level}
+        container.innerHTML = `
 
-                    </span>
+            <div class="empty-state">
 
+                <div class="empty-state-icon">
+                    🛠️
                 </div>
 
+                <h3>
+                    No Skills Added Yet
+                </h3>
 
                 <p>
-
-                    ${information.description}
-
+                    Go to My Profile and add your
+                    skills to see your skill growth here.
                 </p>
-
-
-                <div class="skill-benefit">
-
-                    🎯 Helps unlock
-                    <strong>
-                        ${opportunityCount}
-                    </strong>
-                    opportunity
-                    ${opportunityCount !== 1 ? "ies" : "y"}
-
-                </div>
-
-
-                <p class="skill-benefit-text">
-
-                    ${information.benefit}
-
-                </p>
-
-
-                <button
-                    class="primary-btn skill-learning-btn"
-                    onclick="startLearning('${skill}')">
-
-                    Start Learning →
-
-                </button>
 
             </div>
 
-        </div>
+        `;
 
-    `;
+        return;
+
+    }
+
+
+    container.innerHTML =
+        skills.map(
+            (skill, index) => {
+
+                const level =
+                    calculateSkillLevel(
+                        index,
+                        skills.length
+                    );
+
+
+                return `
+
+                    <div class="user-skill">
+
+                        <div class="skill-top">
+
+                            <span class="skill-name">
+                                ${escapeHTML(skill)}
+                            </span>
+
+                            <span class="skill-level">
+                                ${level}%
+                            </span>
+
+                        </div>
+
+
+                        <div class="progress-bar">
+
+                            <div
+                                class="progress"
+                                style="width:${level}%">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            }
+        ).join("");
 
 }
 
 
 /* =========================
-   SHOW SKILL GROWTH
+   DISPLAY SKILL GAPS
 ========================= */
 
-function displaySkillGrowth() {
+function displaySkillGaps() {
+
+    const container =
+        document.getElementById(
+            "skill-gaps-container"
+        );
+
+
+    if (!container) return;
+
+
+    const recommendations =
+        getRecommendedSkills();
+
+
+    if (recommendations.length === 0) {
+
+        container.innerHTML = `
+
+            <div class="empty-state">
+
+                <div class="empty-state-icon">
+                    🎉
+                </div>
+
+                <h3>
+                    You're Doing Great!
+                </h3>
+
+                <p>
+                    You already have the recommended
+                    skills for your current business type.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        recommendations.map(
+            (skill, index) => {
+
+                const information =
+                    skillRecommendations[
+                        skill
+                    ] || {
+
+                        icon: "📚",
+
+                        description:
+                            "Develop this skill to improve your business opportunities.",
+
+                        benefit:
+                            "May help you qualify for additional opportunities."
+
+                    };
+
+
+                const priority =
+                    index === 0
+                    ? "HIGH PRIORITY"
+                    : "MEDIUM";
+
+
+                return `
+
+                    <div class="skill-growth-card">
+
+                        <div class="skill-growth-header">
+
+                            <h3>
+                                ${information.icon}
+                                ${escapeHTML(skill)}
+                            </h3>
+
+                            <span class="skill-priority">
+                                ${priority}
+                            </span>
+
+                        </div>
+
+
+                        <p>
+                            ${information.description}
+                        </p>
+
+
+                        <div class="skill-benefit">
+
+                            🎯 Recommended for your
+                            business profile.
+
+                        </div>
+
+
+                        <p>
+                            ${information.benefit}
+                        </p>
+
+
+                        <button
+                            class="skill-learning-btn"
+                            onclick="startLearning('${escapeAttribute(skill)}')">
+
+                            Start Learning →
+
+                        </button>
+
+                    </div>
+
+                `;
+
+            }
+        ).join("");
+
+}
+
+
+/* =========================
+   DISPLAY LEARNING
+========================= */
+
+function displayLearning() {
 
     const container =
         document.getElementById(
@@ -443,92 +559,30 @@ function displaySkillGrowth() {
         );
 
 
-    if (!container) {
-
-        console.warn(
-            "skill-growth-container not found."
-        );
-
-        return;
-
-    }
+    if (!container) return;
 
 
-    const profile =
-        getProfile();
+    const recommendations =
+        getRecommendedSkills();
 
 
-    const skillGaps =
-        findSkillGaps();
-
-
-    /*
-       No profile
-    */
-
-    if (!profile) {
+    if (recommendations.length === 0) {
 
         container.innerHTML = `
 
-            <div class="skill-empty-state">
+            <div class="empty-state">
 
-                <div style="font-size:50px">
-                    🧠
+                <div class="empty-state-icon">
+                    🎓
                 </div>
 
-
-                <h2>
-                    Create Your SAKSHAM Profile
-                </h2>
-
+                <h3>
+                    Keep Growing!
+                </h3>
 
                 <p>
-                    Create your profile first so
-                    SAKSHAM can recommend skills
-                    based on your opportunities.
-                </p>
-
-
-                <button
-                    class="primary-btn"
-                    onclick="startJourney()">
-
-                    Create Profile →
-
-                </button>
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    /*
-       No missing skills
-    */
-
-    if (skillGaps.length === 0) {
-
-        container.innerHTML = `
-
-            <div class="skill-empty-state">
-
-                <div style="font-size:55px">
-                    🎉
-                </div>
-
-
-                <h2>
-                    Great Job, ${profile.name}!
-                </h2>
-
-
-                <p>
-                    You currently have the skills
-                    needed for the available opportunities.
+                    Continue developing the skills
+                    you already have.
                 </p>
 
             </div>
@@ -539,21 +593,141 @@ function displaySkillGrowth() {
 
     }
 
-
-    /*
-       Create cards
-    */
 
     container.innerHTML =
-
-        skillGaps
+        recommendations.slice(0, 4)
         .map(
-            skill =>
-                createSkillCard(
-                    skill
-                )
-        )
-        .join("");
+            skill => {
+
+                const information =
+                    skillRecommendations[
+                        skill
+                    ] || {
+
+                        icon: "📚",
+
+                        description:
+                            "Develop this skill to support your business growth."
+
+                    };
+
+
+                return `
+
+                    <div class="skill-growth-card">
+
+                        <div class="skill-growth-header">
+
+                            <h3>
+                                ${information.icon}
+                                ${escapeHTML(skill)}
+                            </h3>
+
+                        </div>
+
+
+                        <p>
+                            ${information.description}
+                        </p>
+
+
+                        <button
+                            class="skill-learning-btn"
+                            onclick="startLearning('${escapeAttribute(skill)}')">
+
+                            Explore →
+
+                        </button>
+
+                    </div>
+
+                `;
+
+            }
+        ).join("");
+
+}
+
+
+/* =========================
+   UPDATE OVERVIEW
+========================= */
+
+function updateOverview() {
+
+    const skills =
+        getUserSkills();
+
+
+    const recommendations =
+        getRecommendedSkills();
+
+
+    const skillCount =
+        document.getElementById(
+            "strongSkillsCount"
+        );
+
+
+    const gapCount =
+        document.getElementById(
+            "skillGapCount"
+        );
+
+
+    if (skillCount) {
+
+        skillCount.textContent =
+            skills.length;
+
+    }
+
+
+    if (gapCount) {
+
+        gapCount.textContent =
+            recommendations.length;
+
+    }
+
+
+    const improvement =
+        Math.min(
+            recommendations.length * 6,
+            30
+        );
+
+
+    const improvementText =
+        "+" + improvement + "%";
+
+
+    const matchImprovement =
+        document.getElementById(
+            "matchImprovement"
+        );
+
+
+    const impactNumber =
+        document.getElementById(
+            "impactNumber"
+        );
+
+
+    if (matchImprovement) {
+
+        matchImprovement.textContent =
+            improvementText;
+
+    }
+
+
+    if (impactNumber) {
+
+        impactNumber.textContent =
+            improvementText;
+
+    }
 
 }
 
@@ -562,9 +736,7 @@ function displaySkillGrowth() {
    START LEARNING
 ========================= */
 
-function startLearning(
-    skill
-) {
+function startLearning(skill) {
 
     const modal =
         document.getElementById(
@@ -581,7 +753,9 @@ function startLearning(
     if (!modal || !content) {
 
         alert(
-            `Learning module for ${skill} is coming soon.`
+            "Learning module for " +
+            skill +
+            " is coming soon."
         );
 
         return;
@@ -597,7 +771,7 @@ function startLearning(
             icon: "📚",
 
             description:
-                "Build this skill to improve your opportunities."
+                "Build this skill to improve your business opportunities."
 
         };
 
@@ -606,17 +780,13 @@ function startLearning(
 
         <div style="text-align:center">
 
-            <div style="font-size:60px">
-
+            <div style="font-size:55px">
                 ${information.icon}
-
             </div>
 
-
             <h2>
-                Learn ${skill}
+                Learn ${escapeHTML(skill)}
             </h2>
-
 
             <p>
                 ${information.description}
@@ -635,7 +805,6 @@ function startLearning(
             <h3>
                 Your Learning Path
             </h3>
-
 
             <p>
                 1️⃣ Understand the basics
@@ -658,9 +827,9 @@ function startLearning(
 
         <button
             class="primary-btn"
-            onclick="markSkillLearning('${skill}')">
+            onclick="markSkillLearning('${escapeAttribute(skill)}')">
 
-            Mark Skill as Learning →
+            Mark as Learning →
 
         </button>
 
@@ -674,12 +843,10 @@ function startLearning(
 
 
 /* =========================
-   MARK SKILL AS LEARNING
+   MARK LEARNING
 ========================= */
 
-function markSkillLearning(
-    skill
-) {
+function markSkillLearning(skill) {
 
     let learningSkills =
         JSON.parse(
@@ -689,11 +856,15 @@ function markSkillLearning(
         ) || [];
 
 
-    if (
-        !learningSkills.includes(
-            skill
-        )
-    ) {
+    const exists =
+        learningSkills.some(
+            item =>
+                normalizeSkill(item) ===
+                normalizeSkill(skill)
+        );
+
+
+    if (!exists) {
 
         learningSkills.push(
             skill
@@ -703,13 +874,10 @@ function markSkillLearning(
 
 
     localStorage.setItem(
-
         "sakshamLearningSkills",
-
         JSON.stringify(
             learningSkills
         )
-
     );
 
 
@@ -719,38 +887,33 @@ function markSkillLearning(
         );
 
 
+    if (!content) return;
+
+
     content.innerHTML = `
 
         <div style="text-align:center">
 
-            <div style="font-size:60px">
+            <div style="font-size:55px">
                 🚀
             </div>
-
 
             <h2>
                 Learning Started!
             </h2>
 
-
             <p>
-
                 You've added
-
                 <strong>
-                    ${skill}
+                    ${escapeHTML(skill)}
                 </strong>
-
                 to your learning plan.
-
             </p>
-
 
             <p>
                 Keep learning and update your
                 skills when you're ready.
             </p>
-
 
             <button
                 class="primary-btn"
@@ -790,6 +953,113 @@ function closeModal() {
 
 
 /* =========================
+   LOGOUT
+========================= */
+
+function logout() {
+
+    window.location.href =
+        "../index.html";
+
+}
+
+
+/* =========================
+   SIDEBAR
+========================= */
+
+function updateSidebar() {
+
+    const profile =
+        getProfile();
+
+
+    if (!profile) return;
+
+
+    const name =
+        profile.name ||
+        "Entrepreneur";
+
+
+    const businessType =
+        profile.businessType ||
+        "Entrepreneur";
+
+
+    const sidebarName =
+        document.getElementById(
+            "sidebarUserName"
+        );
+
+
+    const sidebarAvatar =
+        document.getElementById(
+            "sidebarAvatar"
+        );
+
+
+    const sidebarBusinessType =
+        document.getElementById(
+            "sidebarBusinessType"
+        );
+
+
+    if (sidebarName) {
+
+        sidebarName.textContent =
+            name;
+
+    }
+
+
+    if (sidebarAvatar) {
+
+        sidebarAvatar.textContent =
+            name
+            .charAt(0)
+            .toUpperCase();
+
+    }
+
+
+    if (sidebarBusinessType) {
+
+        sidebarBusinessType.textContent =
+            businessType +
+            " Entrepreneur";
+
+    }
+
+}
+
+
+/* =========================
+   HTML SAFETY
+========================= */
+
+function escapeHTML(value) {
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+function escapeAttribute(value) {
+
+    return String(value)
+        .replace(/\\/g, "\\\\")
+        .replace(/'/g, "\\'");
+
+}
+
+
+/* =========================
    OUTSIDE MODAL CLICK
 ========================= */
 
@@ -824,10 +1094,18 @@ document.addEventListener(
     "DOMContentLoaded",
     function() {
 
-        displaySkillGrowth();
+        updateSidebar();
+
+        displayUserSkills();
+
+        displaySkillGaps();
+
+        displayLearning();
+
+        updateOverview();
 
         console.log(
-            "SAKSHAM Skill Growth loaded 🚀"
+            "SAKSHAM User Defined Skill Growth loaded 🚀"
         );
 
     }
