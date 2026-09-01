@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -23,7 +24,7 @@
             min-height: calc(100vh - 81px);
         }
 
-        /* SIDEBAR */
+        /* ================= SIDEBAR ================= */
 
         .sidebar {
             width: 250px;
@@ -89,7 +90,7 @@
         }
 
 
-        /* MAIN CONTENT */
+        /* ================= MAIN ================= */
 
         .dashboard-main {
             flex: 1;
@@ -125,7 +126,7 @@
         }
 
 
-        /* STAT CARDS */
+        /* ================= STATS ================= */
 
         .stats-grid {
             display: grid;
@@ -158,7 +159,7 @@
         }
 
 
-        /* MAIN DASHBOARD GRID */
+        /* ================= DASHBOARD GRID ================= */
 
         .dashboard-grid {
             display: grid;
@@ -193,7 +194,7 @@
         }
 
 
-        /* TOP MATCH */
+        /* ================= TOP MATCH ================= */
 
         .top-match {
             background: #edf5ef;
@@ -252,7 +253,7 @@
         }
 
 
-        /* OPPORTUNITY LIST */
+        /* ================= OPPORTUNITY LIST ================= */
 
         .mini-opportunity {
             display: flex;
@@ -283,7 +284,7 @@
         }
 
 
-        /* SKILL CARD */
+        /* ================= SKILL CARD ================= */
 
         .skill-progress {
             margin-bottom: 18px;
@@ -311,7 +312,47 @@
         }
 
 
-        /* RESPONSIVE */
+        /* ================= PROFILE INFO ================= */
+
+        .profile-summary {
+            font-size: 13px;
+            color: #68736c;
+            line-height: 1.6;
+            margin-top: 15px;
+        }
+
+        .profile-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            margin-top: 15px;
+        }
+
+        .profile-tags span {
+            background: #edf4ef;
+            color: #16734a;
+            padding: 6px 10px;
+            border-radius: 5px;
+            font-size: 11px;
+        }
+
+
+        /* ================= EMPTY STATE ================= */
+
+        .empty-state {
+            text-align: center;
+            padding: 30px 15px;
+            color: #737d76;
+            font-size: 13px;
+        }
+
+        .empty-state-icon {
+            font-size: 35px;
+            margin-bottom: 10px;
+        }
+
+
+        /* ================= RESPONSIVE ================= */
 
         @media (max-width: 1000px) {
 
@@ -381,419 +422,931 @@
 <body class="dashboard-page">
 
 
-    <!-- ================= NAVBAR ================= -->
+<!-- ================= NAVBAR ================= -->
 
-    <header class="navbar">
+<header class="navbar">
 
-        <div class="logo">
+    <div class="logo">
 
-            <span>SAKSHAM</span>
+        <span>SAKSHAM</span>
 
-            <small>
-                Empowering Skills
-            </small>
+        <small>
+            Empowering Skills, Enabling Opportunities.
+        </small>
+
+    </div>
+
+    <button
+        class="login-btn"
+        onclick="window.location.href='../index.html'">
+
+        Logout
+
+    </button>
+
+</header>
+
+
+
+<!-- ================= DASHBOARD ================= -->
+
+<div class="dashboard-layout">
+
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-profile">
+
+            <div class="profile-avatar" id="sidebarAvatar">
+                A
+            </div>
+
+            <h3 id="sidebarUserName">
+                Entrepreneur
+            </h3>
+
+            <p id="sidebarBusinessType">
+                Entrepreneur
+            </p>
 
         </div>
 
-        <button
-            class="login-btn"
-            onclick="window.location.href='../index.html'">
 
-            Logout
+        <div class="sidebar-menu">
 
-        </button>
+            <a href="dashboard.html" class="active">
+                <span>🏠</span>
+                Dashboard
+            </a>
 
-    </header>
+            <a href="opportunities.html">
+                <span>🎯</span>
+                Opportunities
+            </a>
+
+            <a href="skills.html">
+                <span>📈</span>
+                Skill Growth
+            </a>
+
+            <a href="applications.html">
+                <span>📋</span>
+                Applications
+            </a>
+
+            <a href="schemes.html">
+                <span>🏛️</span>
+                Schemes Analyzer
+            </a>
+
+            <a href="profile.html">
+                <span>👤</span>
+                My Profile
+            </a>
+
+        </div>
+
+    </aside>
 
 
 
-    <!-- ================= DASHBOARD LAYOUT ================= -->
+    <!-- ================= MAIN ================= -->
 
-    <div class="dashboard-layout">
-
-
-        <!-- ================= SIDEBAR ================= -->
-
-        <aside class="sidebar">
+    <main class="dashboard-main">
 
 
-            <div class="sidebar-profile">
+        <!-- HEADER -->
 
-                <div class="profile-avatar">
-                    A
-                </div>
+        <div class="dashboard-header">
 
-                <h3>
-                    Ananya
-                </h3>
+            <div>
 
-                <p>
-                    Handicraft Entrepreneur
+                <h1 id="welcomeMessage">
+                    Welcome back! 👋
+                </h1>
+
+                <p id="dashboardSubtitle">
+                    Here's what's happening with your SAKSHAM journey.
                 </p>
 
             </div>
 
 
-            <div class="sidebar-menu">
+            <button
+                class="notification-btn"
+                onclick="showNotification()">
 
-                <a href="dashboard.html"
-                   class="active">
+                🔔
 
-                    <span>🏠</span>
-                    Dashboard
+            </button>
 
-                </a>
-
-
-                <a href="opportunities.html">
-
-                    <span>🎯</span>
-                    Opportunities
-
-                </a>
+        </div>
 
 
-                <a href="skills.html">
 
-                    <span>📈</span>
-                    Skill Growth
+        <!-- ================= STATS ================= -->
 
-                </a>
+        <div class="stats-grid">
 
 
-                <a href="applications.html">
+            <div class="stat-card">
 
-                    <span>📋</span>
-                    Applications
+                <div class="stat-icon">
+                    🎯
+                </div>
 
-                </a>
+                <div
+                    class="stat-number"
+                    id="opportunityCount">
+                    0
+                </div>
 
-
-                <a href="profile.html">
-
-                    <span>👤</span>
-                    My Profile
-
-                </a>
+                <div class="stat-label">
+                    Opportunities Found
+                </div>
 
             </div>
 
 
-        </aside>
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    ⭐
+                </div>
+
+                <div
+                    class="stat-number"
+                    id="highMatchCount">
+                    0
+                </div>
+
+                <div class="stat-label">
+                    High Matches
+                </div>
+
+            </div>
 
 
 
-        <!-- ================= MAIN ================= -->
+            <div class="stat-card">
 
-        <main class="dashboard-main">
+                <div class="stat-icon">
+                    📋
+                </div>
+
+                <div
+                    class="stat-number"
+                    id="applicationCount">
+                    0
+                </div>
+
+                <div class="stat-label">
+                    Applications
+                </div>
+
+            </div>
 
 
-            <!-- HEADER -->
 
-            <div class="dashboard-header">
+            <div class="stat-card">
 
-                <div>
+                <div class="stat-icon">
+                    📈
+                </div>
 
-                    <h1>
-                        Welcome back, Ananya! 👋
-                    </h1>
+                <div
+                    class="stat-number"
+                    id="skillImproveCount">
+                    0
+                </div>
 
-                    <p>
-                        Here's what's happening with your SAKSHAM journey.
+                <div class="stat-label">
+                    Skills To Improve
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- ================= DASHBOARD GRID ================= -->
+
+        <div class="dashboard-grid">
+
+
+            <!-- ================= LEFT COLUMN ================= -->
+
+            <div>
+
+
+                <!-- TOP MATCH -->
+
+                <div class="dashboard-card">
+
+                    <div class="card-header">
+
+                        <h2>
+                            🎯 Your Top Match
+                        </h2>
+
+                        <a
+                            href="opportunities.html"
+                            class="view-link">
+
+                            View All
+
+                        </a>
+
+                    </div>
+
+
+                    <div
+                        class="top-match"
+                        id="topMatch">
+
+                        <div class="empty-state">
+
+                            <div class="empty-state-icon">
+                                🔍
+                            </div>
+
+                            Loading your best match...
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- RECOMMENDED -->
+
+                <div class="dashboard-card">
+
+                    <div class="card-header">
+
+                        <h2>
+                            Recommended For You
+                        </h2>
+
+                        <a
+                            href="opportunities.html"
+                            class="view-link">
+
+                            View All
+
+                        </a>
+
+                    </div>
+
+
+                    <div id="recommendedOpportunities">
+
+                        <div class="empty-state">
+
+                            <div class="empty-state-icon">
+                                🎯
+                            </div>
+
+                            Preparing recommendations...
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ================= RIGHT COLUMN ================= -->
+
+            <div>
+
+
+                <!-- PROFILE STRENGTH -->
+
+                <div class="dashboard-card">
+
+                    <div class="card-header">
+
+                        <h2>
+                            Profile Strength
+                        </h2>
+
+                        <span
+                            class="mini-match"
+                            id="profileStrength">
+                            0%
+                        </span>
+
+                    </div>
+
+
+                    <div class="progress-bar">
+
+                        <div
+                            class="progress-fill"
+                            id="profileProgress"
+                            style="width:0%">
+                        </div>
+
+                    </div>
+
+
+                    <p
+                        class="profile-summary"
+                        id="profileStrengthText">
+
+                        Complete your profile to get better matches.
+
                     </p>
 
+
+                    <button
+                        class="match-button"
+                        style="margin-top:15px;"
+                        onclick="window.location.href='profile.html'">
+
+                        Complete Profile
+
+                    </button>
+
                 </div>
 
 
-                <button
-                    class="notification-btn"
-                    onclick="showNotification()">
 
-                    🔔
+                <!-- USER PROFILE SUMMARY -->
 
-                </button>
+                <div class="dashboard-card">
+
+                    <div class="card-header">
+
+                        <h2>
+                            👤 Your Profile
+                        </h2>
+
+                        <a
+                            href="profile.html"
+                            class="view-link">
+
+                            Edit
+
+                        </a>
+
+                    </div>
+
+
+                    <p
+                        class="profile-summary"
+                        id="profileSummary">
+
+                        Your profile information will appear here.
+
+                    </p>
+
+
+                    <div
+                        class="profile-tags"
+                        id="profileTags">
+                    </div>
+
+                </div>
+
+
+
+                <!-- SKILL GROWTH -->
+
+                <div class="dashboard-card">
+
+                    <div class="card-header">
+
+                        <h2>
+                            📈 Skill Growth
+                        </h2>
+
+                        <a
+                            href="skills.html"
+                            class="view-link">
+
+                            Explore
+
+                        </a>
+
+                    </div>
+
+
+                    <div id="skillGrowth">
+
+                        <div class="empty-state">
+
+                            <div class="empty-state-icon">
+                                📈
+                            </div>
+
+                            Add skills to your profile to see your growth.
+
+                        </div>
+
+                    </div>
+
+                </div>
+
 
             </div>
 
 
-
-            <!-- ================= STATS ================= -->
-
-            <div class="stats-grid">
+        </div>
 
 
-                <div class="stat-card">
-
-                    <div class="stat-icon">
-                        🎯
-                    </div>
-
-                    <div class="stat-number">
-                        12
-                    </div>
-
-                    <div class="stat-label">
-                        Opportunities Found
-                    </div>
-
-                </div>
+    </main>
 
 
-                <div class="stat-card">
-
-                    <div class="stat-icon">
-                        ⭐
-                    </div>
-
-                    <div class="stat-number">
-                        4
-                    </div>
-
-                    <div class="stat-label">
-                        High Matches
-                    </div>
-
-                </div>
+</div>
 
 
-                <div class="stat-card">
 
-                    <div class="stat-icon">
-                        📋
-                    </div>
+<!-- =====================================================
+     SUPABASE
+===================================================== -->
 
-                    <div class="stat-number">
-                        3
-                    </div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-                    <div class="stat-label">
-                        Applications
-                    </div>
-
-                </div>
+<script src="../supabase.js"></script>
 
 
-                <div class="stat-card">
 
-                    <div class="stat-icon">
+<!-- =====================================================
+     DASHBOARD JAVASCRIPT
+===================================================== -->
+
+<script>
+
+    let profile = null;
+
+    let allOpportunities = [];
+
+
+    /* =====================================================
+       LOAD USER PROFILE
+    ===================================================== */
+
+    function loadUserProfile() {
+
+        const savedProfile =
+            localStorage.getItem("sakshamProfile");
+
+
+        if (!savedProfile) {
+
+            console.log(
+                "No sakshamProfile found."
+            );
+
+            return null;
+
+        }
+
+
+        try {
+
+            return JSON.parse(
+                savedProfile
+            );
+
+        } catch (error) {
+
+            console.error(
+                "Could not read sakshamProfile:",
+                error
+            );
+
+            return null;
+
+        }
+
+    }
+
+
+    /* =====================================================
+       GET USER SKILLS
+    ===================================================== */
+
+    function getUserSkills(profile) {
+
+        if (!profile) return [];
+
+
+        let skills =
+            profile.skills ||
+            profile.preferredSkills ||
+            profile.preferred_skills ||
+            [];
+
+
+        if (Array.isArray(skills)) {
+
+            return skills
+                .map(skill =>
+                    String(skill)
+                        .trim()
+                        .toLowerCase()
+                )
+                .filter(Boolean);
+
+        }
+
+
+        if (typeof skills === "string") {
+
+            return skills
+                .split(",")
+                .map(skill =>
+                    skill
+                        .trim()
+                        .toLowerCase()
+                )
+                .filter(Boolean);
+
+        }
+
+
+        return [];
+
+    }
+
+
+    /* =====================================================
+       UPDATE USER NAME
+    ===================================================== */
+
+    function updateUserName(profile) {
+
+        const name =
+            profile?.name ||
+            "Entrepreneur";
+
+
+        const welcome =
+            document.getElementById(
+                "welcomeMessage"
+            );
+
+
+        const sidebarName =
+            document.getElementById(
+                "sidebarUserName"
+            );
+
+
+        const avatar =
+            document.getElementById(
+                "sidebarAvatar"
+            );
+
+
+        if (welcome) {
+
+            welcome.textContent =
+                `Welcome back, ${name}! 👋`;
+
+        }
+
+
+        if (sidebarName) {
+
+            sidebarName.textContent =
+                name;
+
+        }
+
+
+        if (avatar) {
+
+            avatar.textContent =
+                name
+                    .charAt(0)
+                    .toUpperCase();
+
+        }
+
+    }
+
+
+    /* =====================================================
+       UPDATE BUSINESS TYPE
+    ===================================================== */
+
+    function updateBusinessType(profile) {
+
+        const rawBusiness =
+            profile?.businessType ||
+            profile?.business ||
+            profile?.category ||
+            "";
+
+
+        let business =
+            String(rawBusiness)
+                .trim();
+
+
+        if (!business) {
+
+            business =
+                "Entrepreneur";
+
+        }
+
+
+        const element =
+            document.getElementById(
+                "sidebarBusinessType"
+            );
+
+
+        if (element) {
+
+            element.textContent =
+                business  + " Entrepreneur";
+
+        }
+
+    }
+
+
+    /* =====================================================
+       PROFILE STRENGTH
+    ===================================================== */
+
+    function calculateProfileStrength(profile) {
+
+        if (!profile) return 0;
+
+
+        const possibleFields = [
+
+            "name",
+            "businessType",
+            "business",
+            "category",
+            "skills",
+            "preferredSkills",
+            "preferred_skills",
+            "location",
+            "education",
+            "experience",
+            "goals",
+            "interests"
+
+        ];
+
+
+        let completed = 0;
+
+        let checked = 0;
+
+
+        possibleFields.forEach(
+            field => {
+
+                if (
+                    Object.prototype.hasOwnProperty.call(
+                        profile,
+                        field
+                    )
+                ) {
+
+                    checked++;
+
+
+                    const value =
+                        profile[field];
+
+
+                    if (
+                        value !== null &&
+                        value !== undefined &&
+                        value !== "" &&
+                        (
+                            !Array.isArray(value) ||
+                            value.length > 0
+                        )
+                    ) {
+
+                        completed++;
+
+                    }
+
+                }
+
+            }
+        );
+
+
+        if (checked === 0) {
+
+            return 0;
+
+        }
+
+
+        return Math.min(
+            100,
+            Math.round(
+                (completed / checked) * 100
+            )
+        );
+
+    }
+
+
+    /* =====================================================
+       PROFILE SUMMARY
+    ===================================================== */
+
+    function displayProfileSummary(profile) {
+
+        const summary =
+            document.getElementById(
+                "profileSummary"
+            );
+
+
+        const tags =
+            document.getElementById(
+                "profileTags"
+            );
+
+
+        if (!summary || !tags) return;
+
+
+        if (!profile) {
+
+            summary.textContent =
+                "Complete your profile to personalize your SAKSHAM dashboard.";
+
+            return;
+
+        }
+
+
+        const business =
+            profile.businessType ||
+            profile.business ||
+            profile.category ||
+            "Entrepreneur";
+
+
+        const skills =
+            getUserSkills(profile);
+
+
+        summary.textContent =
+            `You are registered as a ${business} entrepreneur. ` +
+            (
+                skills.length
+                    ? `Your profile includes ${skills.length} skill${skills.length > 1 ? "s" : ""}.`
+                    : "Add your skills to receive better recommendations."
+            );
+
+
+        tags.innerHTML = "";
+
+
+        skills
+            .slice(0, 8)
+            .forEach(skill => {
+
+                const tag =
+                    document.createElement(
+                        "span"
+                    );
+
+
+                tag.textContent =
+                    formatSkill(skill);
+
+
+                tags.appendChild(
+                    tag
+                );
+
+            });
+
+    }
+
+
+    /* =====================================================
+       SKILL GROWTH
+    ===================================================== */
+
+    function displaySkillGrowth(profile) {
+
+        const container =
+            document.getElementById(
+                "skillGrowth"
+            );
+
+
+        const improveCount =
+            document.getElementById(
+                "skillImproveCount"
+            );
+
+
+        if (!container) return;
+
+
+        const skills =
+            getUserSkills(profile);
+
+
+        if (!skills.length) {
+
+            container.innerHTML = `
+
+                <div class="empty-state">
+
+                    <div class="empty-state-icon">
                         📈
                     </div>
 
-                    <div class="stat-number">
-                        2
-                    </div>
-
-                    <div class="stat-label">
-                        Skills To Improve
-                    </div>
+                    Add skills to your profile
+                    to see your growth.
 
                 </div>
 
-
-            </div>
-
+            `;
 
 
-            <!-- ================= DASHBOARD GRID ================= -->
+            if (improveCount) {
 
-            <div class="dashboard-grid">
+                improveCount.textContent =
+                    "0";
 
-
-                <!-- LEFT COLUMN -->
-
-                <div>
+            }
 
 
-                    <!-- TOP MATCH -->
+            return;
 
-                    <div class="dashboard-card">
-
-                        <div class="card-header">
-
-                            <h2>
-                                🎯 Your Top Match
-                            </h2>
-
-                            <a
-                                href="opportunities.html"
-                                class="view-link">
-
-                                View All
-
-                            </a>
-
-                        </div>
+        }
 
 
-                        <div class="top-match">
+        container.innerHTML = "";
 
 
-                            <div class="match-header">
-
-                                <div>
-
-                                    <span class="category">
-                                        Textile
-                                    </span>
-
-                                </div>
+        const skillCount =
+            Math.min(
+                skills.length,
+                4
+            );
 
 
-                                <span class="match-badge">
-                                    94% MATCH
-                                </span>
+        skills
+            .slice(0, skillCount)
+            .forEach(
+                (skill, index) => {
 
-                            </div>
-
-
-                            <h3>
-                                Textile Supplier Partnership
-                            </h3>
-
-
-                            <p>
-                                Partner with a growing textile business
-                                for handmade and embroidered products.
-                            </p>
+                    const percentage =
+                        Math.min(
+                            90,
+                            50 + (index * 10)
+                        );
 
 
-                            <div class="match-skills">
-
-                                <span>✓ Tailoring</span>
-
-                                <span>✓ Embroidery</span>
-
-                                <span>✓ Textile</span>
-
-                                <span>⚠ Digital Marketing</span>
-
-                            </div>
+                    const wrapper =
+                        document.createElement(
+                            "div"
+                        );
 
 
-                            <button
-                                class="match-button"
-                                onclick="viewTopMatch()">
-
-                                View Opportunity →
-
-                            </button>
+                    wrapper.className =
+                        "skill-progress";
 
 
-                        </div>
+                    wrapper.innerHTML = `
 
-                    </div>
+                        <div class="skill-info">
 
-
-
-                    <!-- RECENT OPPORTUNITIES -->
-
-                    <div class="dashboard-card">
-
-                        <div class="card-header">
-
-                            <h2>
-                                Recommended For You
-                            </h2>
-
-                            <a
-                                href="opportunities.html"
-                                class="view-link">
-
-                                View All
-
-                            </a>
-
-                        </div>
-
-
-                        <div class="mini-opportunity">
-
-                            <div>
-
-                                <h4>
-                                    Handicraft Marketplace
-                                </h4>
-
-                                <p>
-                                    Craft • Product Making • Sales
-                                </p>
-
-                            </div>
-
-                            <span class="mini-match">
-                                89%
+                            <span>
+                                ${escapeHTML(
+                                    formatSkill(skill)
+                                )}
                             </span>
 
-                        </div>
-
-
-                        <div class="mini-opportunity">
-
-                            <div>
-
-                                <h4>
-                                    Local Textile Partnership
-                                </h4>
-
-                                <p>
-                                    Textile • Embroidery
-                                </p>
-
-                            </div>
-
-                            <span class="mini-match">
-                                84%
-                            </span>
-
-                        </div>
-
-
-                        <div class="mini-opportunity">
-
-                            <div>
-
-                                <h4>
-                                    E-Commerce Seller Program
-                                </h4>
-
-                                <p>
-                                    Business • Digital Skills
-                                </p>
-
-                            </div>
-
-                            <span class="mini-match">
-                                76%
-                            </span>
-
-                        </div>
-
-
-                    </div>
-
-
-                </div>
-
-
-
-                <!-- RIGHT COLUMN -->
-
-                <div>
-
-
-                    <!-- PROFILE COMPLETION -->
-
-                    <div class="dashboard-card">
-
-                        <div class="card-header">
-
-                            <h2>
-                                Profile Strength
-                            </h2>
-
-                            <span class="mini-match">
-                                85%
-                            </span>
+                            <strong>
+                                ${percentage}%
+                            </strong>
 
                         </div>
 
@@ -802,178 +1355,897 @@
 
                             <div
                                 class="progress-fill"
-                                style="width:85%">
+                                style="width:${percentage}%">
                             </div>
 
                         </div>
 
-
-                        <p style="
-                            font-size:12px;
-                            color:#707a74;
-                            margin-top:12px;
-                        ">
-
-                            Complete your profile to get
-                            better matches.
-
-                        </p>
+                    `;
 
 
-                        <button
-                            class="match-button"
-                            style="margin-top:15px;"
-                            onclick="window.location.href='profile.html'">
+                    container.appendChild(
+                        wrapper
+                    );
 
-                            Complete Profile
+                }
+            );
 
-                        </button>
 
+        if (improveCount) {
+
+            improveCount.textContent =
+                Math.max(
+                    0,
+                    skills.length - 2
+                );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       LOAD OPPORTUNITIES FROM SUPABASE
+    ===================================================== */
+
+    async function loadOpportunities() {
+
+        console.log(
+            "Loading opportunities from Supabase..."
+        );
+
+
+        try {
+
+            const {
+                data,
+                error
+            } =
+                await supabaseClient
+                    .from("opportunities")
+                    .select("*")
+                    .order(
+                        "created_at",
+                        {
+                            ascending: false
+                        }
+                    );
+
+
+            if (error) {
+
+                console.error(
+                    "Supabase error:",
+                    error
+                );
+
+
+                showOpportunityError();
+
+                return;
+
+            }
+
+
+            allOpportunities =
+                data || [];
+
+
+            console.log(
+                "Opportunities loaded:",
+                allOpportunities
+            );
+
+
+            displayOpportunities(
+                profile
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Unexpected error:",
+                error
+            );
+
+
+            showOpportunityError();
+
+        }
+
+    }
+
+
+    /* =====================================================
+       MATCH CALCULATION
+    ===================================================== */
+
+    function calculateMatch(
+        opportunity,
+        profile
+    ) {
+
+        if (!opportunity || !profile) {
+
+            return 0;
+
+        }
+
+
+        const business =
+            String(
+                profile.businessType ||
+                profile.business ||
+                profile.category ||
+                ""
+            )
+            .toLowerCase()
+            .trim();
+
+
+        const skills =
+            getUserSkills(profile);
+
+
+        const opportunityText =
+            JSON.stringify(
+                opportunity
+            )
+            .toLowerCase();
+
+
+        let score = 0;
+
+
+        /* BUSINESS MATCH */
+
+        if (
+            business &&
+            opportunityText.includes(
+                business
+            )
+        ) {
+
+            score += 40;
+
+        }
+
+
+        /* SKILL MATCH */
+
+        skills.forEach(
+            skill => {
+
+                if (
+                    skill &&
+                    opportunityText.includes(
+                        skill
+                    )
+                ) {
+
+                    score += 15;
+
+                }
+
+            }
+        );
+
+
+        return Math.min(
+            100,
+            score
+        );
+
+    }
+
+
+    /* =====================================================
+       DISPLAY OPPORTUNITIES
+    ===================================================== */
+
+    function displayOpportunities(profile) {
+
+        const count =
+            document.getElementById(
+                "opportunityCount"
+            );
+
+
+        const highMatches =
+            document.getElementById(
+                "highMatchCount"
+            );
+
+
+        const topMatch =
+            document.getElementById(
+                "topMatch"
+            );
+
+
+        const recommended =
+            document.getElementById(
+                "recommendedOpportunities"
+            );
+
+
+        if (
+            !count ||
+            !highMatches ||
+            !topMatch ||
+            !recommended
+        ) {
+
+            return;
+
+        }
+
+
+        /* NO OPPORTUNITIES */
+
+        if (!allOpportunities.length) {
+
+            count.textContent =
+                "0";
+
+
+            highMatches.textContent =
+                "0";
+
+
+            topMatch.innerHTML = `
+
+                <div class="empty-state">
+
+                    <div class="empty-state-icon">
+                        🔍
                     </div>
 
+                    <strong>
+                        No opportunities available yet
+                    </strong>
+
+                    <p style="margin-top:8px;">
+                        Opportunities will appear here
+                        when they are added to SAKSHAM.
+                    </p>
+
+                </div>
+
+            `;
 
 
-                    <!-- SKILL GROWTH -->
+            recommended.innerHTML = `
 
-                    <div class="dashboard-card">
+                <div class="empty-state">
 
-                        <div class="card-header">
-
-                            <h2>
-                                📈 Skill Growth
-                            </h2>
-
-                            <a
-                                href="skills.html"
-                                class="view-link">
-
-                                Explore
-
-                            </a>
-
-                        </div>
-
-
-                        <div class="skill-progress">
-
-                            <div class="skill-info">
-
-                                <span>
-                                    Tailoring
-                                </span>
-
-                                <strong>
-                                    90%
-                                </strong>
-
-                            </div>
-
-
-                            <div class="progress-bar">
-
-                                <div
-                                    class="progress-fill"
-                                    style="width:90%">
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-
-                        <div class="skill-progress">
-
-                            <div class="skill-info">
-
-                                <span>
-                                    Embroidery
-                                </span>
-
-                                <strong>
-                                    80%
-                                </strong>
-
-                            </div>
-
-
-                            <div class="progress-bar">
-
-                                <div
-                                    class="progress-fill"
-                                    style="width:80%">
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-
-                        <div class="skill-progress">
-
-                            <div class="skill-info">
-
-                                <span>
-                                    Digital Marketing
-                                </span>
-
-                                <strong>
-                                    35%
-                                </strong>
-
-                            </div>
-
-
-                            <div class="progress-bar">
-
-                                <div
-                                    class="progress-fill"
-                                    style="width:35%">
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
+                    <div class="empty-state-icon">
+                        🎯
                     </div>
 
+                    No recommendations available yet.
+
+                </div>
+
+            `;
+
+
+            return;
+
+        }
+
+
+        /* CALCULATE MATCHES */
+
+        const results =
+            allOpportunities
+                .map(
+                    opportunity => ({
+
+                        ...opportunity,
+
+                        matchScore:
+                            calculateMatch(
+                                opportunity,
+                                profile
+                            )
+
+                    })
+                )
+                .sort(
+                    (a, b) =>
+                        b.matchScore -
+                        a.matchScore
+                );
+
+
+        /* TOTAL OPPORTUNITIES */
+
+        count.textContent =
+            results.length;
+
+
+        /* HIGH MATCHES */
+
+        highMatches.textContent =
+            results.filter(
+                item =>
+                    item.matchScore >= 70
+            ).length;
+
+
+        /* TOP MATCH */
+
+        displayTopMatch(
+            results[0]
+        );
+
+
+        /* RECOMMENDED */
+
+        displayRecommended(
+            results.slice(0, 3)
+        );
+
+    }
+
+
+    /* =====================================================
+       DISPLAY TOP MATCH
+    ===================================================== */
+
+    function displayTopMatch(
+        opportunity
+    ) {
+
+        const container =
+            document.getElementById(
+                "topMatch"
+            );
+
+
+        if (!container) return;
+
+
+        if (!opportunity) {
+
+            container.innerHTML = `
+
+                <div class="empty-state">
+                    No top match available.
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        const name =
+            opportunity.name ||
+            opportunity.title ||
+            "Recommended Opportunity";
+
+
+        const category =
+            opportunity.category ||
+            "Opportunity";
+
+
+        const description =
+            opportunity.description ||
+            "This opportunity may be relevant to your profile.";
+
+
+        const organization =
+            opportunity.organization ||
+            "";
+
+
+        const score =
+            opportunity.matchScore || 0;
+
+
+        container.innerHTML = `
+
+            <div class="match-header">
+
+                <div>
+
+                    <span class="category">
+                        ${escapeHTML(
+                            formatSkill(
+                                category
+                            )
+                        )}
+                    </span>
 
                 </div>
 
 
+                <span class="match-badge">
+                    ${score}% MATCH
+                </span>
+
             </div>
 
 
-        </main>
+            <h3>
+                ${escapeHTML(name)}
+            </h3>
 
 
-    </div>
+            ${
+                organization
+                    ? `
+                        <p>
+                            🏢 ${escapeHTML(
+                                organization
+                            )}
+                        </p>
+                    `
+                    : ""
+            }
 
 
+            <p>
+                ${escapeHTML(
+                    description
+                )}
+            </p>
 
-    <!-- ================= JAVASCRIPT ================= -->
 
-    <script>
+            <div class="match-skills">
 
-        function showNotification() {
+                <span>
+                    ✓ Profile Match
+                </span>
 
-            alert(
-                "You have 2 new opportunity recommendations! 🎯"
+                <span>
+                    ✓ Personalized
+                </span>
+
+            </div>
+
+
+            <button
+                class="match-button"
+                onclick="viewTopMatch()">
+
+                View Opportunity →
+
+            </button>
+
+        `;
+
+    }
+
+
+    /* =====================================================
+       RECOMMENDED OPPORTUNITIES
+    ===================================================== */
+
+    function displayRecommended(
+        opportunities
+    ) {
+
+        const container =
+            document.getElementById(
+                "recommendedOpportunities"
             );
 
+
+        if (!container) return;
+
+
+        container.innerHTML = "";
+
+
+        opportunities.forEach(
+            opportunity => {
+
+                const item =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                item.className =
+                    "mini-opportunity";
+
+
+                const name =
+                    opportunity.name ||
+                    opportunity.title ||
+                    "Opportunity";
+
+
+                const category =
+                    opportunity.category ||
+                    "Recommended Opportunity";
+
+
+                item.innerHTML = `
+
+                    <div>
+
+                        <h4>
+                            ${escapeHTML(
+                                name
+                            )}
+                        </h4>
+
+                        <p>
+                            ${escapeHTML(
+                                formatSkill(
+                                    category
+                                )
+                            )}
+                        </p>
+
+                    </div>
+
+
+                    <span class="mini-match">
+
+                        ${opportunity.matchScore}%
+
+                    </span>
+
+                `;
+
+
+                container.appendChild(
+                    item
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       APPLICATION COUNT
+    ===================================================== */
+
+    async function updateApplicationCount() {
+
+        const element =
+            document.getElementById(
+                "applicationCount"
+            );
+
+
+        if (!element) return;
+
+
+        try {
+
+            const {
+                data,
+                error
+            } =
+                await supabaseClient
+                    .from("applications")
+                    .select("id");
+
+
+            if (error) {
+
+                console.log(
+                    "Application count unavailable:",
+                    error
+                );
+
+
+                element.textContent =
+                    "0";
+
+                return;
+
+            }
+
+
+            element.textContent =
+                data
+                    ? data.length
+                    : 0;
+
+
+        } catch (error) {
+
+            console.error(
+                "Application count error:",
+                error
+            );
+
+
+            element.textContent =
+                "0";
+
+        }
+
+    }
+
+
+    /* =====================================================
+       NOTIFICATION
+    ===================================================== */
+
+    function showNotification() {
+
+        alert(
+            "Your SAKSHAM dashboard is personalized using your profile information. 🎯"
+        );
+
+    }
+
+
+    /* =====================================================
+       TOP MATCH BUTTON
+    ===================================================== */
+
+    function viewTopMatch() {
+
+        window.location.href =
+            "opportunities.html";
+
+    }
+
+
+    /* =====================================================
+       FORMAT TEXT
+    ===================================================== */
+
+    function formatSkill(value) {
+
+        return String(value)
+            .replace(
+                /[_-]/g,
+                " "
+            )
+            .replace(
+                /\b\w/g,
+                char =>
+                    char.toUpperCase()
+            );
+
+    }
+
+
+    /* =====================================================
+       SECURITY
+    ===================================================== */
+
+    function escapeHTML(value) {
+
+        if (
+            value === null ||
+            value === undefined
+        ) {
+
+            return "";
+
         }
 
 
-        function viewTopMatch() {
+        return String(value)
 
-            window.location.href =
-                "opportunities.html";
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+
+            .replace(
+                /</g,
+                "&lt;"
+            )
+
+            .replace(
+                />/g,
+                "&gt;"
+            )
+
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+
+            .replace(
+                /'/g,
+                "&#039;"
+            );
+
+    }
+
+
+    /* =====================================================
+       DATABASE ERROR
+    ===================================================== */
+
+    function showOpportunityError() {
+
+        const topMatch =
+            document.getElementById(
+                "topMatch"
+            );
+
+
+        const recommended =
+            document.getElementById(
+                "recommendedOpportunities"
+            );
+
+
+        if (topMatch) {
+
+            topMatch.innerHTML = `
+
+                <div class="empty-state">
+
+                    <div class="empty-state-icon">
+                        ⚠️
+                    </div>
+
+                    <strong>
+                        Couldn't load opportunities
+                    </strong>
+
+                    <p style="margin-top:8px;">
+                        Please check your connection
+                        and try again.
+                    </p>
+
+                </div>
+
+            `;
 
         }
 
-    </script>
+
+        if (recommended) {
+
+            recommended.innerHTML = `
+
+                <div class="empty-state">
+
+                    <div class="empty-state-icon">
+                        ⚠️
+                    </div>
+
+                    Unable to load recommendations.
+
+                </div>
+
+            `;
+
+        }
+
+    }
+
+
+    /* =====================================================
+       INITIALIZE DASHBOARD
+    ===================================================== */
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        async function() {
+
+            console.log(
+                "SAKSHAM Dashboard loaded."
+            );
+
+
+            /* PROFILE */
+
+            profile =
+                loadUserProfile();
+
+
+            if (profile) {
+
+                updateUserName(
+                    profile
+                );
+
+
+                updateBusinessType(
+                    profile
+                );
+
+
+                displayProfileSummary(
+                    profile
+                );
+
+
+                displaySkillGrowth(
+                    profile
+                );
+
+
+                /* PROFILE STRENGTH */
+
+                const strength =
+                    calculateProfileStrength(
+                        profile
+                    );
+
+
+                document.getElementById(
+                    "profileStrength"
+                ).textContent =
+                    strength + "%";
+
+
+                document.getElementById(
+                    "profileProgress"
+                ).style.width =
+                    strength + "%";
+
+
+                if (strength >= 80) {
+
+                    document.getElementById(
+                        "profileStrengthText"
+                    ).textContent =
+                        "Your profile is looking strong! Keep it updated for better matches.";
+
+                } else if (strength >= 50) {
+
+                    document.getElementById(
+                        "profileStrengthText"
+                    ).textContent =
+                        "Your profile is on its way. Add more information to improve your matches.";
+
+                } else {
+
+                    document.getElementById(
+                        "profileStrengthText"
+                    ).textContent =
+                        "Complete more of your profile to receive better personalized recommendations.";
+
+                }
+
+            }
+
+
+            /* CHECK SUPABASE */
+
+            if (
+                typeof supabaseClient ===
+                "undefined"
+            ) {
+
+                console.error(
+                    "Supabase client is not available."
+                );
+
+
+                showOpportunityError();
+
+                return;
+
+            }
+
+
+            /* LOAD REAL OPPORTUNITIES */
+
+            await loadOpportunities();
+
+
+            /* APPLICATIONS */
+
+            await updateApplicationCount();
+
+        }
+    );
+
+</script>
 
 
 </body>
