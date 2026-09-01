@@ -409,23 +409,97 @@ function showResults(name) {
         );
 
 
-    let skillsHTML = "";
+   let skillsHTML = "";
+
+let businessType =
+    profile?.businessType ||
+    "Business";
+
+let skills =
+    profile?.skills || [];
 
 
-    if (
-        profile &&
-        profile.skills
-    ) {
+if (skills.length) {
 
-        skillsHTML =
-            profile.skills
-            .map(
-                skill =>
-                    `<span>${skill}</span>`
-            )
-            .join("");
+    skillsHTML =
+        skills
+        .map(
+            skill =>
+                `<span>${skill}</span>`
+        )
+        .join("");
 
-    }
+}
+let topMatch =
+    "Business Growth Opportunity";
+
+let matchScore = 70;
+
+
+/* SIMPLE PROFILE-BASED MATCHING */
+
+if (businessType === "Textile") {
+
+    topMatch =
+        "Textile Supplier Partnership";
+
+    matchScore =
+        skills.includes("Tailoring") ||
+        skills.includes("Embroidery")
+            ? 94
+            : 80;
+
+}
+
+else if (businessType === "Handicraft") {
+
+    topMatch =
+        "Handicraft Marketplace";
+
+    matchScore =
+        skills.includes("Handicraft") ||
+        skills.includes("Sales")
+            ? 92
+            : 78;
+
+}
+
+else if (businessType === "Agriculture") {
+
+    topMatch =
+        "Rural Market Access Initiative";
+
+    matchScore =
+        skills.includes("Agriculture") ||
+        skills.includes("Sales")
+            ? 89
+            : 76;
+
+}
+
+else if (businessType === "Services") {
+
+    topMatch =
+        "Digital Skills Training Program";
+
+    matchScore =
+        skills.includes("Digital Marketing")
+            ? 90
+            : 80;
+
+}
+
+else if (businessType === "Retail") {
+
+    topMatch =
+        "Women Entrepreneur Growth Fund";
+
+    matchScore =
+        skills.includes("Sales")
+            ? 88
+            : 76;
+
+}
 
 
     content.innerHTML = `
@@ -461,14 +535,14 @@ function showResults(name) {
             </h3>
 
 
-            <h2 style="color:#16734a">
-                94% Match
-            </h2>
+           <h2 style="color:#16734a">
+    ${matchScore}% Match
+</h2>
 
 
-            <p>
-                Textile Supplier Partnership
-            </p>
+<p>
+    ${topMatch}
+</p>
 
         </div>
 
@@ -486,15 +560,13 @@ function showResults(name) {
 
 
         <button
-            class="primary-btn"
-            onclick="
-                closeModal();
-                scrollToSection('opportunities')
-            ">
-
-            View My Opportunities →
-
-        </button>
+    class="primary-btn"
+    onclick="
+        closeModal();
+        window.location.href='pages/dashboard.html';
+    ">
+    Go To My Dashboard →
+</button>
 
     `;
 
@@ -1322,4 +1394,72 @@ function getApplications() {
 
 console.log(
     "SAKSHAM system loaded successfully 🚀"
+);
+/* =========================================
+   UNIVERSAL SAKSHAM SIDEBAR PROFILE
+========================================= */
+
+function updateUniversalSidebar() {
+
+    const savedProfile = localStorage.getItem("sakshamProfile");
+
+    if (!savedProfile) return;
+
+    try {
+
+        const profile = JSON.parse(savedProfile);
+
+        const userName = profile.name || "Entrepreneur";
+        const businessType = profile.businessType || "Business";
+
+        /* USER NAME */
+
+        const nameElements = document.querySelectorAll(
+            "#sidebarName, #sidebarUserName"
+        );
+
+        nameElements.forEach(element => {
+            element.textContent = userName;
+        });
+
+
+        /* AVATAR */
+
+        const avatarElements = document.querySelectorAll(
+            "#sidebarAvatar"
+        );
+
+        avatarElements.forEach(element => {
+            element.textContent =
+                userName.charAt(0).toUpperCase();
+        });
+
+
+        /* BUSINESS TYPE */
+
+        const businessElements = document.querySelectorAll(
+            "#sidebarBusinessType"
+        );
+
+        businessElements.forEach(element => {
+            element.textContent =
+                businessType + " Entrepreneur";
+        });
+
+    } catch (error) {
+
+        console.error(
+            "Could not update sidebar profile:",
+            error
+        );
+
+    }
+}
+
+
+/* Run automatically when page loads */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    updateUniversalSidebar
 );
