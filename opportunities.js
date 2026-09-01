@@ -1,6 +1,6 @@
 /* =========================================================
    SAKSHAM - OPPORTUNITIES
-   Supabase-connected JavaScript
+   USER-DEFINED MATCHING SYSTEM
 ========================================================= */
 
 
@@ -12,8 +12,363 @@ let allOpportunities = [];
 
 let selectedOpportunity = null;
 
+let currentUserProfile = null;
+
 let savedOpportunities =
-    JSON.parse(localStorage.getItem("sakshamSavedOpportunities")) || [];
+    JSON.parse(
+        localStorage.getItem("sakshamSavedOpportunities")
+    ) || [];
+
+
+/* =========================================================
+   LOAD USER PROFILE
+========================================================= */
+
+function loadUserProfile() {
+
+    const savedProfile =
+        localStorage.getItem("sakshamProfile");
+
+    if (!savedProfile) {
+
+        console.log(
+            "No sakshamProfile found."
+        );
+
+        return null;
+    }
+
+    try {
+
+        return JSON.parse(savedProfile);
+
+    } catch (error) {
+
+        console.error(
+            "Could not read sakshamProfile:",
+            error
+        );
+
+        return null;
+    }
+}
+
+
+/* =========================================================
+   GET USER SKILLS
+========================================================= */
+
+function getUserSkills(profile) {
+
+    if (!profile) return [];
+
+
+    let skills =
+        profile.skills ||
+        profile.preferredSkills ||
+        profile.preferred_skills ||
+        [];
+
+
+    if (Array.isArray(skills)) {
+
+        return skills
+            .map(skill =>
+                String(skill)
+                    .trim()
+                    .toLowerCase()
+            )
+            .filter(Boolean);
+
+    }
+
+
+    if (typeof skills === "string") {
+
+        return skills
+            .split(",")
+            .map(skill =>
+                skill
+                    .trim()
+                    .toLowerCase()
+            )
+            .filter(Boolean);
+
+    }
+
+
+    return [];
+
+}
+
+
+/* =========================================================
+   GET USER BUSINESS TYPE
+========================================================= */
+
+function getUserBusinessType(profile) {
+
+    if (!profile) return "";
+
+    return String(
+        profile.businessType ||
+        profile.business ||
+        profile.category ||
+        ""
+    )
+    .trim()
+    .toLowerCase();
+
+}
+
+
+/* =========================================================
+   NORMALIZE TEXT
+========================================================= */
+
+function normalizeText(value) {
+
+    return String(value || "")
+        .toLowerCase()
+        .replace(/[_-]/g, " ")
+        .replace(/[^\w\s]/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+
+}
+
+
+/* =========================================================
+   MATCH SCORE
+========================================================= */
+
+/*
+   REAL USER-DEFINED MATCHING
+
+   Score is based on:
+
+   1. Required skills
+   2. User's actual skills
+   3. Business/category relevance
+   4. Opportunity text relevance
+
+   No hard-coded opportunity scores.
+*/
+
+function calculateMatchScore(
+    opportunity,
+    profile
+) {
+
+    if (!opportunity || !profile) {
+
+        return 0;
+
+    }
+
+
+    const userSkills =
+        getUserSkills(profile);
+
+
+    const businessType =
+        getUserBusinessType(profile);
+
+
+    const requiredSkills =
+        Array.isArray(
+            opportunity.required_skills
+        )
+            ? opportunity.required_skills
+            : [];
+
+
+    const normalizedRequiredSkills =
+        requiredSkills
+            .map(skill =>
+                normalizeText(skill)
+            )
+            .filter(Boolean);
+
+
+    let score = 0;
+
+
+    /* =====================================================
+       SKILL MATCH
+    ===================================================== */
+
+    if (
+        normalizedRequiredSkills.length > 0 &&
+        userSkills.length > 0
+    ) {
+
+        let matchedSkills = 0;
+
+
+        normalizedRequiredSkills.forEach(
+            requiredSkill => {
+
+                const skillMatch =
+                    userSkills.some(
+                        userSkill => {
+
+                            const normalizedUserSkill =
+                                normalizeText(
+                                    userSkill
+                                );
+
+                            return (
+                                normalizedUserSkill ===
+                                    requiredSkill ||
+
+                                normalizedUserSkill.includes(
+                                    requiredSkill
+                                ) ||
+
+                                requiredSkill.includes(
+                                    normalizedUserSkill
+                                )
+                            );
+
+                        }
+                    );
+
+
+                if (skillMatch) {
+
+                    matchedSkills++;
+
+                }
+
+            }
+        );
+
+
+        const skillPercentage =
+            matchedSkills /
+            normalizedRequiredSkills.length;
+
+
+        /*
+           Skills account for 70% of the score.
+        */
+
+        score +=
+            skillPercentage * 70;
+
+    }
+
+
+    /* =====================================================
+       BUSINESS / CATEGORY MATCH
+    ===================================================== */
+
+    const opportunityCategory =
+        normalizeText(
+            opportunity.category
+        );
+
+
+    const opportunityBusiness =
+        normalizeText(
+            opportunity.business_type ||
+            opportunity.business ||
+            opportunity.target_business ||
+            ""
+        );
+
+
+    if (businessType) {
+
+        if (
+            opportunityCategory &&
+            (
+                opportunityCategory.includes(
+                    businessType
+                ) ||
+                businessType.includes(
+                    opportunityCategory
+                )
+            )
+        ) {
+
+            score += 20;
+
+        }
+        else if (
+            opportunityBusiness &&
+            (
+                opportunityBusiness.includes(
+                    businessType
+                ) ||
+                businessType.includes(
+                    opportunityBusiness
+                )
+            )
+        ) {
+
+            score += 20;
+
+        }
+
+    }
+
+
+    /* =====================================================
+       GENERAL PROFILE TEXT MATCH
+    ===================================================== */
+
+    const opportunityText =
+        normalizeText(
+            [
+                opportunity.title,
+                opportunity.description,
+                opportunity.organization,
+                opportunity.category
+            ]
+            .filter(Boolean)
+            .join(" ")
+        );
+
+
+    if (
+        businessType &&
+        opportunityText.includes(
+            normalizeText(businessType)
+        )
+    ) {
+
+        score += 10;
+
+    }
+
+
+    /* =====================================================
+       NO SKILLS / NO BUSINESS DATA
+    ===================================================== */
+
+    /*
+       If the user hasn't added enough information,
+       don't pretend they have a high match.
+    */
+
+    if (
+        userSkills.length === 0 &&
+        !businessType
+    ) {
+
+        return 0;
+
+    }
+
+
+    return Math.min(
+        100,
+        Math.round(score)
+    );
+
+}
 
 
 /* =========================================================
@@ -22,41 +377,64 @@ let savedOpportunities =
 
 async function loadOpportunities() {
 
-    const grid = document.getElementById("opportunityGrid");
+    const grid =
+        document.getElementById(
+            "opportunityGrid"
+        );
+
 
     if (!grid) {
-        console.error("Opportunity grid not found.");
+
+        console.error(
+            "Opportunity grid not found."
+        );
+
         return;
+
     }
 
-    /* Loading message */
 
     grid.innerHTML = `
-        <div style="
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 60px 20px;
-        ">
-            <div style="font-size:45px;">⏳</div>
 
-            <h3>Finding Opportunities...</h3>
+        <div style="
+            grid-column:1/-1;
+            text-align:center;
+            padding:60px 20px;
+        ">
+
+            <div style="font-size:45px;">
+                ⏳
+            </div>
+
+            <h3>
+                Finding Opportunities...
+            </h3>
 
             <p style="color:#68736c;">
-                SAKSHAM is loading opportunities for you.
+                SAKSHAM is matching opportunities
+                with your profile.
             </p>
+
         </div>
+
     `;
 
 
     try {
 
-        const { data, error } =
+        const {
+            data,
+            error
+        } =
             await supabaseClient
                 .from("opportunities")
                 .select("*")
-                .order("created_at", {
-                    ascending: false
-                });
+                .order(
+                    "created_at",
+                    {
+                        ascending: false
+                    }
+                );
 
 
         if (error) {
@@ -69,10 +447,12 @@ async function loadOpportunities() {
             showDatabaseError();
 
             return;
+
         }
 
 
-        allOpportunities = data || [];
+        allOpportunities =
+            data || [];
 
 
         console.log(
@@ -128,6 +508,7 @@ function displayOpportunities(
     ) {
 
         grid.innerHTML = `
+
             <div style="
                 grid-column:1/-1;
                 text-align:center;
@@ -146,13 +527,16 @@ function displayOpportunities(
                 </h3>
 
                 <p style="color:#68736c;">
-                    Try changing your search or filters.
+                    Try changing your search
+                    or filters.
                 </p>
 
             </div>
+
         `;
 
         return;
+
     }
 
 
@@ -223,21 +607,17 @@ function createOpportunityCard(
         opportunity.minimum_experience ?? 0;
 
 
-    /*
-       Demo match score.
-
-       Later we can replace this with
-       the actual SAKSHAM matching algorithm.
-    */
+    /* REAL MATCH SCORE */
 
     const matchScore =
         calculateMatchScore(
-            skills
+            opportunity,
+            currentUserProfile
         );
 
 
     card.dataset.category =
-        category.toLowerCase();
+        normalizeText(category);
 
 
     card.dataset.match =
@@ -297,17 +677,75 @@ function createOpportunityCard(
                 skills.length > 0
 
                 ? skills.map(
-                    skill => `
-                        <span class="matched">
-                            ✓ ${escapeHTML(skill)}
-                        </span>
-                    `
+                    skill => {
+
+                        const userSkills =
+                            getUserSkills(
+                                currentUserProfile
+                            );
+
+
+                        const normalizedSkill =
+                            normalizeText(
+                                skill
+                            );
+
+
+                        const matched =
+                            userSkills.some(
+                                userSkill => {
+
+                                    const normalizedUserSkill =
+                                        normalizeText(
+                                            userSkill
+                                        );
+
+                                    return (
+                                        normalizedUserSkill ===
+                                            normalizedSkill ||
+
+                                        normalizedUserSkill.includes(
+                                            normalizedSkill
+                                        ) ||
+
+                                        normalizedSkill.includes(
+                                            normalizedUserSkill
+                                        )
+                                    );
+
+                                }
+                            );
+
+
+                        return `
+
+                            <span class="${
+                                matched
+                                    ? "matched"
+                                    : "missing"
+                            }">
+
+                                ${
+                                    matched
+                                        ? "✓"
+                                        : "○"
+                                }
+
+                                ${escapeHTML(skill)}
+
+                            </span>
+
+                        `;
+
+                    }
                 ).join("")
 
                 : `
+
                     <span>
                         General Skills
                     </span>
+
                 `
             }
 
@@ -324,7 +762,10 @@ function createOpportunityCard(
             color:#68736c;
             margin-bottom:18px;
         ">
-            ${experience} year${experience == 1 ? "" : "s"}
+
+            ${experience}
+            year${experience == 1 ? "" : "s"}
+
         </div>
 
 
@@ -343,7 +784,9 @@ function createOpportunityCard(
 
             <button
                 class="save-btn ${
-                    isSaved ? "saved" : ""
+                    isSaved
+                        ? "saved"
+                        : ""
                 }"
                 onclick="saveOpportunity(
                     '${escapeAttribute(
@@ -352,7 +795,11 @@ function createOpportunityCard(
                     this
                 )">
 
-                ${isSaved ? "♥" : "♡"}
+                ${
+                    isSaved
+                        ? "♥"
+                        : "♡"
+                }
 
             </button>
 
@@ -367,136 +814,13 @@ function createOpportunityCard(
 
 
 /* =========================================================
-   MATCH SCORE
-========================================================= */
-
-function calculateMatchScore(
-    requiredSkills
-) {
-
-    /*
-       Temporary prototype matching.
-
-       Once the user profile is connected,
-       we will compare:
-
-       User Skills
-              ↓
-       Required Skills
-              ↓
-       Match percentage
-    */
-
-
-    if (
-        !requiredSkills ||
-        requiredSkills.length === 0
-    ) {
-
-        return 70;
-
-    }
-
-
-    /*
-       Demo score based on number
-       of required skills.
-
-       This keeps the UI working
-       until the real profile matching
-       system is connected.
-    */
-
-    const scores = [
-        94,
-        89,
-        84,
-        81,
-        78,
-        72
-    ];
-
-
-    const index =
-        requiredSkills.length % scores.length;
-
-
-    return scores[index];
-
-}
-
-
-/* =========================================================
    SEARCH
 ========================================================= */
 
 function searchOpportunities() {
 
-    const searchInput =
-        document.getElementById(
-            "searchInput"
-        );
-
-
-    if (!searchInput) return;
-
-
-    const search =
-        searchInput.value
-            .trim()
-            .toLowerCase();
-
-
-    const filtered =
-        allOpportunities.filter(
-            opportunity => {
-
-                const title =
-                    (
-                        opportunity.title ||
-                        ""
-                    ).toLowerCase();
-
-
-                const organization =
-                    (
-                        opportunity.organization ||
-                        ""
-                    ).toLowerCase();
-
-
-                const category =
-                    (
-                        opportunity.category ||
-                        ""
-                    ).toLowerCase();
-
-
-                const description =
-                    (
-                        opportunity.description ||
-                        ""
-                    ).toLowerCase();
-
-
-                return (
-
-                    title.includes(search) ||
-
-                    organization.includes(search) ||
-
-                    category.includes(search) ||
-
-                    description.includes(search)
-
-                );
-
-            }
-        );
-
-
     applyCurrentFilters(
-        filtered
+        allOpportunities
     );
 
 }
@@ -566,31 +890,27 @@ function applyCurrentFilters(
             opportunity => {
 
                 const title =
-                    (
-                        opportunity.title ||
-                        ""
-                    ).toLowerCase();
+                    normalizeText(
+                        opportunity.title
+                    );
 
 
                 const organization =
-                    (
-                        opportunity.organization ||
-                        ""
-                    ).toLowerCase();
+                    normalizeText(
+                        opportunity.organization
+                    );
 
 
                 const description =
-                    (
-                        opportunity.description ||
-                        ""
-                    ).toLowerCase();
+                    normalizeText(
+                        opportunity.description
+                    );
 
 
                 const opportunityCategory =
-                    (
-                        opportunity.category ||
-                        ""
-                    ).toLowerCase();
+                    normalizeText(
+                        opportunity.category
+                    );
 
 
                 const skills =
@@ -613,7 +933,8 @@ function applyCurrentFilters(
 
                 const score =
                     calculateMatchScore(
-                        skills
+                        opportunity,
+                        currentUserProfile
                     );
 
 
@@ -676,7 +997,11 @@ function updateOpportunityCount(
 
 
     countElement.textContent =
-        `${count} opportunit${count === 1 ? "y" : "ies"} found`;
+        `${count} opportunit${
+            count === 1
+                ? "y"
+                : "ies"
+        } found`;
 
 }
 
@@ -736,7 +1061,8 @@ async function showOpportunityDetails(
 
     const score =
         calculateMatchScore(
-            skills
+            opportunity,
+            currentUserProfile
         );
 
 
@@ -768,13 +1094,26 @@ async function showOpportunityDetails(
         "";
 
 
+    const userSkills =
+        getUserSkills(
+            currentUserProfile
+        );
+
+
     if (skills.length === 0) {
 
         skillsContainer.innerHTML = `
+
             <div class="breakdown-item">
-                <strong>✓ Suitable</strong>
-                General entrepreneur skills
+
+                <strong>
+                    ✓ General Opportunity
+                </strong>
+
+                No specific skills were listed.
+
             </div>
+
         `;
 
     } else {
@@ -792,9 +1131,51 @@ async function showOpportunityDetails(
                     "breakdown-item";
 
 
+                const normalizedSkill =
+                    normalizeText(
+                        skill
+                    );
+
+
+                const matched =
+                    userSkills.some(
+                        userSkill => {
+
+                            const normalizedUserSkill =
+                                normalizeText(
+                                    userSkill
+                                );
+
+
+                            return (
+                                normalizedUserSkill ===
+                                    normalizedSkill ||
+
+                                normalizedUserSkill.includes(
+                                    normalizedSkill
+                                ) ||
+
+                                normalizedSkill.includes(
+                                    normalizedUserSkill
+                                )
+                            );
+
+                        }
+                    );
+
+
                 div.innerHTML = `
-                    <strong>✓ Required Skill</strong>
+
+                    <strong>
+                        ${
+                            matched
+                                ? "✓ Matched Skill"
+                                : "○ Skill Gap"
+                        }
+                    </strong>
+
                     ${escapeHTML(skill)}
+
                 `;
 
 
@@ -811,7 +1192,11 @@ async function showOpportunityDetails(
     document.getElementById(
         "missingSkills"
     ).textContent =
-        `📌 Minimum experience: ${experience} year${experience == 1 ? "" : "s"}`;
+        `📌 Minimum experience: ${experience} year${
+            experience == 1
+                ? ""
+                : "s"
+        }`;
 
 
     document.getElementById(
@@ -924,20 +1309,6 @@ async function applyNow() {
     }
 
 
-    /*
-       IMPORTANT:
-
-       We currently don't have Supabase
-       authentication connected.
-
-       Therefore we create a temporary
-       demo application record.
-
-       Later we'll connect this to the
-       logged-in user's profile.
-    */
-
-
     const opportunityId =
         selectedOpportunity.id;
 
@@ -974,13 +1345,6 @@ async function applyNow() {
                 error
             );
 
-
-            /*
-               If the applications table
-               requires a profile/user ID,
-               we'll connect authentication
-               in the next stage.
-            */
 
             alert(
                 "The opportunity was selected, but the application could not be saved yet. We will connect your user profile next."
@@ -1062,10 +1426,13 @@ function showDatabaseError() {
                 max-width:500px;
                 margin:10px auto;
             ">
+
                 SAKSHAM couldn't connect to the
                 opportunity database.
+
                 Please check your internet connection
                 and try again.
+
             </p>
 
 
@@ -1096,8 +1463,10 @@ function escapeHTML(
     value
 ) {
 
-    if (value === null ||
-        value === undefined) {
+    if (
+        value === null ||
+        value === undefined
+    ) {
 
         return "";
 
@@ -1105,22 +1474,27 @@ function escapeHTML(
 
 
     return String(value)
+
         .replace(
             /&/g,
             "&amp;"
         )
+
         .replace(
             /</g,
             "&lt;"
         )
+
         .replace(
             />/g,
             "&gt;"
         )
+
         .replace(
             /"/g,
             "&quot;"
         )
+
         .replace(
             /'/g,
             "&#039;"
@@ -1186,9 +1560,20 @@ document.addEventListener(
         );
 
 
+        /* LOAD REAL USER PROFILE */
+
+        currentUserProfile =
+            loadUserProfile();
+
+
+        console.log(
+            "Current user profile:",
+            currentUserProfile
+        );
+
+
         /*
-           Make sure Supabase has loaded
-           before trying to access it.
+           Make sure Supabase has loaded.
         */
 
         if (
@@ -1207,6 +1592,11 @@ document.addEventListener(
 
         }
 
+
+        /*
+           Load opportunities after
+           the user profile has been loaded.
+        */
 
         loadOpportunities();
 
